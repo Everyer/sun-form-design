@@ -1,0 +1,111 @@
+.form_mode.sun_form_theme_primary {
+    .sun_form_detail_item{
+        font-size: 14px;
+        color: #666666;
+    }
+    .form_widget_item {
+        padding: 0;
+    }
+    .widget_item_wrap{
+        .lab{
+            margin-right: 25px;
+            font-weight: bold !important;
+        }
+    }
+    .widget_item{
+        min-height: 0;
+    }
+    .container_wrapper{
+        padding: 10px 0 ;
+    }
+    .el-button--primary {
+        background-color: #0C6FFF;
+        border-color: #0C6FFF;
+        color: #ffffff;
+    }
+    .el-button--primary:hover {
+        background: #66b1ff;
+        border-color: #66b1ff;
+        color: #FFF;
+    }
+
+    .el-button--primary.is-plain {
+        color: #0C6FFF;
+        background: #ecf5ff;
+        border-color: #0C6FFF;
+    }
+
+    .sun_form_title {
+        .w_title_wrap {
+            margin: 10px 0;
+            background-color: #fafafa;
+
+            &::before {
+                background-color: #0C6FFF;
+            }
+        }
+    }
+
+    .sun_form_grid {
+        // background-color: #fafafa !important;
+        padding: 5px 5px;
+        box-sizing: border-box;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid #f0f0f0 !important;
+        border-bottom: none !important;
+
+        .grid_btn_wrap {
+            display: flex;
+            padding: 5px 10px;
+            flex-direction: row-reverse;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+    }
+
+    .sun_form_datatable {
+
+        .vxe-checkbox--label,
+        .vxe-radio--label {
+            display: none;
+        }
+
+        .btn_wrap {
+            .el-button {
+                margin: 5px !important;
+            }
+        }
+
+        .my_head {
+            background-color: #fafafa;
+        }
+
+        .vxe-body--row {
+            .vxe-body--column:nth-child(1) {
+                background-color: #fafafa !important;
+            }
+
+            .vxe-cell--radio,
+            .vxe-cell--checkbox {
+                background-color: #ffffff !important;
+            }
+        }
+        .query_wrap{
+            .query_item{
+                &>.lab{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .sun_form_tabs {
+        .el-tabs__content {
+            padding: 0 !important;
+        }
+    }
+
+    .sun_form_upload {
+    }
+    
+}
