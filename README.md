@@ -113,3 +113,5 @@ new Vue({
 >- 具体使用文档以及二次开发文档
 ## 沟通交流
 >开源代码随后会放地址，如有定制化需求或者学习交流或者功能建议可联系qq：1297425135 或者微信：lllIIIllllIIIlllIII
+## 开源项目地址
+> https://github.com/Everyer/sun-form-design
