@@ -228,7 +228,13 @@
               </vxe-table-column>
               <vxe-table-column field="id" title="组件样式">
                 <template #default="{ row ,rowIndex }">
+                  <el-button
+                    type="text"
+                    v-if="row.type=='datatable'"
+                    @click.stop="chooseButton(rowIndex,row)"
+                  >点击配置数据表格</el-button>
                   <component
+                    v-else
                     :is="'widget-'+row.type"
                     :widget="row"
                     :key="row.id"
@@ -262,7 +268,7 @@
                       type="primary"
                       icon="el-icon-minus"
                       plain
-                      @click.stop="del(rowIndex,'tableList')"
+                      @click.stop="del(rowIndex,'tableList',row)"
                     >删除</el-button>
                     <el-button
                       size="mini"
@@ -275,6 +281,20 @@
                 </template>
               </vxe-table-column>
             </vxe-table>
+          </div>
+          <div
+            class="table_datatable_preview"
+            v-if="tmpRowChosen.type&&tmpRowChosen.type=='datatable'"
+          >
+            <!-- {{tmpRowChosen}} -->
+            <widget-datatable :widget="tmpRowChosen" :key="tmpRowChosen.id" :designer="designer"></widget-datatable>
+
+            <!-- <component
+              :is="'widget-datatable'"
+              :widget="designer.chosenWidget"
+              :key="designer.chosenWidget.id"
+              :designer="designer"
+            ></component>-->
           </div>
         </div>
       </div>
@@ -292,7 +312,23 @@ import Sortable from "sortablejs";
 import widgetTable from "./widget-table";
 export default {
   components: { Draggable, widgetTable },
+  model: {
+    prop: "value",
+    event: "changeHandle"
+  },
   props: {
+    table: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
+    value: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
     widget: {
       type: Object,
       default: () => {
@@ -319,6 +355,7 @@ export default {
       widgetConfig: this.$utils.clone(widgetConfig, true),
       queryAddList: [],
       tableAddList: [],
+      tmpRowChosen: {},
       sortTableList: [
         {
           tableName: "xTable1",
@@ -345,6 +382,7 @@ export default {
   methods: {
     inputValue(rows) {
       this.$set(this.widget.props, "value", rows);
+      this.$emit("changeHandle", rows);
     },
     rowDrop(tableName, listName) {
       this.$nextTick(() => {
@@ -386,6 +424,14 @@ export default {
 
       if (obj.props.size) {
         obj.props.size = "mini";
+      }
+      if (obj.type == "datatable") {
+        if (this.widget.props.tableConfig.baseInfo.formTableMode == "table") {
+          this.$message.warning("表格模式下不支持嵌套表格,请切换到标签模式");
+          return;
+        }
+        obj.props.tableConfig.baseInfo.normalTable = true;
+        obj.props.tableConfig.baseInfo.formTableMode = "tab";
       }
       this.widget.props.tableConfig.tableList.push(obj);
     },
@@ -447,9 +493,17 @@ export default {
       this.designer.clearAllActive();
       this.$nextTick(() => {
         this.designer.chosenWidget = row;
+        if (row.type === "datatable") {
+          this.tmpRowChosen = row;
+        } else {
+          this.tmpRowChosen = {};
+        }
       });
     },
-    del(rowIndex, type) {
+    del(rowIndex, type, row) {
+      if (row && row.type == "datatable") {
+        this.tmpRowChosen = {};
+      }
       this.widget.props.tableConfig[type].splice(rowIndex, 1);
     }
   },
@@ -468,7 +522,7 @@ export default {
         this.rowDrop(item.tableName, item.listName);
       });
     }
-    
+
     // this.designer.eventHandle(null, "onCreated", this.widget, this);
   },
   mounted() {
@@ -529,7 +583,11 @@ export default {
       }
     }
   }
-
+  .table_datatable_preview {
+    border: 1px dashed #409eff;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
   .vxe-table--render-default .vxe-body--column:not(.col--ellipsis) {
     padding: 5px 0;
   }

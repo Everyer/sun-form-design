@@ -18,9 +18,9 @@ export default {
   data() {
     return {
       apiSet: {
-        baseUrl:'/jcbg',
+        baseUrl: "/jcbg",
         headers: {
-          "bg-token":`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjc4ODU3MjA4Nzc0LCJyblN0ciI6IlBQUXlZaVVPY0RoeWNqb2hucEJ1TFFic29qMEdJMDl1IiwidXNlckluZm8iOiJ7XCJ1c2VyY29kZVwiOlwiYWRtaW5cIixcInVzZXJuYW1lXCI6XCJhZG1pblwiLFwicmVhbG5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6bnVsbCxcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbH0ifQ.B2YmJPZ2_Ltfl0aYKHUTKJ1Daj1Y_LfyTzwk-COl1p0`,
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjc4ODU3MjA4Nzc0LCJyblN0ciI6IlBQUXlZaVVPY0RoeWNqb2hucEJ1TFFic29qMEdJMDl1IiwidXNlckluZm8iOiJ7XCJ1c2VyY29kZVwiOlwiYWRtaW5cIixcInVzZXJuYW1lXCI6XCJhZG1pblwiLFwicmVhbG5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6bnVsbCxcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbH0ifQ.B2YmJPZ2_Ltfl0aYKHUTKJ1Daj1Y_LfyTzwk-COl1p0`
         },
         configDataKey: "configContent",
         configNameKey: "remark",

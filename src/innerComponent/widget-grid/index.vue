@@ -29,8 +29,11 @@
       </div>
     </draggable>
     <form-mode-wrapper :designer="designer">
-      <div class="grid_btn_wrap">
-        <div class="btn_item_wrap">
+      <div
+        class="grid_btn_wrap"
+        :style="widget.props.formType=='Detail'?`padding:0`:`padding:10px`"
+      >
+        <div class="btn_item_wrap" v-if="widget.props.formType!='Detail'">
           <el-button size="small" icon="el-icon-refresh" @click="reset">重置</el-button>
           <el-button
             size="small"
@@ -76,6 +79,26 @@ export default {
       loading: false,
       loadingWrap: false
     };
+  },
+  watch: {
+    "widget.props.formType": {
+      handler(val) {
+        var isDetail = val == "Detail";
+        var find = widgetList => {
+          for (var i = 0; i < widgetList.length; i++) {
+            var item = widgetList[i];
+            if(item.props.hasOwnProperty("isDetail")){
+              this.$set(item.props, "isDetail", isDetail);
+            }
+            if(item&&item.widgetList&&item.widgetList.length>0){
+              find(item.widgetList);
+            }
+          }
+        };
+        find(this.widget.widgetList);
+      },
+      immediate: true
+    }
   },
   methods: {
     setFormType(type) {
@@ -133,8 +156,8 @@ export default {
     submit() {
       var result = this.getResult();
       console.log(result);
-      if(result===false){
-        return this.$message.warning('必填项不能为空')
+      if (result === false) {
+        return this.$message.warning("必填项不能为空");
       }
       var w = this.widget;
       var apiSet = w.props["apiSet" + w.props.formType];
@@ -201,9 +224,9 @@ export default {
         });
       };
       find(this.widget.widgetList);
-      if(!validRequired){
-        return validRequired
-      }else{
+      if (!validRequired) {
+        return validRequired;
+      } else {
         return result;
       }
     }

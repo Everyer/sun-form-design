@@ -30,7 +30,7 @@
           </div>
           <div
             class="query_btn_wrap"
-            v-if="tableConfig.buttonList.filter(e=>!e.props.isSide).length||tableConfig.queryList.length"
+            v-if="(tableConfig.buttonList.filter(e=>!e.props.isSide).length||tableConfig.queryList.length)&&!baseInfo.normalTable"
           >
             <div class="btn_wrap">
               <el-button
@@ -57,6 +57,26 @@
       </div>
 
       <div class="table_wrap" v-show="baseInfo.formTableMode=='table'">
+        <div class="query_btn_wrap">
+          <div class="btn_wrap">
+            <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
+            <el-button @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button
+              v-if="!widget.props.isDetail"
+              :size="'mini'"
+              :plain="item.props.isPlain"
+              :round="item.props.isRound"
+              :type="item.props.type"
+              :icon="item.props.icon"
+              :disabled="item.props.disabled"
+              v-show="!item.props.hide"
+              v-for="(item, index) in tableConfig.buttonList.filter(e=>!e.props.isSide)"
+              :key="index"
+              @click="buttonClick(item)"
+            >{{item.props.buttonText}}</el-button>
+          </div>
+          <div class="from_table_title" v-if="baseInfo.normalTable">{{widget.props.label}}</div>
+        </div>
         <vxe-table
           class="my_table"
           ref="my_table"
@@ -124,14 +144,21 @@
             </template>
           </vxe-table-column>
           <vxe-table-column
-            v-if="tableConfig.buttonList.filter(e=>e.props.isSide).length"
+            v-if="tableConfig.buttonList.filter(e=>e.props.isSide).length||baseInfo.formTableMode=='table'"
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
-            :width="tableConfig.buttonList.filter(e=>e.props.isSide).length*110"
+            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide).length+1)*110:tableConfig.buttonList.filter(e=>e.props.isSide).length*110"
           >
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
+                <el-button
+                  v-if="baseInfo.formTableMode=='table'"
+                  @click="removeRow($rowIndex)"
+                  icon="el-icon-delete"
+                  size="mini"
+                  type="primary"
+                >删除</el-button>
                 <el-button
                   class="my_btn"
                   v-for="(item, index) in tableConfig.buttonList.filter(e=>e.props.isSide)"
@@ -151,12 +178,33 @@
         </vxe-table>
       </div>
       <div class="tab_wrap" v-show="baseInfo.formTableMode=='tab'">
+        <div class="query_btn_wrap">
+          <div class="btn_wrap">
+            <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
+            <el-button @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button
+              v-if="!widget.props.isDetail"
+              :size="'mini'"
+              :plain="item.props.isPlain"
+              :round="item.props.isRound"
+              :type="item.props.type"
+              :icon="item.props.icon"
+              :disabled="item.props.disabled"
+              v-show="!item.props.hide"
+              v-for="(item, index) in tableConfig.buttonList.filter(e=>!e.props.isSide)"
+              :key="index"
+              @click="buttonClick(item)"
+            >{{item.props.buttonText}}</el-button>
+          </div>
+          <div class="from_table_title" v-if="baseInfo.normalTable">{{widget.props.label}}</div>
+        </div>
         <el-tabs
           @tab-remove="removeTab"
           :closable="!this.widget.props.isDetail"
           v-model="activeName"
           type="border-card"
           v-if="rows.length"
+          @tab-click="tabClick"
         >
           <el-tab-pane
             v-for="(row, rowsIndex) in rows"
@@ -180,7 +228,17 @@
                   <div class="column_item_wrap" v-else>{{row[item.props.zdname]}}</div>
                 </div>
                 <div class="column_item" v-else>
+                  <widget-table
+                    v-model="row[item.props.zdname]"
+                    :parentData="formatParentData(row,rows,item.props.zdname)"
+                    :table="{row,rowsIndex,value:row[item.props.zdname],widget:item,tableList:tableConfig.tableList}"
+                    :designer="designer"
+                    :key="item.id"
+                    :widget="item"
+                    v-if="item.type=='datatable'"
+                  ></widget-table>
                   <component
+                    v-else
                     :is="'widget-'+item.type"
                     :widget="item"
                     v-model="row[item.props.zdname]"
@@ -220,7 +278,23 @@
 
 <script>
 export default {
+  model: {
+    prop: "value",
+    event: "changeHandle"
+  },
   props: {
+    value: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
+    table: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     widget: {
       type: Object,
       default: () => {
@@ -232,6 +306,12 @@ export default {
       default: () => {
         return {};
       }
+    },
+    parentData: {
+      type: Object,
+      default: () => {
+        return null;
+      }
     }
   },
   components: {},
@@ -239,6 +319,7 @@ export default {
   data() {
     return {
       activeName: null,
+      tmpRows: [],
       baseInfo: {},
       sortConfig: {},
       c: {},
@@ -278,11 +359,31 @@ export default {
     rows: {
       handler: function(val, oldVal) {
         this.$emit("input", val);
+        this.$emit("changeHandle", val);
       },
       deep: true
     }
+    // value: {
+    //   handler: function(val, oldVal) {
+    //     this.rows = val;
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   },
   methods: {
+    formatParentData(row, rows, zdname) {
+      return {
+        parentRow: rows[Number(this.activeName)],
+        parentRows: rows,
+        parentActiveIndex: Number(this.activeName),
+        parentZdname: zdname
+      };
+    },
+    tabClick() {
+      var rowItem = this.rows[Number(this.activeName)];
+      // this.tmpRows=rowItem;
+    },
     reset() {
       var q = this.tableConfig.queryList;
       q.forEach(item => {
@@ -635,6 +736,37 @@ export default {
     }
     .tab_wrap {
       padding: 0 3px;
+    }
+    .query_btn_wrap {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      border: 1px solid #f0f0f0;
+      padding: 4px 10px;
+      box-sizing: border-box;
+      border-radius: 0px 0px 2px 2px;
+      align-items: center;
+      background: #fafafa;
+      justify-content: space-between;
+      .from_table_title {
+        font-size: 16px;
+        color: #333;
+        color: #bbbbbb;
+        user-select: none;
+        font-weight: 700;
+        opacity: 0.6;
+      }
+      .btn_wrap {
+        flex-wrap: wrap;
+        flex: 1;
+        .my_btn {
+          margin: 5px !important;
+        }
+      }
+      .tab_btn_wrap {
+        flex: 0 0 180px;
+        text-align: right;
+      }
     }
   }
   .footer_wrap {

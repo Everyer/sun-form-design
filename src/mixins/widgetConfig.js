@@ -712,7 +712,6 @@ export default {
         isContainer: false,
         hasLabel: false,
         displayName: "分割线",
-        isDetail: false,
         isForm: false,
         canAddDataTableQuery: false,
         canAddDataTableList: false,
@@ -746,7 +745,7 @@ export default {
         isForm: true,
         widgetList: [],
         canAddDataTableQuery: false,
-        canAddDataTableList: false,
+        canAddDataTableList: true,
         props: {
             zdname: null,
             label: "",
