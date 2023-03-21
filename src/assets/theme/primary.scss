@@ -1,28 +1,36 @@
 .form_mode.sun_form_theme_primary {
-    .sun_form_detail_item{
+    
+
+    .sun_form_detail_item {
         font-size: 14px;
         color: #666666;
     }
+
     .form_widget_item {
         padding: 0;
     }
-    .widget_item_wrap{
-        .lab{
+
+    .widget_item_wrap {
+        .lab {
             margin-right: 25px;
             font-weight: bold !important;
         }
     }
-    .widget_item{
+
+    .widget_item {
         min-height: 0;
     }
-    .container_wrapper{
-        padding: 10px 0 ;
+
+    .container_wrapper {
+        padding: 10px 0;
     }
+
     .el-button--primary {
         background-color: #0C6FFF;
         border-color: #0C6FFF;
         color: #ffffff;
     }
+
     .el-button--primary:hover {
         background: #66b1ff;
         border-color: #66b1ff;
@@ -90,9 +98,10 @@
                 background-color: #ffffff !important;
             }
         }
-        .query_wrap{
-            .query_item{
-                &>.lab{
+
+        .query_wrap {
+            .query_item {
+                &>.lab {
                     display: none;
                 }
             }
@@ -105,7 +114,6 @@
         }
     }
 
-    .sun_form_upload {
-    }
-    
+    .sun_form_upload {}
+
 }

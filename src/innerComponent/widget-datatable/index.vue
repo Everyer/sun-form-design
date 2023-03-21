@@ -256,13 +256,6 @@
               <vxe-table-column width="180" title="操作" align="center">
                 <template #default="{ row ,rowIndex }">
                   <el-button-group>
-                    <!-- <el-button
-                    size="mini"
-                    type="primary"
-                    icon="el-icon-plus"
-                    plain
-                    @click.stop="addButton(rowIndex)"
-                    >新增</el-button>-->
                     <el-button
                       size="mini"
                       type="primary"
@@ -286,15 +279,7 @@
             class="table_datatable_preview"
             v-if="tmpRowChosen.type&&tmpRowChosen.type=='datatable'"
           >
-            <!-- {{tmpRowChosen}} -->
             <widget-datatable :widget="tmpRowChosen" :key="tmpRowChosen.id" :designer="designer"></widget-datatable>
-
-            <!-- <component
-              :is="'widget-datatable'"
-              :widget="designer.chosenWidget"
-              :key="designer.chosenWidget.id"
-              :designer="designer"
-            ></component>-->
           </div>
         </div>
       </div>

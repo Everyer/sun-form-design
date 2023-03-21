@@ -47,7 +47,11 @@
                 @click="buttonClick(item)"
               >{{item.props.buttonText}}</el-button>
             </div>
-            <div class="from_table_title" v-if="baseInfo.normalTable">{{widget.props.label}}</div>
+            <div
+              class="from_table_title"
+              :class="{required:widget.props.required}"
+              v-if="baseInfo.normalTable"
+            >{{widget.props.label}}</div>
             <div class="tab_btn_wrap" v-if="!baseInfo.normalTable">
               <el-button @click="reset" icon="el-icon-refresh-left" size="mini">重置</el-button>
               <el-button type="primary" @click="refresh" icon="el-icon-search" size="mini">搜索</el-button>
@@ -57,7 +61,7 @@
       </div>
 
       <div class="table_wrap" v-show="baseInfo.formTableMode=='table'">
-        <div class="query_btn_wrap">
+        <div class="query_btn_wrap" v-if="baseInfo.normalTable">
           <div class="btn_wrap">
             <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
             <el-button @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
@@ -75,7 +79,11 @@
               @click="buttonClick(item)"
             >{{item.props.buttonText}}</el-button>
           </div>
-          <div class="from_table_title" v-if="baseInfo.normalTable">{{widget.props.label}}</div>
+          <div
+            class="from_table_title"
+            :class="{required:widget.props.required}"
+            v-if="baseInfo.normalTable"
+          >{{widget.props.label}}</div>
         </div>
         <vxe-table
           class="my_table"
@@ -196,7 +204,11 @@
               @click="buttonClick(item)"
             >{{item.props.buttonText}}</el-button>
           </div>
-          <div class="from_table_title" v-if="baseInfo.normalTable">{{widget.props.label}}</div>
+          <div
+            class="from_table_title"
+            :class="{required:widget.props.required}"
+            v-if="baseInfo.normalTable"
+          >{{widget.props.label}}</div>
         </div>
         <el-tabs
           @tab-remove="removeTab"
@@ -751,7 +763,7 @@ export default {
       .from_table_title {
         font-size: 16px;
         color: #333;
-        color: #bbbbbb;
+        // color: #bbbbbb;
         user-select: none;
         font-weight: 700;
         opacity: 0.6;
@@ -850,5 +862,11 @@ export default {
   .el-tabs__nav-next {
     line-height: 42px;
   }
+}
+.required::before {
+  color: #f56c6c;
+  content: "*";
+  display: inline-block;
+  margin-right: 4px;
 }
 </style>

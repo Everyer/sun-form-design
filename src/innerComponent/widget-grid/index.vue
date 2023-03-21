@@ -87,10 +87,10 @@ export default {
         var find = widgetList => {
           for (var i = 0; i < widgetList.length; i++) {
             var item = widgetList[i];
-            if(item.props.hasOwnProperty("isDetail")){
+            if (item.props.hasOwnProperty("isDetail")) {
               this.$set(item.props, "isDetail", isDetail);
             }
-            if(item&&item.widgetList&&item.widgetList.length>0){
+            if (item && item.widgetList && item.widgetList.length > 0) {
               find(item.widgetList);
             }
           }
@@ -155,7 +155,8 @@ export default {
     },
     submit() {
       var result = this.getResult();
-      console.log(result);
+      // console.log(result);
+      console.log(JSON.parse(JSON.stringify(result)));
       if (result === false) {
         return this.$message.warning("必填项不能为空");
       }
@@ -202,20 +203,58 @@ export default {
     reset() {
       this.designer.resetForm(this.widget.id);
     },
+    isTableListFormItemRequired(tableList, tableValue) {
+      console.log(JSON.parse(JSON.stringify(tableList)));
+      console.log(JSON.parse(JSON.stringify(tableValue)));
+      var validRequired = true;
+
+      var find = tableList => {
+        for (var i = 0; i < tableList.length; i++) {
+          var item = tableList[i];
+          if (item.isForm && item.props.zdname) {
+            if (
+              (item.props.value === null ||
+                item.props.value === "" ||
+                item.props.value === [] ||
+                item.props.value === undefined) &&
+              item.props.required
+            ) {
+              validRequired = false;
+            }
+          }
+          if (
+            item.type == "datatable" &&
+            item.props.tableConfig.tableList.length > 0
+          ) {
+            find(item.props.tableConfig.tableList);
+          }
+        }
+      };
+      find(tableList);
+      return validRequired;
+    },
     getResult() {
       var result = {};
       var validRequired = true;
-      var find = function(list) {
+      var find = list => {
         list.forEach(item => {
           if (item.isForm && item.props.zdname) {
             result[item.props.zdname] = item.props.value;
             if (
               (item.props.value === null ||
                 item.props.value === "" ||
-                item.props.value === []) &&
+                item.props.value === [] ||
+                item.props.value === undefined) &&
               item.props.required
             ) {
               validRequired = false;
+            }
+            if (item.type == "datatable") {
+              var tableValue = item.props.value;
+              validRequired = this.isTableListFormItemRequired(
+                item.props.tableConfig.tableList,
+                tableValue
+              );
             }
           }
           if (item.widgetList && item.widgetList.length > 0) {

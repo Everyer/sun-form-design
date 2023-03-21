@@ -54,6 +54,12 @@
         </el-select>
       </div>
     </div>
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
+      <div class="lab">是否必填</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.required"></el-switch>
+      </div>
+    </div>
     <div class="item" v-if="!designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
       <div class="lab">是否单选</div>
       <div class="con">

@@ -754,6 +754,7 @@ export default {
             isDetail: false,
             width: 24,
             height: "80vh",
+            required: false,
             value: [],
             apiSet: {
                 method: "get",
