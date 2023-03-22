@@ -16,6 +16,9 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         theme: theme,
         remark: remark,
         parentApp: parentApp,
+        eventToParent(val) {
+            that.$emit('eventToParent', val);
+        },
         getQueryString() {
             return that.$route.query;
         },
@@ -23,7 +26,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             return this.parentApp;
         },
         getDetailByList(val, list) {
-            if(!list.length){
+            if (!list.length) {
                 return ''
             }
             var result = ''
@@ -47,6 +50,15 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         },
         formatTreeList() {
             var list = that.$utils.clone(this.widgetList, true)
+            var formatTableList = function (item) {
+                item.widgetList=item.props.tableConfig.tableList
+
+                item.widgetList.forEach(item2 => {
+                    if (item2.type == 'datatable') {
+                        formatTableList(item2);
+                    }
+                })
+            }
             var format = function (widgetList) {
                 widgetList.forEach(item => {
                     if (item.type == 'tabs') {
@@ -55,6 +67,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                                 item.widgetList.push(item2);
                             })
                         })
+                    } else if (item.type == 'datatable') {
+                        formatTableList(item)
                     } else {
                         if (item.widgetList && item.widgetList.length) {
                             format(item.widgetList);

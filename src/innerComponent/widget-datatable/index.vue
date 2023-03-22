@@ -359,7 +359,7 @@ export default {
   },
   watch: {
     "widget.props.value"(val) {
-      if (val) {
+      if (val&&this.$refs.my_datatable) {
         this.$refs.my_datatable.setRows(val);
       }
     }

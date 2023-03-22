@@ -385,6 +385,9 @@ export default {
 }
 </style>
 <style lang="scss">
+.vxe-modal--wrapper.is--visible.is--mask:before {
+  backdrop-filter: blur(3px) !important;
+}
 * {
   ::-webkit-scrollbar {
     width: 13px;

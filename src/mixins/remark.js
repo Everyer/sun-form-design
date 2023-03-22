@@ -115,6 +115,10 @@ export default {
         name: "app.getQueryString",
         description: "获取url参数",
         example: `app.getQueryString()`
+    }, {
+        name: "app.eventToParent",
+        description: "触发父级组件事件",
+        example: `app.eventToParent(val)`
     }],
     tabs: [{
         name: "app.getWidget",

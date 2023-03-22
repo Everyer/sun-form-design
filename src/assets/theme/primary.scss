@@ -1,5 +1,8 @@
 .form_mode.sun_form_theme_primary {
-    
+
+    .vxe-modal--wrapper.is--visible.is--mask:before {
+        backdrop-filter: blur(3px) !important;
+    }
 
     .sun_form_detail_item {
         font-size: 14px;
