@@ -11,7 +11,7 @@
       >{{widget.props.label}}</div>
       <div class="con">
         <div class="ckeditor_wrap" v-if="!widget.props.isDetail">
-          <Editor v-model="widgetValue" :id="id" :init="init" :disabled="widget.props.disabled"></Editor>
+          <Editor v-model="widgetValue" :id="id" :init="init" :disabled="widget.props.readonly"></Editor>
         </div>
         <div class="sun_form_detail_item" v-else v-html="widgetValue"></div>
       </div>
@@ -102,32 +102,28 @@ export default {
         images_upload_url: "/demo/upimg.php", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传（此处路径为后端需要上传图片的路径）
         images_upload_base_path: "/demo", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传
         selector: "#" + this.id,
-        skin_url: "/tinymce/skins/ui/oxide", //自己的static中路径
+        skin_url: "/tinymce/skins/ui/" + this.widget.props.theme, //自己的static中路径
         content_css: "/tinymce/skins/content/default/content.css", //自己的static中路径
         content_style: "img {max-width:100%;}", //限制图片大小
         plugins:
-          "print preview importcss  searchreplace autolink  directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable    charmap   quickbars   code", //插件
+          "print preview importcss  searchreplace autolink  directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable    charmap   quickbars   code  ", //插件
         menubar: true, //此处设置为false为默认不显示菜单栏，如果需要展示出来可以将此行注释
         //工具栏
         toolbar: [
           "code | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist  | forecolor backcolor casechange   removeformat | pagebreak | charmap  | fullscreen  preview  print | insertfile image media  template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment "
         ],
-        height: 500, //高度
+        height: 400, //高度
+        // min_height:400,
         branding: false, //隐藏右下角技术支持
         paste_preprocess: function(plugin, args) {
           console.log(args.content);
         },
         paste_as_text: true,
-        //init_instance_callback为回调配置项
         init_instance_callback: editor => {
-          // console.log(`回调----`)
           editor.on("input", e => {
-            // console.log('文本框input触发')
-            // this.$emit("input", e.target.innerHTML);
+            this.designer.eventHandle(e.target.innerHTML, "onChange", this.widget, this);
           });
           editor.on("change", e => {
-            // console.log('文本框change触发')
-            // this.$emit("change", e.level.content);
           });
         }
       }

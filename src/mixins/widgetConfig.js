@@ -215,14 +215,12 @@ export default {
         canAddDataTableQuery: true,
         canAddDataTableList: true,
         props: {
-            size: "medium",
             required: false,
             readonly: false,
-            disabled: false,
             isDetail: false,
             hide: false,
-            placeholder: "请输入",
             labelPosition: "left",
+            theme:'oxide',//主题模式oxide/oxide-dark
             value: null,
             zdname: null,
             label: "",
@@ -232,11 +230,7 @@ export default {
 
             onCreated: null,
             onMounted: null,
-            onInput: null,
             onChange: null,
-            onFocus: null,
-            onBlur: null,
-            onHandle: null,
         }
     },
     location: {
