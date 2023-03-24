@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "21732953",
+      "name": "line-file word（word文档）-02",
+      "font_class": "editor",
+      "unicode": "e73b",
+      "unicode_decimal": 59195
+    },
+    {
       "icon_id": "827618",
       "name": "地图",
       "font_class": "location",

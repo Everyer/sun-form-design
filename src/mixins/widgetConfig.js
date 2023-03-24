@@ -207,6 +207,38 @@ export default {
             onHandle: null,
         }
     },
+    editor: {
+        isContainer: false,
+        displayName: "富文本编辑器",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            size: "medium",
+            required: false,
+            readonly: false,
+            disabled: false,
+            isDetail: false,
+            hide: false,
+            placeholder: "请输入",
+            labelPosition: "left",
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+
+            onCreated: null,
+            onMounted: null,
+            onInput: null,
+            onChange: null,
+            onFocus: null,
+            onBlur: null,
+            onHandle: null,
+        }
+    },
     location: {
         isContainer: false,
         displayName: "位置选择器",

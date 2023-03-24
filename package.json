@@ -1,6 +1,6 @@
 {
   "name": "sun-form-design",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "sun-form-design",
   "author": "sunyan",
   "private": false,
@@ -15,10 +15,12 @@
     "lib": "vue-cli-service build --target lib --name sunForm src/components/index.js"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "3.0.1",
     "axios": "^0.23.0",
     "babel-plugin-import": "^1.13.6",
     "clipboard": "^2.0.11",
     "sortablejs": "^1.15.0",
+    "tinymce": "5.1.0",
     "vue-baidu-map": "^0.21.22",
     "vue2-ace-editor": "^0.0.15",
     "vuedraggable": "^2.24.3"

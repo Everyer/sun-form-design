@@ -329,7 +329,6 @@
                     width="800"
                     trigger="hover"
                   >
-                    {{data.type+" "+data.id}}
                     <el-table
                       @row-click="tabRowClick"
                       v-if="designer.remark[data.type]"
