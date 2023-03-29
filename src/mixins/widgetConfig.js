@@ -1,36 +1,4 @@
 export default {
-    tabs: {
-        isContainer: true,
-        displayName: "标签页",
-        hasLabel: false,
-        isForm: false,
-        canAddDataTableQuery: false,
-        canAddDataTableList: false,
-        widgetList: [],
-        props: {
-            label: "标签页",
-            width: 24,
-            type: "border-card",
-            activeName: null,
-            loadType: "loadOnce",
-            tabs: [{
-                label: "标签页1",
-                value: "tab1",
-                widgetList: []
-            }, {
-                label: "标签页2",
-                value: "tab2",
-                widgetList: []
-            }, {
-                label: "标签页3",
-                value: "tab3",
-                widgetList: []
-            }],
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
-        }
-    },
     grid: {
         isContainer: true,
         displayName: "表单",
@@ -68,90 +36,6 @@ export default {
             onMounted: null,
         }
     },
-    file: {
-        isContainer: false,
-        displayName: "文件上传",
-        hasLabel: false,
-        isForm: true,
-        canAddDataTableQuery: false,
-        canAddDataTableList: true,
-        widgetList: [],
-        props: {
-            size: "medium",
-            required: false,
-            disabled: false,
-            isDetail: false,
-            hide: false,
-            placeholder: "请上传文件",
-            labelPosition: "left",
-            value: null,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-            fileField: "file", //文件上传字段
-            fileIdField: "id", //文件ID字段
-            fileNameField: "fileName", //文件名称字段
-            fileUrlField: "", //文件URL字段
-            fileSaveType: 'name,id',
-            fileDownType: 'blob', //文件下载方式
-            fileGetUrl: "", //文件获取地址
-            accept: "", //文件后缀类型，逗号隔开
-            limit: 100, //限制文件个数
-            readonly: false, //是否只能查看
-            multiple: true, //是否支持多个上传
-            apiSet: {
-                method: "post",
-                apiurl: "",
-                params: [],
-                contentType: "FormData",
-                dataFormat: "",
-            },
-            onCreated: null,
-            onMounted: null,
-        }
-    },
-    service: {
-        isContainer: false,
-        displayName: "服务",
-        hasLabel: false,
-        isForm: false,
-        canAddDataTableQuery: false,
-        canAddDataTableList: false,
-        widgetList: [],
-        props: {
-            label: "",
-            width: 24,
-            serviceJson: ``,
-            apiSet: {
-                method: "get",
-                apiurl: "",
-                params: [],
-                contentType: "JSON",
-                dataFormat: "",
-            },
-            onCreated: null,
-            onMounted: null,
-        }
-    },
-    iframe: {
-        isContainer: false,
-        displayName: "iframe",
-        hasLabel: false,
-        isForm: false,
-        canAddDataTableQuery: false,
-        canAddDataTableList: false,
-        widgetList: [],
-        props: {
-            label: "iframe",
-            width: 24,
-            height: '50vh',
-            src: "",
-            onCreated: null,
-            onMounted: null,
-        }
-    },
     modal: {
         isContainer: true,
         displayName: "弹窗",
@@ -173,6 +57,38 @@ export default {
             onHide: null,
             onShow: null,
             onConfirm: null,
+        }
+    },
+    tabs: {
+        isContainer: true,
+        displayName: "标签页",
+        hasLabel: false,
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        widgetList: [],
+        props: {
+            label: "标签页",
+            width: 24,
+            type: "border-card",
+            activeName: null,
+            loadType: "loadOnce",
+            tabs: [{
+                label: "标签页1",
+                value: "tab1",
+                widgetList: []
+            }, {
+                label: "标签页2",
+                value: "tab2",
+                widgetList: []
+            }, {
+                label: "标签页3",
+                value: "tab3",
+                widgetList: []
+            }],
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
         }
     },
     input: {
@@ -205,273 +121,6 @@ export default {
             onFocus: null,
             onBlur: null,
             onHandle: null,
-        }
-    },
-    editor: {
-        isContainer: false,
-        displayName: "富文本编辑器",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            required: false,
-            readonly: false,
-            isDetail: false,
-            hide: false,
-            labelPosition: "left",
-            theme:'oxide',//主题模式oxide/oxide-dark
-            value: null,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
-        }
-    },
-    location: {
-        isContainer: false,
-        displayName: "位置选择器",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            size: "medium",
-            required: false,
-            readonly: false,
-            disabled: false,
-            isDetail: false,
-            hide: false,
-            labelPosition: "left",
-            value: null,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-
-            onCreated: null,
-            onMounted: null,
-            onInput: null,
-            onChange: null,
-            onFocus: null,
-            onBlur: null,
-            onHandle: null,
-        }
-    },
-    rate: {
-        isContainer: false,
-        displayName: "评分",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            required: false,
-            disabled: false,
-            isDetail: false,
-            hide: false,
-            labelPosition: "left",
-            value: 5,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-            max: 5,
-            allowHalf: false,
-            showScore: false,
-
-
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
-        }
-    },
-    switch: {
-        isContainer: false,
-        displayName: "开关",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            required: false,
-            isDetail: false,
-            disabled: false,
-            hide: false,
-            labelPosition: "left",
-            value: false,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            activeText: "开",
-            inactiveText: "关",
-
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
-        }
-    },
-    codeEditor: {
-        isContainer: false,
-        displayName: "代码编辑器",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: false,
-        canAddDataTableList: false,
-        props: {
-            height: "200px",
-            value: null,
-            lang: "javascript",
-            isDetail: false,
-            required: false,
-            readonly: false,
-            hide: false,
-            labelPosition: "left",
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-
-            onCreated: null,
-            onMounted: null,
-        }
-    },
-    textarea: {
-        isContainer: false,
-        displayName: "文本域",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: false,
-        canAddDataTableList: true,
-        props: {
-            size: "medium",
-            required: false,
-            readonly: false,
-            disabled: false,
-            hide: false,
-            isDetail: false,
-            placeholder: "请输入",
-            labelPosition: "left",
-            rows: 3,
-            value: null,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-
-            onCreated: null,
-            onMounted: null,
-            onInput: null,
-            onChange: null,
-            onFocus: null,
-            onBlur: null,
-        }
-    },
-    radio: {
-        isContainer: false,
-        displayName: "单选框",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            required: false,
-            disabled: false,
-            hide: false,
-            labelPosition: "left",
-            isButton: false,
-            isDetail: false,
-            isBlock: false,
-            value: null,
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-            apiSet: {
-                method: "get",
-                apiurl: "",
-                params: [],
-                contentType: "JSON",
-                dataFormat: "",
-                labelField: "",
-                valueField: "",
-            },
-            list: [{
-                    label: "选项1",
-                    value: "1"
-                },
-                {
-                    label: "选项2",
-                    value: "2"
-                },
-                {
-                    label: "选项3",
-                    value: "3"
-                }
-            ],
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
-        }
-    },
-    checkbox: {
-        isContainer: false,
-        displayName: "多选框",
-        hasLabel: true,
-        isForm: true,
-        canAddDataTableQuery: true,
-        canAddDataTableList: true,
-        props: {
-            size: "medium",
-            required: false,
-            disabled: false,
-            hide: false,
-            isDetail: false,
-            labelPosition: "left",
-            isButton: false,
-            isBlock: false,
-            value: "",
-            zdname: null,
-            label: "",
-            labelAlign: "right",
-            labelWidth: "120px",
-            width: 24,
-            apiSet: {
-                method: "get",
-                apiurl: "",
-                params: [],
-                contentType: "JSON",
-                dataFormat: "",
-                labelField: "",
-                valueField: "",
-            },
-            list: [{
-                    label: "选项1",
-                    value: "1"
-                },
-                {
-                    label: "选项2",
-                    value: "2"
-                },
-                {
-                    label: "选项3",
-                    value: "3"
-                }
-            ],
-            onCreated: null,
-            onMounted: null,
-            onChange: null,
         }
     },
     select: {
@@ -576,6 +225,103 @@ export default {
             onBlur: null,
         }
     },
+    radio: {
+        isContainer: false,
+        displayName: "单选框",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            required: false,
+            disabled: false,
+            hide: false,
+            labelPosition: "left",
+            isButton: false,
+            isDetail: false,
+            isBlock: false,
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            apiSet: {
+                method: "get",
+                apiurl: "",
+                params: [],
+                contentType: "JSON",
+                dataFormat: "",
+                labelField: "",
+                valueField: "",
+            },
+            list: [{
+                    label: "选项1",
+                    value: "1"
+                },
+                {
+                    label: "选项2",
+                    value: "2"
+                },
+                {
+                    label: "选项3",
+                    value: "3"
+                }
+            ],
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
+        }
+    },
+    checkbox: {
+        isContainer: false,
+        displayName: "多选框",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            size: "medium",
+            required: false,
+            disabled: false,
+            hide: false,
+            isDetail: false,
+            labelPosition: "left",
+            isButton: false,
+            isBlock: false,
+            value: "",
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            apiSet: {
+                method: "get",
+                apiurl: "",
+                params: [],
+                contentType: "JSON",
+                dataFormat: "",
+                labelField: "",
+                valueField: "",
+            },
+            list: [{
+                    label: "选项1",
+                    value: "1"
+                },
+                {
+                    label: "选项2",
+                    value: "2"
+                },
+                {
+                    label: "选项3",
+                    value: "3"
+                }
+            ],
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
+        }
+    },
     date: {
         isContainer: false,
         hasLabel: true,
@@ -607,6 +353,64 @@ export default {
             onChange: null,
             onFocus: null,
             onBlur: null,
+        }
+    },
+    textarea: {
+        isContainer: false,
+        displayName: "文本域",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: false,
+        canAddDataTableList: true,
+        props: {
+            size: "medium",
+            required: false,
+            readonly: false,
+            disabled: false,
+            hide: false,
+            isDetail: false,
+            placeholder: "请输入",
+            labelPosition: "left",
+            rows: 3,
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+
+            onCreated: null,
+            onMounted: null,
+            onInput: null,
+            onChange: null,
+            onFocus: null,
+            onBlur: null,
+        }
+    },
+    switch: {
+        isContainer: false,
+        displayName: "开关",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            required: false,
+            isDetail: false,
+            disabled: false,
+            hide: false,
+            labelPosition: "left",
+            value: false,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            activeText: "开",
+            inactiveText: "关",
+
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
         }
     },
     daterange: {
@@ -703,6 +507,211 @@ export default {
             onChange: null,
             onFocus: null,
             onBlur: null,
+        }
+    },
+    rate: {
+        isContainer: false,
+        displayName: "评分",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            required: false,
+            disabled: false,
+            isDetail: false,
+            hide: false,
+            labelPosition: "left",
+            value: 5,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            max: 5,
+            allowHalf: false,
+            showScore: false,
+
+
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
+        }
+    },
+    file: {
+        isContainer: false,
+        displayName: "文件上传",
+        hasLabel: false,
+        isForm: true,
+        canAddDataTableQuery: false,
+        canAddDataTableList: true,
+        widgetList: [],
+        props: {
+            size: "medium",
+            required: false,
+            disabled: false,
+            isDetail: false,
+            hide: false,
+            placeholder: "请上传文件",
+            labelPosition: "left",
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            fileField: "file", //文件上传字段
+            fileIdField: "id", //文件ID字段
+            fileNameField: "fileName", //文件名称字段
+            fileUrlField: "", //文件URL字段
+            fileSaveType: 'name,id',
+            fileDownType: 'blob', //文件下载方式
+            fileGetUrl: "", //文件获取地址
+            accept: "", //文件后缀类型，逗号隔开
+            limit: 100, //限制文件个数
+            readonly: false, //是否只能查看
+            multiple: true, //是否支持多个上传
+            apiSet: {
+                method: "post",
+                apiurl: "",
+                params: [],
+                contentType: "FormData",
+                dataFormat: "",
+            },
+            onCreated: null,
+            onMounted: null,
+        }
+    },
+    location: {
+        isContainer: false,
+        displayName: "位置选择器",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            size: "medium",
+            required: false,
+            readonly: false,
+            disabled: false,
+            isDetail: false,
+            hide: false,
+            labelPosition: "left",
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+
+            onCreated: null,
+            onMounted: null,
+            onInput: null,
+            onChange: null,
+            onFocus: null,
+            onBlur: null,
+            onHandle: null,
+        }
+    },
+    service: {
+        isContainer: false,
+        displayName: "服务",
+        hasLabel: false,
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        widgetList: [],
+        props: {
+            label: "",
+            width: 24,
+            serviceJson: ``,
+            apiSet: {
+                method: "get",
+                apiurl: "",
+                params: [],
+                contentType: "JSON",
+                dataFormat: "",
+            },
+            onCreated: null,
+            onMounted: null,
+        }
+    },
+    iframe: {
+        isContainer: false,
+        displayName: "iframe",
+        hasLabel: false,
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        widgetList: [],
+        props: {
+            label: "iframe",
+            width: 24,
+            height: '50vh',
+            src: "",
+            onCreated: null,
+            onMounted: null,
+        }
+    },
+    editor: {
+        isContainer: false,
+        displayName: "富文本编辑器",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            required: false,
+            readonly: false,
+            isDetail: false,
+            hide: false,
+            labelPosition: "left",
+            theme: 'oxide', //主题模式oxide/oxide-dark
+            value: null,
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            fileField: "file", //文件上传字段
+            fileUrlField: "", //文件URL字段
+            apiSet: {
+                method: "post",
+                apiurl: "",
+                params: [],
+                contentType: "FormData",
+                dataFormat: "",
+            },
+            onCreated: null,
+            onMounted: null,
+            onChange: null,
+        }
+    },
+
+    codeEditor: {
+        isContainer: false,
+        displayName: "代码编辑器",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        props: {
+            height: "200px",
+            value: null,
+            lang: "javascript",
+            isDetail: false,
+            required: false,
+            readonly: false,
+            hide: false,
+            labelPosition: "left",
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+
+            onCreated: null,
+            onMounted: null,
         }
     },
     button: {
@@ -833,6 +842,4 @@ export default {
             onFormat: null,
         }
     },
-
-
 }

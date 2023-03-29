@@ -55,7 +55,7 @@ import "tinymce/plugins/nonbreaking";
 import "tinymce/plugins/textpattern";
 import "tinymce/plugins/noneditable";
 import "tinymce/plugins/insertdatetime";
-import '../../assets/js/langs/zh-Hans.js'
+import "../../assets/js/langs/zh-Hans.js";
 export default {
   components: { Editor },
   model: {
@@ -100,33 +100,103 @@ export default {
       mytinymce: tinymce,
       init: {
         language: "zh-Hans",
-        images_upload_url: "/demo/upimg.php", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传（此处路径为后端需要上传图片的路径）
+        powerpaste_allow_local_images: true,
+        powerpaste_word_import: "clean",
+        paste_data_images: true,
+        // images_upload_url: "/api/web/oss/uploadOssFileNoName", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传（此处路径为后端需要上传图片的路径）
         images_upload_base_path: "/demo", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传
+        images_upload_handler: (blobInfo, success, failure) => {
+          if (!this.widget.props.apiSet.apiurl) {
+            failure("请先配置上传文件的接口地址");
+            return;
+          }
+          var formData = new FormData();
+          formData.append(this.widget.props.fileField, blobInfo.blob(), blobInfo.filename());
+          this.designer.$http
+            .postFile(this.widget.props.apiSet.apiurl, formData)
+            .then(res => {
+              if (res.success || res.code == 0 || res.code == 200) {
+                success(res.data[this.widget.props.fileUrlField]);
+              } else {
+                failure(res.msg || res.message);
+              }
+            })
+            .catch(err => {
+              failure("上传失败");
+            });
+        },
+        file_picker_types: "file",
+        file_picker_callback: (callback, value, meta) => {
+          // win.document.getElementById(field_name).value = "my browser value";
+        },
         selector: "#" + this.id,
         // skin_url: "./tinymce/skins/ui/" + this.widget.props.theme, //自己的static中路径
         // skin_url:"../../assets/tinymce/skins/ui/oxide/skin.min.css",
         // content_css: ['../../assets/tinymce/skins/ui/oxide/content.min.css'], //自己的static中路径
         content_style: "img {max-width:100%;}", //限制图片大小
         plugins:
-          "print preview importcss  searchreplace autolink  directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable    charmap   quickbars   code  ", //插件
+          "powerpaste paste print preview importcss  searchreplace autolink  directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable    charmap   quickbars   code  ", //插件
         menubar: true, //此处设置为false为默认不显示菜单栏，如果需要展示出来可以将此行注释
         //工具栏
         toolbar: [
-          "code | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist  | forecolor backcolor casechange   removeformat | pagebreak | charmap  | fullscreen  preview  print | insertfile image media  template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment "
+          "code | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist  | forecolor backcolor casechange   removeformat | pagebreak | charmap  | fullscreen  preview  print | uploadFile insertfile image media  template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment "
         ],
         height: 400, //高度
         // min_height:400,
         branding: false, //隐藏右下角技术支持
-        paste_preprocess: function(plugin, args) {
-          console.log(args.content);
-        },
+        paste_preprocess: function(plugin, args) {},
         paste_as_text: true,
         init_instance_callback: editor => {
           editor.on("input", e => {
-            this.designer.eventHandle(e.target.innerHTML, "onChange", this.widget, this);
+            this.designer.eventHandle(
+              e.target.innerHTML,
+              "onChange",
+              this.widget,
+              this
+            );
           });
-          editor.on("change", e => {
+          editor.on("change", e => {});
+        },
+        setup: editor => {
+          editor.ui.registry.addButton("uploadFile", {
+            text: "上传文件",
+            onAction: () => {
+              if (!this.widget.props.apiSet.apiurl) {
+                this.$message.error("请先配置上传文件的接口地址");
+                return;
+              }
+              var input = document.createElement("input");
+              input.setAttribute("type", "file");
+              input.onchange = function() {
+                var files = this.files;
+                uploadFile(files[0], editor);
+              };
+              input.click();
+            }
           });
+          var that = this;
+          function uploadFile(file, editor) {
+            var formData = new FormData();
+            formData.append(that.widget.props.fileField, file);
+            that.designer.$http
+              .postFile(that.widget.props.apiSet.apiurl, formData)
+              .then(res => {
+                if (res.success || res.code == 0 || res.code == 200) {
+                  editor.insertContent(
+                    '<a href="' +
+                      res.data[that.widget.props.fileUrlField] +
+                      '" target="_blank">' +
+                      file.name +
+                      "</a>"
+                  );
+                } else {
+                  this.$message.error(res.msg || res.message);
+                }
+              })
+              .catch(err => {
+                this.$message.error("上传失败");
+              });
+          }
         }
       }
     };
@@ -163,9 +233,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../assets/tinymce/skins/ui/oxide/skin.min.css';
-@import '../../assets/tinymce/skins/ui/oxide/content.min.css';
-@import '../../assets/tinymce/skins/content/default/content.min.css';
+@import "../../assets/tinymce/skins/ui/oxide/skin.min.css";
+@import "../../assets/tinymce/skins/ui/oxide/content.min.css";
+@import "../../assets/tinymce/skins/content/default/content.min.css";
 .ckeditor_wrap {
   width: 100%;
   /* table 样式 */

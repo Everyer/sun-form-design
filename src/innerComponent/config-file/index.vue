@@ -38,7 +38,7 @@
     <div class="item">
       <div class="lab">文件URL字段</div>
       <div class="con">
-        <el-input v-model="designer.chosenWidget.props.fileUrlField" placeholder="请填写文件地址字段" size="mini"></el-input>
+        <el-input v-model="designer.chosenWidget.props.fileUrlField" placeholder="请填写返回文件地址字段" size="mini"></el-input>
       </div>
     </div>
     <div class="item">

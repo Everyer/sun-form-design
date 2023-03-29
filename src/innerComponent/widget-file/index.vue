@@ -145,7 +145,6 @@ export default {
       }, ms);
     },
     openFile(row) {
-      console.log(row);
       var fileGetUrl = this.widget.props.fileGetUrl;
       if (fileGetUrl) {
         if (fileGetUrl.includes("{id}")||fileGetUrl=='{url}') {

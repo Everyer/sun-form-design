@@ -38,7 +38,7 @@ module.exports = {
             '/': {
                 // target: 'http://115.239.188.150:11900/',
                 // target: 'http://szjg.ymjgjt.com/',
-                target: 'http://47.99.99.19:8800/',
+                target: 'http://114.55.252.66:7654/',
                 changeOrigin: true,
             }
         },
