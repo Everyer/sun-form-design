@@ -1,12 +1,13 @@
 {
   "name": "sun-form-design",
-  "version": "1.2.3",
+  "version": "1.2.7",
   "description": "sun-form-design",
   "author": "sunyan",
   "private": false,
   "main": "dist/sunForm.umd.min.js",
   "files": [
-    "dist/*"
+    "dist/*",
+    "public"
   ],
   "license": "ISC",
   "scripts": {
@@ -31,7 +32,7 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-plugin-component": "^1.1.1",
-    "compression-webpack-plugin": "5.0.0",
+    "copy-webpack-plugin": "^5.0.0",
     "element-ui": "^2.14.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",

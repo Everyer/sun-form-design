@@ -55,6 +55,7 @@ import "tinymce/plugins/nonbreaking";
 import "tinymce/plugins/textpattern";
 import "tinymce/plugins/noneditable";
 import "tinymce/plugins/insertdatetime";
+import '../../assets/js/langs/zh-Hans.js'
 export default {
   components: { Editor },
   model: {
@@ -102,8 +103,9 @@ export default {
         images_upload_url: "/demo/upimg.php", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传（此处路径为后端需要上传图片的路径）
         images_upload_base_path: "/demo", //这两行是更改只能上传图片路径的方法，变成可以拖拉上传
         selector: "#" + this.id,
-        skin_url: "/tinymce/skins/ui/" + this.widget.props.theme, //自己的static中路径
-        content_css: "/tinymce/skins/content/default/content.css", //自己的static中路径
+        // skin_url: "./tinymce/skins/ui/" + this.widget.props.theme, //自己的static中路径
+        // skin_url:"../../assets/tinymce/skins/ui/oxide/skin.min.css",
+        // content_css: ['../../assets/tinymce/skins/ui/oxide/content.min.css'], //自己的static中路径
         content_style: "img {max-width:100%;}", //限制图片大小
         plugins:
           "print preview importcss  searchreplace autolink  directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable    charmap   quickbars   code  ", //插件
@@ -161,6 +163,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/tinymce/skins/ui/oxide/skin.min.css';
+@import '../../assets/tinymce/skins/ui/oxide/content.min.css';
+@import '../../assets/tinymce/skins/content/default/content.min.css';
 .ckeditor_wrap {
   width: 100%;
   /* table 样式 */

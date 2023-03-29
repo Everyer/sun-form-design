@@ -1,15 +1,32 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const {
+    resolve
+} = require('path')
 module.exports = {
     productionSourceMap: !isProduction,
-    configureWebpack: config => {
+
+    configureWebpack: {
+        // plugins: [
+        //     new CopyWebpackPlugin([{
+        //             from: 'public/tinymce',
+        //             to: 'tinymce',
+        //         },
+        //         {
+        //             from: 'public/js',
+        //             to: 'js',
+        //         },
+        //     ]),
+        // ],
     },
 
     chainWebpack: config => {
         // config.plugin('webpack-bundle-analyzer')
         //     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     },
-    publicPath: isProduction ? "//res.jzyglxt.com/app/sun_form/" : './',
+    // publicPath: isProduction ? "//res.jzyglxt.com/app/sun_form/" : './',
+    publicPath: './',
     devServer: {
         open: true,
         host: 'localhost',
