@@ -21,11 +21,13 @@
             v-if="!widget.props.isButton"
             :style="widget.props.isBlock?'display:block;padding:5px 0;':'display:inline-block'"
             v-for="(item, index) in widget.props.list"
+            :key="index"
             :label="item.value"
           >{{item.label}}</el-checkbox>
           <el-checkbox-button
             v-if="widget.props.isButton"
             v-for="(item, index) in widget.props.list"
+            :key="index"
             :label="item.value"
           >{{item.label}}</el-checkbox-button>
         </el-checkbox-group>

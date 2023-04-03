@@ -129,7 +129,7 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
 }
-::v-deep {
+:deep {
   .form_widget_item {
     padding: 0;
   }

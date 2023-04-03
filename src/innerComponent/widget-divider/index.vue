@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-::v-deep .widget_item_wrap {
+:deep .widget_item_wrap {
   .con {
     .el-divider {
       margin:10px 0;

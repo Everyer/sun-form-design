@@ -555,7 +555,7 @@ export default {
     }
   }
 }
-::v-deep {
+:deep {
   .row-selected {
     background-color: #40a0ff51 !important;
   }

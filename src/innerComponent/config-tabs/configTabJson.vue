@@ -100,7 +100,7 @@ export default {
     margin: 0 3px;
   }
 }
-::v-deep {
+:deep {
   .el-radio__label {
     display: none;
   }
