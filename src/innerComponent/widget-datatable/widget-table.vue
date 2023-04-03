@@ -124,15 +124,18 @@
             align="center"
           ></vxe-table-column>
           <vxe-table-column align="center" type="seq" title="序号" width="60" field="index"></vxe-table-column>
+
           <vxe-table-column
             v-for="(item, index) in tableConfig.tableList"
             :key="index"
             :field="item.props.zdname"
             :title="item.props.label"
             :align="baseInfo.align"
+            :width="item.props.tableitemWidth"
           >
             <template #default="{ row ,rowIndex }">
               <div class="column_item" v-if="item.type=='datatableitem'">
+                {{item.props.width}}
                 <div
                   class="column_item_wrap"
                   v-if="item.props.onFormat"
@@ -152,7 +155,7 @@
             </template>
           </vxe-table-column>
           <vxe-table-column
-            v-if="tableConfig.buttonList.filter(e=>e.props.isSide).length||baseInfo.formTableMode=='table'"
+            v-if="tableConfig.buttonList.filter(e=>e.props.isSide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table')"
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
@@ -161,7 +164,7 @@
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
                 <el-button
-                  v-if="baseInfo.formTableMode=='table'"
+                  v-if="baseInfo.normalTable&&baseInfo.formTableMode=='table'"
                   @click="removeRow($rowIndex)"
                   icon="el-icon-delete"
                   size="mini"
@@ -185,7 +188,8 @@
           </vxe-table-column>
         </vxe-table>
       </div>
-      <div class="tab_wrap" v-show="baseInfo.formTableMode=='tab'">
+      <!-- {{baseInfo}} -->
+      <div class="tab_wrap" v-if="baseInfo.normalTable&&baseInfo.formTableMode=='tab'">
         <div class="query_btn_wrap">
           <div class="btn_wrap">
             <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>

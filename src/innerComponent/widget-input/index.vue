@@ -23,6 +23,7 @@
           :size="widget.props.size"
           :style="{width:widget.props.width}"
           :placeholder="widget.props.placeholder"
+          :type="widget.props.type||'text'"
         >
           <el-button
             @click="designer.eventHandle(table||widgetValue,'onHandle',widget, that)"

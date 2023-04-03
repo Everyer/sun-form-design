@@ -113,6 +113,7 @@ export default {
             labelAlign: "right",
             labelWidth: "120px",
             width: 24,
+            type:"text",
 
             onCreated: null,
             onMounted: null,
@@ -666,7 +667,6 @@ export default {
             isDetail: false,
             hide: false,
             labelPosition: "left",
-            theme: 'oxide', //主题模式oxide/oxide-dark
             value: null,
             zdname: null,
             label: "",
@@ -687,7 +687,6 @@ export default {
             onChange: null,
         }
     },
-
     codeEditor: {
         isContainer: false,
         displayName: "代码编辑器",

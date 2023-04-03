@@ -119,7 +119,7 @@ export default {
                   res.data.map(item => {
                     return {
                       label: item[apiSet.labelField],
-                      value: item[apiSet.valueField] + ""
+                      value: item[apiSet.valueField] 
                     };
                   })
                 );

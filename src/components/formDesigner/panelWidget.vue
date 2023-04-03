@@ -12,7 +12,7 @@
           class="drag_wrapper_2"
         >
           <div class="item" v-for="(item, index) in containerData" :key="index">
-            <i  :class="`iconfont icon-${item.type}`"></i>
+            <i :class="`iconfont icon-${item.type}`"></i>
             {{item.displayName}}
           </div>
         </draggable>
@@ -31,7 +31,7 @@
         >
           <div class="item" v-for="(item, index) in widgetData" :key="index">
             <!-- <i class="el-icon-rank"></i> -->
-            <i  :class="`iconfont icon-${item.type}`"></i>
+            <i :class="`iconfont icon-${item.type}`"></i>
             {{item.displayName}}
           </div>
         </draggable>
@@ -50,7 +50,7 @@
         >
           <div class="item" v-for="(item, index) in uiData" :key="index">
             <!-- <i class="el-icon-rank"></i> -->
-            <i  :class="`iconfont icon-${item.type}`"></i>
+            <i :class="`iconfont icon-${item.type}`"></i>
             {{item.displayName}}
           </div>
         </draggable>
@@ -109,21 +109,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url('../../assets/font/iconfont.css');
+@import url("../../assets/font/iconfont.css");
 .side_wrap {
-  .logo{
+  .logo {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 5px 0 10px;
     user-select: none;
-    img{
+    img {
       width: 50%;
     }
   }
   .item_wrap {
     .title {
       font-size: 14px;
+      margin-top: 0;
       color: #333;
       padding: 10px;
       box-sizing: border-box;
@@ -159,6 +160,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   .item {
+    display: flex;
+    align-items: center;
+    max-height: 34px;
     width: 48%;
     margin: 6px 0;
     box-sizing: border-box;
@@ -173,8 +177,8 @@ export default {
       margin-right: 3px;
       transition: all 0.2s;
       font-size: 14px;
-      color: #409EFF;
-      transform: translateY(2px);
+      color: #409eff;
+      transform: translateY(0px);
     }
     &:hover {
       border-color: #2468f2;

@@ -1,5 +1,8 @@
 .form_mode.sun_form_theme_primary {
-
+    
+    .tox-tinymce-aux{
+        z-index: 9999 !important;
+    }
     .vxe-modal--wrapper.is--visible.is--mask:before {
         backdrop-filter: blur(3px) !important;
     }

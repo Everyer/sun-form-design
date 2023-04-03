@@ -402,7 +402,7 @@ export default {
     handleCommandTable(command) {
       var w = this.$utils.clone(this.widgetConfig, true);
       var obj = w[command];
-      var id = "query-item-" + Math.floor(new Date().getTime() % 10000000);
+      var id = "table-item-" + Math.floor(new Date().getTime() % 10000000);
       obj.id = id;
       obj.props.id = id;
       obj.parentType = "datatable";
