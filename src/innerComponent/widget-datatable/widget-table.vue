@@ -861,7 +861,7 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
 }
-::v-deep {
+:deep {
   .el-tabs__nav-prev,
   .el-tabs__nav-next {
     line-height: 42px;

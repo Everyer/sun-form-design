@@ -1104,8 +1104,7 @@ export default {
   display: inline-block;
   margin-right: 4px;
 }
-::v-deep {
-  
+:deep {
   .query_item {
     .container_wrapper {
       border: none;

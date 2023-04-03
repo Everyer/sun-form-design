@@ -360,7 +360,7 @@ export default {
 .my_table {
   margin-top: 10px;
 }
-::v-deep {
+:deep {
   .my_head {
     background: #fafafa;
   }

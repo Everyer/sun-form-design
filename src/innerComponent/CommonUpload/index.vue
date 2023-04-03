@@ -302,7 +302,7 @@ export default {
     }
   }
 }
-::v-deep {
+:deep {
   
 }
 </style>
