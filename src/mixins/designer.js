@@ -51,7 +51,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         formatTreeList() {
             var list = that.$utils.clone(this.widgetList, true)
             var formatTableList = function (item) {
-                item.widgetList=item.props.tableConfig.tableList
+                item.widgetList=item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
 
                 item.widgetList.forEach(item2 => {
                     if (item2.type == 'datatable') {
@@ -158,11 +158,27 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             resetForm(arr);
         },
         getProps(id) {
+            var formatTableList = function (item,id) {
+                var widgetList=item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
+                var result=null
+                widgetList.forEach(item2 => {
+                    if(item2.id===id){
+                        result=item2
+                    }
+                    if (item2.type == 'datatable') {
+                        formatTableList(item2,id);
+                    }
+                })
+                return result
+            }
             var find = function (widgetList) {
                 for (var i = 0; i < widgetList.length; i++) {
                     var item = widgetList[i];
                     if (item.id == id) {
                         return item;
+                    }
+                    if(item.type == 'datatable'){
+                        return formatTableList(item,id)
                     }
                     if (item.widgetList && item.widgetList.length) {
                         var form = find(item.widgetList);
@@ -206,6 +222,17 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                 data.props.tableConfig.buttonList = []
                 data.props.tableConfig.queryList = []
                 data.props.tableConfig.tableList = []
+            }
+            if('select|selects|radio|checkbox'.includes(data.type)){
+                data.props.apiSet=this.$utils.clone({
+                    method: "get",
+                    apiurl: "",
+                    params: [],
+                    contentType: "JSON",
+                    dataFormat: "",
+                    labelField: "",
+                    valueField: "",
+                },true);
             }
             if (data.type == "tabs") {
                 data.props.tabs = [{

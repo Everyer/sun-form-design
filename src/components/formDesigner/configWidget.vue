@@ -47,7 +47,7 @@
         </div>
       </div>
       <!-- v-if="hasEvent('isDetail')" -->
-      <div class="item" >
+      <div class="item">
         <div class="lab">详情模式</div>
         <div class="con">
           <el-switch
