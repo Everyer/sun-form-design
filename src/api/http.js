@@ -6,8 +6,9 @@ var formDataHeader = {
 var formFileHeader = {
     'Content-Type': 'multipart/form-data'
 }
-function httpHandle(headers = {},baseUrl="") {
-    var api = apiHandle(headers,baseUrl);
+
+function httpHandle(headers = {}, baseUrl = "", httpSuccessHandle, httpErrorHandle) {
+    var api = apiHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle);
     var http = {
         get(url, data) { //get请求
             return api({

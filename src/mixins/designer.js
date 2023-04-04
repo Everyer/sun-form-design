@@ -1,10 +1,10 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl,httpSuccessHandle,httpErrorHandle) {
     var that = vueInstance;
     return {
-        $http: httpHandle(headers, baseUrl), //http请求
+        $http: httpHandle(headers, baseUrl,httpSuccessHandle,httpErrorHandle), //http请求
         $message: that.$message, //消息提示
         $confirm: that.$confirm,
         widgetList: widgetList ? widgetList : [],

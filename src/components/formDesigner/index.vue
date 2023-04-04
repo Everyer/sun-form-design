@@ -99,6 +99,8 @@
             :baseUrl="baseUrl"
             :headers="headers"
             :widgetList="widgetList"
+            :httpSuccessHandle="httpSuccessHandle"
+            :httpErrorHandle="httpErrorHandle"
           ></sunForm>
         </div>
       </template>
@@ -136,6 +138,18 @@ export default {
       default: () => {
         return {};
       }
+    },
+    httpSuccessHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
+    },
+    httpErrorHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
     }
   },
   model: {
@@ -149,7 +163,9 @@ export default {
         this.headers,
         null,
         null,
-        this.baseUrl
+        this.baseUrl,
+        this.httpSuccessHandle,
+        this.httpErrorHandle
       ),
       timer: null,
       showCode: false,

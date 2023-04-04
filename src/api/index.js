@@ -4,7 +4,7 @@ import {
 } from 'element-ui'
 
 
-function apiHandle(headers,baseUrl) {
+function apiHandle(headers,baseUrl,httpSuccessHandle, httpErrorHandle) {
     const api = axios.create({
         baseURL: baseUrl,
         timeout: 10000,
@@ -24,9 +24,15 @@ function apiHandle(headers,baseUrl) {
 
     api.interceptors.response.use(
         response => {
+            if(httpSuccessHandle){
+                httpSuccessHandle(response.data)
+            }
             return Promise.resolve(response.data)
         },
         error => {
+            if(httpErrorHandle){
+                httpErrorHandle(error)
+            }
             Message.error("数据请求失败")
             return Promise.reject(error)
         }

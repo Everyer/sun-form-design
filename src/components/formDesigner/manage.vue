@@ -152,7 +152,14 @@
       </template>
       <template #default>
         <div class="form_show_wrap" v-loading="loadingModal">
-          <formDesigner :baseUrl="apiSet.baseUrl" :headers="apiSet.headers" v-model="widgetList" ref="form_design"></formDesigner>
+          <formDesigner
+            :httpSuccessHandle="apiSet.httpSuccessHandle"
+            :httpErrorHandle="apiSet.httpErrorHandle"
+            :baseUrl="apiSet.baseUrl"
+            :headers="apiSet.headers"
+            v-model="widgetList"
+            ref="form_design"
+          ></formDesigner>
         </div>
       </template>
       <template #footer>
@@ -185,7 +192,7 @@ export default {
       default: () => {
         return {
           headers: {},
-          baseUrl:"",
+          baseUrl: "",
           apiSetList: {
             method: "get",
             apiurl: "",
@@ -234,7 +241,11 @@ export default {
         this,
         this.widgetList,
         this.apiSet.headers,
-        this.theme
+        "primary",
+        null,
+        "",
+        this.apiSet.httpSuccessHandle,
+        this.apiSet.httpErrorHandle
       ),
       baseInfo: {},
       sortConfig: {},
@@ -323,7 +334,10 @@ export default {
           if (apiSet.apiurl.includes("{id}")) {
             apiSet.apiurl = apiSet.apiurl.replace("{id}", row.id);
           }
-          this.designer.$http[method](this.apiSet.baseUrl+apiSet.apiurl, param)
+          this.designer.$http[method](
+            this.apiSet.baseUrl + apiSet.apiurl,
+            param
+          )
             .then(res => {
               if (!apiSet.dataFormat) {
                 if (res.success || res.code == "0" || res.code == 200) {
@@ -364,7 +378,7 @@ export default {
         apiSet.apiurl = apiSet.apiurl.replace("{id}", this.id);
       }
       this.loadingWrap = true;
-      this.designer.$http[method](this.apiSet.baseUrl+apiSet.apiurl, param)
+      this.designer.$http[method](this.apiSet.baseUrl + apiSet.apiurl, param)
         .then(res => {
           if (!apiSet.dataFormat) {
             if (res.success || res.code == "0" || res.code == 200) {
@@ -405,7 +419,6 @@ export default {
       var param = {
         // formName: this.formName,
         // menuCode: this.menuCode,
-        
         // formData: JSON.stringify(this.widgetList)
       };
       param[this.apiSet.configNameKey] = this.formName;
@@ -425,7 +438,7 @@ export default {
         apiSet.apiurl = apiSet.apiurl.replace("{id}", this.id);
       }
       this.loadingModal = true;
-      this.designer.$http[method](this.apiSet.baseUrl+apiSet.apiurl, param)
+      this.designer.$http[method](this.apiSet.baseUrl + apiSet.apiurl, param)
         .then(res => {
           if (!apiSet.dataFormat) {
             if (res.success || res.code == "0" || res.code == 200) {
@@ -459,13 +472,12 @@ export default {
       var param = {
         // formName: this.formName,
         // menuCode: this.menuCode,
-        
         // formData: JSON.stringify(this.widgetList)
       };
       param[this.apiSet.configNameKey] = this.formName;
       param[this.apiSet.configCodeKey] = this.menuCode;
       param[this.apiSet.configDataKey] = JSON.stringify(this.widgetList);
-      console.log(param,'param');
+      console.log(param, "param");
       apiSet.params.forEach(item => {
         if (item.value.includes("${") && item.value.includes("}")) {
           var funStr = item.value.replace("${", "").replace("}", "");
@@ -480,7 +492,7 @@ export default {
       }
       this.loadingModal = true;
 
-      this.designer.$http[method](this.apiSet.baseUrl+apiSet.apiurl, param)
+      this.designer.$http[method](this.apiSet.baseUrl + apiSet.apiurl, param)
         .then(res => {
           if (!apiSet.dataFormat) {
             if (res.success || res.code == "0" || res.code == 200) {
@@ -552,7 +564,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.designer.$http[method](this.apiSet.baseUrl+apiSet.apiurl, param)
+      this.designer.$http[method](this.apiSet.baseUrl + apiSet.apiurl, param)
         .then(res => {
           if (!apiSet.dataFormat) {
             if (res.success || res.code == "0" || res.code == 200) {
@@ -1104,7 +1116,7 @@ export default {
   display: inline-block;
   margin-right: 4px;
 }
-:deep {
+::v-deep {
   .query_item {
     .container_wrapper {
       border: none;

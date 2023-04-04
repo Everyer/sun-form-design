@@ -53,6 +53,18 @@ export default {
       default: () => {
         return "primary";
       }
+    },
+    httpSuccessHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
+    },
+    httpErrorHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
     }
   },
   data() {
@@ -63,7 +75,9 @@ export default {
         this.headers,
         this.theme,
         this.parentApp,
-        this.baseUrl
+        this.baseUrl,
+        this.httpSuccessHandle,
+        this.httpErrorHandle
       )
     };
   },

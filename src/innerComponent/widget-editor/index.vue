@@ -111,7 +111,11 @@ export default {
             return;
           }
           var formData = new FormData();
-          formData.append(this.widget.props.fileField, blobInfo.blob(), blobInfo.filename());
+          formData.append(
+            this.widget.props.fileField,
+            blobInfo.blob(),
+            blobInfo.filename()
+          );
           this.designer.$http
             .postFile(this.widget.props.apiSet.apiurl, formData)
             .then(res => {
@@ -130,8 +134,8 @@ export default {
           // win.document.getElementById(field_name).value = "my browser value";
         },
         selector: "#" + this.id,
-        // skin_url: "./tinymce/skins/ui/" + this.widget.props.theme, //自己的static中路径
-        // skin_url:"../../assets/tinymce/skins/ui/oxide/skin.min.css",
+        // skin_url: "../../assets/tinymce/skins/ui/oxide",
+        // content_css: "../../assets/tinymce/skins/content/default/content.min.css",
         // content_css: ['../../assets/tinymce/skins/ui/oxide/content.min.css'], //自己的static中路径
         content_style: "img {max-width:100%;}", //限制图片大小
         plugins:
