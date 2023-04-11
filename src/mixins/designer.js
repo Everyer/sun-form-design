@@ -1,12 +1,13 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl,httpSuccessHandle,httpErrorHandle) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle) {
     var that = vueInstance;
     return {
-        $http: httpHandle(headers, baseUrl,httpSuccessHandle,httpErrorHandle), //http请求
+        $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle), //http请求
         $message: that.$message, //消息提示
         $confirm: that.$confirm,
+        baseUrl: baseUrl,
         widgetList: widgetList ? widgetList : [],
         formMode: !!widgetList,
         chosenWidget: null,
@@ -51,7 +52,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         formatTreeList() {
             var list = that.$utils.clone(this.widgetList, true)
             var formatTableList = function (item) {
-                item.widgetList=item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
+                item.widgetList = item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
 
                 item.widgetList.forEach(item2 => {
                     if (item2.type == 'datatable') {
@@ -130,20 +131,24 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         getWidget(id) {
             return this.widgetVueInstance[id];
         },
-        resetForm(id) {
-            var findWidgetListById = function (widgetList, status) {
-                for (var i = 0; i < widgetList.length; i++) {
-                    var item = widgetList[i];
-                    if (item.id == id) {
-                        return item.widgetList;
+        resetForm(id,widgetList) {
+            // console.log(JSON.parse(JSON.stringify(this.widgetList)))
+            if(!widgetList){
+                var findWidgetListById = function (widgetList, status) {
+                    for (var i = 0; i < widgetList.length; i++) {
+                        var item = widgetList[i];
+                        if (item.id == id) {
+                            return item.widgetList;
+                        }
+                        if (item.widgetList && item.widgetList.length) {
+                            findWidgetListById(item.widgetList);
+                        }
+    
                     }
-                    if (item.widgetList && item.widgetList.length) {
-                        findWidgetListById(item.widgetList);
-                    }
-
                 }
+                var arr = findWidgetListById(this.widgetList);
             }
-            var arr = findWidgetListById(this.widgetList);
+
             var resetForm = function (widgetList) {
                 for (var i = 0; i < widgetList.length; i++) {
                     var item = widgetList[i];
@@ -155,18 +160,22 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                     }
                 }
             }
-            resetForm(arr);
+            if(widgetList){
+                resetForm(widgetList);
+            }else{
+                resetForm(arr);
+            }
         },
         getProps(id) {
-            var formatTableList = function (item,id) {
-                var widgetList=item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
-                var result=null
+            var formatTableList = function (item, id) {
+                var widgetList = item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
+                var result = null
                 widgetList.forEach(item2 => {
-                    if(item2.id===id){
-                        result=item2
+                    if (item2.id === id) {
+                        result = item2
                     }
                     if (item2.type == 'datatable') {
-                        formatTableList(item2,id);
+                        formatTableList(item2, id);
                     }
                 })
                 return result
@@ -177,8 +186,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                     if (item.id == id) {
                         return item;
                     }
-                    if(item.type == 'datatable'){
-                        return formatTableList(item,id)
+                    if (item.type == 'datatable') {
+                        return formatTableList(item, id)
                     }
                     if (item.widgetList && item.widgetList.length) {
                         var form = find(item.widgetList);
@@ -202,6 +211,12 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                 that.$set(props, 'hide', type)
             }
         },
+        setRequired(id, type) {
+            var props = this.getProps(id).props;
+            if (props) {
+                that.$set(props, 'required', type)
+            }
+        },
         setValue(id, value) {
             var props = this.getProps(id).props;
             if (props) {
@@ -223,8 +238,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                 data.props.tableConfig.queryList = []
                 data.props.tableConfig.tableList = []
             }
-            if('select|selects|radio|checkbox'.includes(data.type)){
-                data.props.apiSet=this.$utils.clone({
+            if ('select|selects|radio|checkbox'.includes(data.type)) {
+                data.props.apiSet = that.$utils.clone({
                     method: "get",
                     apiurl: "",
                     params: [],
@@ -232,7 +247,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                     dataFormat: "",
                     labelField: "",
                     valueField: "",
-                },true);
+                }, true);
             }
             if (data.type == "tabs") {
                 data.props.tabs = [{

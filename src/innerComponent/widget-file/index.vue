@@ -107,6 +107,9 @@ export default {
     changeHandle(e) {
       var el = this.$refs.sy_file;
       var files = el.files;
+      this.noFresh = true;
+      this.uploadCount = 0;
+      this.tmpDataList = this.$utils.clone(this.dataList, true);
       if (files.length + this.dataList.length > this.widget.props.limit) {
         this.$message.error(
           "上传文件数量不能超过" + this.widget.props.limit + "个"
@@ -117,37 +120,43 @@ export default {
           var formData = new FormData();
           formData.append(this.widget.props.fileField, file);
           this.loading = true;
-          this.uploadRequest(formData, 300 * i);
+          this.uploadRequest(formData, files.length);
         }
       }
     },
-    uploadRequest(formData, ms) {
-      setTimeout(() => {
-        console.log(new Date().getTime());
-        this.designer.$http
-          .postFile(this.widget.props.apiSet.apiurl, formData)
-          .then(res => {
-            if (res.code == 200 || res.success || res.code == 0) {
-              this.$message.success(
-                res.data[this.widget.props.fileNameField] + "上传成功"
-              );
-              this.dataList.push(res.data);
-            } else {
-              this.$message.error("上传失败");
+    uploadRequest(formData, fileCount) {
+      this.designer.$http
+        .postFile(this.widget.props.apiSet.apiurl, formData)
+        .then(res => {
+          if (res.code == 200 || res.success || res.code == 0) {
+            this.uploadCount++;
+            this.tmpDataList.push(res.data);
+            if (this.uploadCount == fileCount) {
+              this.dataList = this.tmpDataList;
+              this.$emit("change", this.dataList);
+              setTimeout(() => {
+                this.loading = false;
+              }, 500);
             }
+            // this.$message.success(
+            //   res.data[this.widget.props.fileNameField] + "上传成功"
+            // );
+            // this.dataList.push(res.data);
+          } else {
+            this.$message.error("上传失败");
             setTimeout(() => {
               this.loading = false;
             }, 500);
-          })
-          .catch(err => {
-            this.$message.error("上传失败");
-          });
-      }, ms);
+          }
+        })
+        .catch(err => {
+          this.$message.error("上传失败");
+        });
     },
     openFile(row) {
       var fileGetUrl = this.widget.props.fileGetUrl;
       if (fileGetUrl) {
-        if (fileGetUrl.includes("{id}")||fileGetUrl=='{url}') {
+        if (fileGetUrl.includes("{id}") || fileGetUrl == "{url}") {
           var id = row[this.widget.props.fileIdField];
           var url = fileGetUrl.replace("{id}", id);
           if (this.widget.props.fileDownType == "blob") {
@@ -179,8 +188,11 @@ export default {
               "=" +
               id;
 
-            if(fileGetUrl=='{url}'){
-              url = row[this.widget.props.fileUrlField]
+            if (fileGetUrl == "{url}") {
+              url = row[this.widget.props.fileUrlField];
+              if (!url) {
+                url = row[this.widget.props.fileNameField];
+              }
             }
             window.open(url);
           }
@@ -191,9 +203,13 @@ export default {
       this.dataList.splice(rowIndex, 1);
     },
     reinputData(val) {
+      // if (!val) {
+      //   return;
+      // }
       var fileSaveType = this.widget.props.fileSaveType;
       var dataList = [];
       var arr = [];
+      // alert(val)
       switch (fileSaveType) {
         case "name,id":
           if (val && val.length) {
@@ -255,9 +271,12 @@ export default {
   data() {
     return {
       dataList: [],
+      tmpDataList: [],
       that: this,
       widgetValue: null,
-      loading: false
+      loading: false,
+      noRefresh: false,
+      uploadCount: 0
     };
   },
   watch: {
@@ -294,6 +313,9 @@ export default {
             }
             break;
           case "url":
+            if(!url){
+              url = name;
+            }
             var s = url;
             if (str) {
               str += "," + s;

@@ -812,7 +812,14 @@ export default {
                     initLoadData: true,
                     isStripe: true,
                     normalTable: false,
-                    formTableMode: "table" //table/tab,
+                    formTableMode: "table", //table/tab,
+                    treeMode:false,//是否树形表格
+                    treeTransform: false,//false为树形结构,true为扁平结构
+                    treeRowField:"id",//树形结构的字段
+                    treeParentField:"pid",//树形父级结构的字段
+                    treeChildrenField:"children",
+                    treeExpandAll:false,
+                    treeAccordion:false,
                 },
                 buttonList: [],
                 queryList: [],
@@ -820,6 +827,7 @@ export default {
             },
             onCreated: null,
             onMounted: null,
+            onDataLoad: null,
         }
     },
     datatableitem: {

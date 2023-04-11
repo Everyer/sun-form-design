@@ -91,15 +91,71 @@
       </div>
     </div>
     <div class="item">
-      <div class="lab">是否普通表格</div>
+      <div class="lab">是否从表表格</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.normalTable"></el-switch>
+      </div>
+    </div>
+    <div class="item"  v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">本级树节点</div>
+      <div class="con">
+        <el-input
+          v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeRowField"
+          size="mini"
+        ></el-input>
+      </div>
+    </div>
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">父级树节点</div>
+      <div class="con">
+        <el-input
+          v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeParentField"
+          size="mini"
+        ></el-input>
+      </div>
+    </div>
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">树子节点容器</div>
+      <div class="con">
+        <el-input
+          v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeChildrenField"
+          size="mini"
+        ></el-input>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否树形表格</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeMode"></el-switch>
+      </div>
+    </div>
+
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">是否扁平数据</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeTransform"></el-switch>
+      </div>
+    </div>
+
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">是否展开全部</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeExpandAll"></el-switch>
+      </div>
+    </div>
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+      <div class="lab">是否手风琴</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeAccordion"></el-switch>
       </div>
     </div>
     <div class="item" v-show="designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
       <div class="lab">从表显示模式</div>
       <div class="con">
-        <el-radio-group v-model="designer.chosenWidget.props.tableConfig.baseInfo.formTableMode" size="mini">
+        <el-radio-group
+          v-model="designer.chosenWidget.props.tableConfig.baseInfo.formTableMode"
+          size="mini"
+        >
           <el-radio label="table">表格</el-radio>
           <el-radio label="tab">标签</el-radio>
         </el-radio-group>

@@ -12,7 +12,7 @@
       <div class="con">
         <el-input
           v-if="!widget.props.isDetail"
-          @change="designer.eventHandle(table||$event,'onChange',widget,that)"
+          @change="changeHandle(table||$event)"
           @input="designer.eventHandle(table||$event,'onInput',widget,that)"
           @focus="designer.eventHandle(table||$event,'onFocus',widget, that)"
           @blur="designer.eventHandle(table||$event,'onBlur',widget, that)"
@@ -32,9 +32,7 @@
             icon="el-icon-copy-document"
           ></el-button>
         </el-input>
-        <span class="sun_form_detail_item" v-else>
-          {{widgetValue}}
-        </span>
+        <span class="sun_form_detail_item" v-else>{{widgetValue}}</span>
       </div>
     </div>
   </container-wrapper>
@@ -83,7 +81,15 @@ export default {
       widgetValue: null
     };
   },
-  methods: {},
+  methods: {
+    changeHandle(val) {
+      if (this.widget.props.type == "number") {
+        this.widgetValue = Number(val);
+      }
+      val = Number(val);
+      this.designer.eventHandle(val, "onChange", this.widget, this);
+    }
+  },
   watch: {
     widgetValue(val) {
       this.$emit("change", val);

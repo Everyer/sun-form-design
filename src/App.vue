@@ -1,13 +1,13 @@
 
 <template>
   <div id="app">
-    <sunManage :apiSet="apiSet" />
-    <!-- <formDesigner
+    <!-- <sunManage :apiSet="apiSet" /> -->
+    <formDesigner
       :httpSuccessHandle="httpSuccessHandle"
       :httpErrorHandle="httpErrorHandle"
       :headers="apiSet.headers"
       :baseUrl="apiSet.baseUrl"
-    ></formDesigner> -->
+    ></formDesigner>
   </div>
 </template>
 
@@ -22,24 +22,20 @@ export default {
   },
   methods: {
     httpSuccessHandle(res) {
-      console.log(res);
     },
     httpErrorHandle(res) {
-      console.log(res);
     }
   },
   data() {
     return {
       apiSet: {
         httpSuccessHandle(res) {
-          console.log(res);
         },
         httpErrorHandle(res) {
-          console.log(res);
         },
         baseUrl: "/api",
         headers: {
-          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjgwNjU1MTkyMTg1LCJyblN0ciI6IlFONkdNdndtUUtjblBaQ3lYRVFaQXZPeTlOd05mNXFRIiwidXNlckluZm8iOiJ7XCJ1c2VyY29kZVwiOlwiYWRtaW5cIixcInVzZXJuYW1lXCI6XCJhZG1pblwiLFwicmVhbG5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6bnVsbCxcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXX0ifQ._ePilAeXqTbVriFUiyWPzRuJKuH84mCan_BD24Fr07A`
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjgxMjU5Njg4MTc3LCJyblN0ciI6InFlWGdhQkhiNUt1SDl1ZzhkbGVid1Y5VmZIaDhnWDhoIiwidXNlckluZm8iOiJ7XCJ1c2VyY29kZVwiOlwiYWRtaW5cIixcInVzZXJuYW1lXCI6XCJhZG1pblwiLFwicmVhbG5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6bnVsbCxcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXX0ifQ.KH5EFmTFjtTfpFSOEbXEtl7pCoujuSUZjL0sIz0c4a4`
         },
         configDataKey: "configContent",
         configNameKey: "remark",

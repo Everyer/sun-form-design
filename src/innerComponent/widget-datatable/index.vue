@@ -405,6 +405,7 @@ export default {
       var id = "table-item-" + Math.floor(new Date().getTime() % 10000000);
       obj.id = id;
       obj.props.id = id;
+      obj.props.tableitemWidth = null;
       obj.parentType = "datatable";
 
       if (obj.props.size) {
@@ -555,7 +556,12 @@ export default {
     }
   }
 }
-:deep {
+::v-deep {
+  .vxe-cell{
+    .lab{
+      display: none !important;
+    }
+  }
   .row-selected {
     background-color: #40a0ff51 !important;
   }

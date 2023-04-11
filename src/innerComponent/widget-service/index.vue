@@ -7,7 +7,14 @@
     :parentList="parentList"
   >
     <div class="sun_form_service_wrap" v-loading="loading">
-      <sunForm @postApp="postApp"  ref="sunform" :headers="designer.headers" :parentApp="designer" :widgetList="widgetList"></sunForm>
+      <sunForm
+        :baseUrl="designer.baseUrl"
+        @postApp="postApp"
+        ref="sunform"
+        :headers="designer.headers"
+        :parentApp="designer"
+        :widgetList="widgetList"
+      ></sunForm>
     </div>
   </container-wrapper>
 </template>
@@ -41,11 +48,11 @@ export default {
       that: this,
       loading: false,
       loadingWrap: false,
-      app:null,
+      app: null
     };
   },
   methods: {
-    postApp(val){
+    postApp(val) {
       this.app = val;
     },
     getApp() {
@@ -108,7 +115,7 @@ export default {
       immediate: true
     }
   },
-  created() {  
+  created() {
     this.designer.eventHandle(null, "onCreated", this.widget, this);
   },
   mounted() {

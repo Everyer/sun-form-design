@@ -1,6 +1,6 @@
 <template>
   <div class="sy_wrap">
-    <div class="item">
+    <!-- <div class="item">
       <div class="lab">表头宽度</div>
       <div class="con">
         <el-input
@@ -10,7 +10,7 @@
           size="mini"
         ></el-input>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="item">
       <div class="lab">组件尺寸</div>
       <div class="con">

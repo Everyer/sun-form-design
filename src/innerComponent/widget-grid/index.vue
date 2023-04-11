@@ -104,6 +104,9 @@ export default {
     setFormType(type) {
       this.widget.props.formType = type;
     },
+    getFormType() {
+      return this.widget.props.formType;
+    },
     getDetail() {
       var w = this.widget;
       var apiSet = w.props["apiSetDetail"];
@@ -201,7 +204,7 @@ export default {
         });
     },
     reset() {
-      this.designer.resetForm(this.widget.id);
+      this.designer.resetForm(this.widget.id, this.widget.widgetList);
     },
     isTableListFormItemRequired(tableList, tableValue) {
       console.log(JSON.parse(JSON.stringify(tableList)));

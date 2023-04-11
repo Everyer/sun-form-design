@@ -95,18 +95,20 @@
           show-header-overflow
           :show-overflow="baseInfo.showOverFlow"
           highlight-hover-row
+          :tree-config="baseInfo.treeMode?treeConfig:null"
           auto-resize
-          :stripe="baseInfo.isStripe"
+          :stripe="baseInfo.treeMode?false:baseInfo.isStripe"
           :loading-config="{text: '数据加载中...'}"
           round
           resizable
           :loading="loading"
           :row-config="{isCurrent: true, isHover: true}"
           :checkbox-config="checkboxConfig"
-          :radio-config="radioConfig"
+          :radio-config="baseInfo.treeMode?null:radioConfig"
           header-row-class-name="my_head"
           :show-footer="Object.keys(footer).length>0"
           :footer-method="footerMethod"
+          :rowConfig="{keyField: 'menuCode'}"
           @cell-dblclick="dblRowHandle"
         >
           <vxe-table-column
@@ -123,6 +125,7 @@
             field="my_check"
             align="center"
           ></vxe-table-column>
+          <!-- <vxe-column field="name" title="app.body.label.name" tree-node></vxe-column> -->
           <vxe-table-column align="center" type="seq" title="序号" width="60" field="index"></vxe-table-column>
 
           <vxe-table-column
@@ -131,11 +134,11 @@
             :field="item.props.zdname"
             :title="item.props.label"
             :align="baseInfo.align"
+            :tree-node="index===0"
             :width="item.props.tableitemWidth"
           >
             <template #default="{ row ,rowIndex }">
               <div class="column_item" v-if="item.type=='datatableitem'">
-                {{item.props.width}}
                 <div
                   class="column_item_wrap"
                   v-if="item.props.onFormat"
@@ -159,7 +162,7 @@
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
-            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide).length+1)*110:tableConfig.buttonList.filter(e=>e.props.isSide).length*110"
+            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide).length+1)*90:tableConfig.buttonList.filter(e=>e.props.isSide).length*90"
           >
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
@@ -188,7 +191,6 @@
           </vxe-table-column>
         </vxe-table>
       </div>
-      <!-- {{baseInfo}} -->
       <div class="tab_wrap" v-if="baseInfo.normalTable&&baseInfo.formTableMode=='tab'">
         <div class="query_btn_wrap">
           <div class="btn_wrap">
@@ -334,6 +336,21 @@ export default {
   name: "widget-table",
   data() {
     return {
+      treeConfig: {
+        iconOpen: "vxe-icon-square-minus",
+        iconClose: "vxe-icon-square-plus",
+        expandAll: this.widget.props.tableConfig.baseInfo.treeExpandAll,
+        rowField: this.widget.props.tableConfig.baseInfo.treeRowField,
+        parentField: this.widget.props.tableConfig.baseInfo.treeParentField,
+        accordion: this.widget.props.tableConfig.baseInfo.treeAccordion,
+        transform: this.widget.props.tableConfig.baseInfo.treeTransform,
+        children: this.widget.props.tableConfig.baseInfo.treeChildrenField,
+        checkboxConfig: {
+          checkField: "checked",
+          halfField: "halfChecked",
+          disabledField: "_checkbox_disabled"
+        }
+      },
       activeName: null,
       tmpRows: [],
       baseInfo: {},
@@ -368,7 +385,8 @@ export default {
       orderWhere: {},
       showAllSetting: false,
       setting: {},
-      defaultItem: {}
+      defaultItem: {},
+      onDataLoadStatus: false
     };
   },
   watch: {
@@ -456,15 +474,63 @@ export default {
         }
         this.rows = d[baseInfo.rows];
         this.total = d[baseInfo.count];
+        if (this.widget.props.onDataLoad ) {
+          this.onDataLoadStatus = true;
+          var fun = new Function("self","app", this.widget.props.onDataLoad);
+          fun(this,this.designer);
+        }
         this.loading = false;
+      });
+    },
+    setRowsCheckedByIds(ids = []) {
+      var find = arr => {
+        var newArr = [];
+        arr.forEach(item => {
+          this.$refs["my_table"].setCheckboxRow(item, false);
+
+          if (ids.includes(item[this.treeConfig.rowField])) {
+            this.$refs["my_table"].setCheckboxRow(item, true);
+            if (
+              item[this.treeConfig.children] &&
+              item[this.treeConfig.children].length > 0
+            ) {
+              this.$refs["my_table"].setCheckboxRow(
+                item[this.treeConfig.children],
+                false
+              );
+            }
+          }
+          if (
+            item[this.treeConfig.children] &&
+            item[this.treeConfig.children].length > 0
+          ) {
+            find(item[this.treeConfig.children]);
+          }
+        });
+        return newArr;
+      };
+      this.$refs["my_table"].setCheckboxRow(find(this.rows), true);
+    },
+    setAllTreeExpand(expend){
+      this.$nextTick(() => {
+        this.$refs["my_table"].setAllTreeExpand(expend);
       });
     },
     chosen() {
       if (this.baseInfo.singleselect) {
         return this.$refs["my_table"].getRadioRecord();
       } else {
-        return this.$refs["my_table"].getCheckboxRecords();
+        return this.$refs["my_table"].getCheckboxRecords(true);
       }
+    },
+    halfChosen() {
+      return this.$refs["my_table"].getCheckboxIndeterminateRecords(true);
+    },
+    allTreeChosen() {
+      return this.chosen().concat(this.halfChosen());
+    },
+    setAllCheckboxRow(checked) {
+      this.$refs["my_table"].setAllCheckboxRow(checked);
     },
     getRows() {
       return this.rows;
@@ -570,7 +636,7 @@ export default {
           trigger: "row",
           labelField: "my_check",
           highlight: true,
-          range: true
+          range: this.baseInfo.treeMode ? null : true
         };
       }
     }

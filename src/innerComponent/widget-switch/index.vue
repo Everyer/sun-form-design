@@ -17,8 +17,7 @@
           v-model="widgetValue"
           :active-text="widget.props.activeText"
           :inactive-text="widget.props.inactiveText"
-          :disabled="widget.props.disabled"
-          :readonly="widget.props.readonly"
+          :disabled="widget.props.disabled||widget.props.readonly"
         ></el-switch>
         <span class="sun_form_detail_item" v-else >
           {{widgetValue?widget.props.activeText:widget.props.inactiveText}}

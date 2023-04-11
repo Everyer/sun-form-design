@@ -142,6 +142,10 @@ export default {
         description: "设置表单类型Create/Update/Detail",
         example: `app.setFormType({id}, type)`
     }, {
+        name: "app.getFormType",
+        description: "获取表单类型Create/Update/Detail",
+        example: `app.getWidget({id}).getFormType()`
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
@@ -180,11 +184,11 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
-    }, {
+    },  {
         name: "app.confirm",
         description: "点击弹窗确定按钮",
         example: `app.getWidget({id}).confirm()`
@@ -205,10 +209,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -218,10 +226,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -231,10 +243,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -244,10 +260,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -257,10 +277,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -274,10 +298,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -291,10 +319,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -308,10 +340,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -325,10 +361,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -338,10 +378,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -351,10 +395,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -364,10 +412,14 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setRequired",
+        description: "设置必填",
+        example: `app.setRequired({id}, type)`
     }, {
         name: "app.setValue",
         description: "设置值",
@@ -377,7 +429,7 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
@@ -386,7 +438,7 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
@@ -395,7 +447,7 @@ export default {
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
@@ -404,7 +456,7 @@ export default {
             name: "app.getWidget",
             description: "获取组件Vue实例",
             example: `app.getWidget({id})`
-        },{
+        }, {
             name: "app.setHide",
             description: "设置隐藏",
             example: `app.setHide({id}, type)`
@@ -442,13 +494,29 @@ export default {
             name: "app.removeRow",
             description: "普通表格删除一行数据",
             example: `app.getWidget({id}).removeRow(rowIndex)`
+        }, {
+            name: "app.allTreeChosen",
+            description: "树形表格获取所有选中数据",
+            example: `app.getWidget({id}).allTreeChosen()`
+        }, {
+            name: "app.halfChosen",
+            description: "树形表格获取半选中数据",
+            example: `app.getWidget({id}).halfChosen()`
+        }, {
+            name: "app.setAllTreeExpand",
+            description: "树形表格展开/收起所有节点",
+            example: `app.getWidget({id}).setAllTreeExpand(true)`
+        }, {
+            name: "app.setRowsCheckedByIds",
+            description: "树形表格根据id设置选中",
+            example: `app.getWidget({id}).setRowsCheckedByIds([])`
         }
     ],
     datatableitem: [{
         name: "app.getWidget",
         description: "获取组件Vue实例",
         example: `app.getWidget({id})`
-    },{
+    }, {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`

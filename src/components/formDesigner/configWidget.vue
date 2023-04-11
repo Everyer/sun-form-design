@@ -76,6 +76,16 @@
           <el-input v-model="designer.chosenWidget.props.labelWidth" placeholder="标签宽度" size="mini"></el-input>
         </div>
       </div>
+      <div class="item" v-if="hasEvent('tableitemWidth')">
+        <div class="lab">表头宽度</div>
+        <div class="con">
+          <el-input
+            v-model="designer.chosenWidget.props.tableitemWidth"
+            placeholder="表头宽度"
+            size="mini"
+          ></el-input>
+        </div>
+      </div>
       <div class="item" v-if="hasEvent('labelPosition')">
         <div class="lab">标签位置</div>
         <div class="con">
@@ -283,6 +293,19 @@
             size="mini"
             round
             @click="showEditorHandle('onHandle')"
+          >编写代码</el-button>
+        </div>
+      </div>
+      <div class="item" v-if="hasEvent('onDataLoad')">
+        <div class="lab">onDataLoad</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onDataLoad?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onDataLoad')"
           >编写代码</el-button>
         </div>
       </div>
@@ -541,6 +564,9 @@ export default {
           return "chosen , rowIndex , self";
           break;
         case "onConfirm":
+          return "self";
+          break;
+        case "onDataLoad":
           return "self";
           break;
         default:

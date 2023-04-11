@@ -1,5 +1,12 @@
 .form_mode.sun_form_theme_primary {
-    
+    .el-switch{
+        height: auto;
+    }
+    .column_item{
+        .lab{
+            display: none;
+        }
+    }
     .tox-tinymce-aux{
         z-index: 9999 !important;
     }
