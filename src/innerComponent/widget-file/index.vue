@@ -151,6 +151,7 @@ export default {
         })
         .catch(err => {
           this.$message.error("上传失败");
+          this.loading = false;
         });
     },
     openFile(row) {
@@ -313,7 +314,7 @@ export default {
             }
             break;
           case "url":
-            if(!url){
+            if (!url) {
               url = name;
             }
             var s = url;

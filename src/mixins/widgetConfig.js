@@ -113,7 +113,7 @@ export default {
             labelAlign: "right",
             labelWidth: "120px",
             width: 24,
-            type:"text",
+            type: "text",
 
             onCreated: null,
             onMounted: null,
@@ -813,13 +813,13 @@ export default {
                     isStripe: true,
                     normalTable: false,
                     formTableMode: "table", //table/tab,
-                    treeMode:false,//是否树形表格
-                    treeTransform: false,//false为树形结构,true为扁平结构
-                    treeRowField:"id",//树形结构的字段
-                    treeParentField:"pid",//树形父级结构的字段
-                    treeChildrenField:"children",
-                    treeExpandAll:false,
-                    treeAccordion:false,
+                    treeMode: false, //是否树形表格
+                    treeTransform: false, //false为树形结构,true为扁平结构
+                    treeRowField: "id", //树形结构的字段
+                    treeParentField: "pid", //树形父级结构的字段
+                    treeChildrenField: "children",
+                    treeExpandAll: false,
+                    treeAccordion: false,
                 },
                 buttonList: [],
                 queryList: [],
@@ -828,6 +828,43 @@ export default {
             onCreated: null,
             onMounted: null,
             onDataLoad: null,
+        }
+    },
+    transfer: {
+        isContainer: false,
+        displayName: "穿梭框",
+        hasLabel: true,
+        isForm: true,
+        canAddDataTableQuery: true,
+        canAddDataTableList: true,
+        props: {
+            size: "medium",
+            required: false,
+            readonly: false,
+            disabled: false,
+            isDetail: false,
+            hide: false,
+            labelPosition: "left",
+            value: [],
+            zdname: null,
+            label: "",
+            labelAlign: "right",
+            labelWidth: "120px",
+            width: 24,
+            propsKey: "key",
+            propsLabel: "label",
+            valueType:"keyArr",//keyArr,jsonArr
+            apiSet: {
+                method: "get",
+                apiurl: "",
+                params: [],
+                contentType: "JSON",
+                dataFormat: "",
+            },
+            list: [],
+            onCreated: null,
+            onMounted: null,
+            // onChange: null,
         }
     },
     datatableitem: {

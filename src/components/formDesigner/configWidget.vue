@@ -36,7 +36,7 @@
             v-model="designer.chosenWidget.props.value"
           ></el-switch>
           <span
-            v-else-if="designer.chosenWidget.type=='datatable'"
+            v-else-if="designer.chosenWidget.type=='datatable'||designer.chosenWidget.type=='transfer'"
           >{{ designer.chosenWidget.props.value }}</span>
           <el-input
             v-else
