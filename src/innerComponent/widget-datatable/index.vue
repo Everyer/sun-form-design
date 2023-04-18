@@ -453,6 +453,7 @@ export default {
       obj.props.onTableClick = null;
       obj.props.isSide = false;
       obj.props.size = "mini";
+      obj.props.onButtonFormat = "";
       this.deleteObjItem(obj.props, "width");
       this.deleteObjItem(obj.props, "labelWidth");
       this.deleteObjItem(obj.props, "labelPosition");

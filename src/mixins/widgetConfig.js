@@ -719,7 +719,7 @@ export default {
         hasLabel: false,
         isForm: true,
         canAddDataTableQuery: false,
-        canAddDataTableList: false,
+        canAddDataTableList: true,
         props: {
             type: "primary",
             size: "medium",
@@ -884,6 +884,7 @@ export default {
             onCreated: null,
             onMounted: null,
             onFormat: null,
+            hide:false,
         }
     },
 }

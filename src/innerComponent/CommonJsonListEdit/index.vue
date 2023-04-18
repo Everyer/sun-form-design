@@ -2,10 +2,20 @@
   <div class="json_wrap">
     <div class="title" v-if="type!='hideCheck'">字典生成</div>
     <div class="content">
-      <div class="item" v-for="(item, index) in value" :key="index">
+      <div class="item" v-for="(item, index) in d" :key="index">
         <div class="form_item" v-if="type!='hideCheck'">
-          <el-radio v-if="type!='multi'" @change="changeCheck" v-model="checked" :label="item.value"></el-radio>
-          <el-checkbox  v-if="type=='multi'" @change="changeCheckMulti" v-model="item.checked" :label="item.value"></el-checkbox>
+          <el-radio
+            v-if="type!='multi'"
+            @change="changeCheck"
+            v-model="checked"
+            :label="item.value"
+          ></el-radio>
+          <el-checkbox
+            v-if="type=='multi'"
+            @change="changeCheckMulti"
+            v-model="item.checked"
+            :label="item.value"
+          ></el-checkbox>
         </div>
         <div class="form_item">
           <el-input size="mini" v-model="item.label"></el-input>
@@ -47,24 +57,42 @@ export default {
     }
   },
   model: {
-    event: "changeHandle"
+    event: "changeModelValue"
   },
   name: "CommonJsonListEdit",
   data() {
     return {
+      timer: null,
       checked: null,
       d: []
     };
   },
+  watch: {
+    // value: {
+    //   handler(val) {
+    //     this.d = this.$utils.clone(val,true);
+    //   },
+    //   immediate: true
+    // },
+    d: {
+      handler(val) {
+        clearInterval(this.timer);
+        this.timer = setTimeout(() => {
+          this.$emit("changeModelValue", val);
+        }, 400);
+      },
+      immediate: true
+    }
+  },
   methods: {
     changeCheckMulti(val) {
-      var arr=[]
-      this.value.forEach(item=>{
-        if(item.checked){
-          arr.push(item.value)
+      var arr = [];
+      this.d.forEach(item => {
+        if (item.checked) {
+          arr.push(item.value);
         }
       });
-      var str=arr.join(',')
+      var str = arr.join(",");
       this.$emit("changeValue", str);
     },
     changeCheck(val) {
@@ -72,16 +100,17 @@ export default {
       this.$emit("changeValue", this.checked);
     },
     delItem(item) {
-      this.value.splice(this.value.indexOf(item), 1);
+      this.d.splice(this.d.indexOf(item), 1);
     },
     addItem() {
-      this.value.push({
+      this.d.push({
         value: null,
         label: null
       });
     }
   },
   created() {
+    this.d = this.$utils.clone(this.value, true);
   },
   mounted() {}
 };
@@ -90,7 +119,7 @@ export default {
 <style scoped lang="scss">
 .json_wrap {
   width: 100%;
-  .item{
+  .item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;

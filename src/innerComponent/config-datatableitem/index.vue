@@ -1,5 +1,11 @@
 <template>
   <div class="sy_wrap">
+    <div class="item">
+      <div class="lab">是否隐藏</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hide"></el-switch>
+      </div>
+    </div>
     <!-- <div class="item">
       <div class="lab">表头宽度</div>
       <div class="con">

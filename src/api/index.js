@@ -7,7 +7,7 @@ import {
 function apiHandle(headers,baseUrl,httpSuccessHandle, httpErrorHandle) {
     const api = axios.create({
         baseURL: baseUrl,
-        timeout: 100000,
+        timeout: 1000000,
         responseType: 'json'
     })
 

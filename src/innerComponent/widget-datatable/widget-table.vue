@@ -13,6 +13,7 @@
             <div
               class="query_item"
               :style="{width:4.16667*item.props.width+'%'}"
+              v-if="!item.props.hide"
               v-for="(item, index) in tableConfig.queryList"
               :key="index"
             >
@@ -133,6 +134,7 @@
             :key="index"
             :field="item.props.zdname"
             :title="item.props.label"
+            v-if="!item.props.hide"
             :align="baseInfo.align"
             :tree-node="index===0"
             :width="item.props.tableitemWidth"
@@ -158,11 +160,11 @@
             </template>
           </vxe-table-column>
           <vxe-table-column
-            v-if="tableConfig.buttonList.filter(e=>e.props.isSide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table')"
+            v-if="tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table')"
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
-            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide).length+1)*90:tableConfig.buttonList.filter(e=>e.props.isSide).length*90"
+            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length+1)*90:tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length*90"
           >
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
@@ -179,11 +181,11 @@
                   :key="index"
                   :plain="item.props.isPlain"
                   :round="item.props.isRound"
-                  :type="item.props.type"
+                  :type="item.props.onButtonFormat?buttonFormat(row,item.props.onButtonFormat,'type'): item.props.type"
                   size="mini"
                   :icon="item.props.icon"
-                  :disabled="item.props.disabled"
-                  v-show="!item.props.hide&&!widget.props.isDetail"
+                  :disabled="buttonFormat(row,item.props.onButtonFormat,'disabled')"
+                  v-show="(!item.props.hide&&buttonFormat(row,item.props.onButtonFormat,'show'))&&!widget.props.isDetail"
                   @click.stop="buttonClick(item,row,$rowIndex)"
                 >{{item.props.buttonText}}</el-button>
               </div>
@@ -406,6 +408,27 @@ export default {
     // }
   },
   methods: {
+    buttonFormat(row, func, type) {
+      var fun = new Function("row", func);
+      var res = fun(row);
+      if (res && res.hasOwnProperty(type)) {
+        if (type == "type") {
+          return res[type] || "primary";
+        } else if (type == "show") {
+          return res[type] === false ? false : true;
+        } else if (type == "disabled") {
+          return res[type] === true ? true : false;
+        }
+      } else {
+        if (type == "type") {
+          return "primary";
+        } else if (type == "show") {
+          return true;
+        } else if (type == "disabled") {
+          return false;
+        }
+      }
+    },
     formatParentData(row, rows, zdname) {
       return {
         parentRow: rows[Number(this.activeName)],
@@ -416,7 +439,6 @@ export default {
     },
     tabClick() {
       var rowItem = this.rows[Number(this.activeName)];
-      // this.tmpRows=rowItem;
     },
     reset() {
       var q = this.tableConfig.queryList;
@@ -474,10 +496,10 @@ export default {
         }
         this.rows = d[baseInfo.rows];
         this.total = d[baseInfo.count];
-        if (this.widget.props.onDataLoad ) {
+        if (this.widget.props.onDataLoad) {
           this.onDataLoadStatus = true;
-          var fun = new Function("self","app", this.widget.props.onDataLoad);
-          fun(this,this.designer);
+          var fun = new Function("self", "app", this.widget.props.onDataLoad);
+          fun(this, this.designer);
         }
         this.loading = false;
       });
@@ -511,7 +533,7 @@ export default {
       };
       this.$refs["my_table"].setCheckboxRow(find(this.rows), true);
     },
-    setAllTreeExpand(expend){
+    setAllTreeExpand(expend) {
       this.$nextTick(() => {
         this.$refs["my_table"].setAllTreeExpand(expend);
       });

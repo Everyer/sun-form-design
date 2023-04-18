@@ -309,6 +309,19 @@
           >编写代码</el-button>
         </div>
       </div>
+      <div class="item" v-if="hasEvent('onButtonFormat')">
+        <div class="lab">onButtonFormat</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onButtonFormat?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onButtonFormat')"
+          >编写代码</el-button>
+        </div>
+      </div>
     </div>
     <vxe-modal
       v-model="showEditor"
@@ -347,7 +360,7 @@
                 </span>
                 <span>
                   <el-popover
-                    v-if="designer.remark[data.type]"
+                    v-show="designer.remark[data.type]"
                     placement="right"
                     width="800"
                     trigger="hover"
@@ -568,6 +581,9 @@ export default {
           break;
         case "onDataLoad":
           return "self";
+          break;
+        case "onButtonFormat":
+          return "row";
           break;
         default:
           return "";

@@ -1,15 +1,24 @@
 .form_mode.sun_form_theme_primary {
-    .el-switch{
+    .el-button--primary.is-disabled {
+        color: #FFF !important;
+        background-color: #a0cfff !important;
+        border-color: #a0cfff !important;
+    }
+
+    .el-switch {
         height: auto;
     }
-    .column_item{
-        .lab{
+
+    .column_item {
+        .lab {
             display: none;
         }
     }
-    .tox-tinymce-aux{
+
+    .tox-tinymce-aux {
         z-index: 9999 !important;
     }
+
     .vxe-modal--wrapper.is--visible.is--mask:before {
         backdrop-filter: blur(3px) !important;
     }

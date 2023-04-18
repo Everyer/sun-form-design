@@ -93,14 +93,14 @@
                       </span>
                       <span>
                         <el-popover
-                          v-if="designer.remark[data.type]"
+                          v-show="designer.remark[data.type]"
                           placement="right"
                           width="800"
                           trigger="hover"
                         >
                           <el-table
                             @row-click="tabRowClick"
-                            v-if="designer.remark[data.type]"
+                            v-show="designer.remark[data.type]"
                             :data="formatTable(data.type,data.id)"
                             :height="data.type=='app'||data.type=='datatable'?500:null"
                           >
@@ -190,7 +190,7 @@ export default {
       this.showPopover = false;
     },
     formatTable(type, id) {
-      var table = this.$utils.clone(this.designer.remark[type],true);
+      var table = this.$utils.clone(this.designer.remark[type], true);
       table.forEach(item => {
         if (item.example.includes("{id}")) {
           item.example = item.example.replace("{id}", `"${id}"`);

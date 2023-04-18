@@ -132,7 +132,6 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             return this.widgetVueInstance[id];
         },
         resetForm(id,widgetList) {
-            // console.log(JSON.parse(JSON.stringify(this.widgetList)))
             if(!widgetList){
                 var findWidgetListById = function (widgetList, status) {
                     for (var i = 0; i < widgetList.length; i++) {
@@ -221,6 +220,12 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             var props = this.getProps(id).props;
             if (props) {
                 that.$set(props, 'value', value)
+            }
+        },
+        getValue(id) {
+            var props = this.getProps(id).props;
+            if (props) {
+                return props.value;
             }
         },
         formatWidget(data) {

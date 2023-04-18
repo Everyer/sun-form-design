@@ -487,7 +487,7 @@ export default {
     bottom: border-box;
     margin-bottom: 10px;
     .lab {
-      width: 80px;
+      width: 100px;
       text-align: left;
       margin-right: 10px;
       font-size: 13px;
