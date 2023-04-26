@@ -3,7 +3,7 @@
     <div class="title" v-if="type!='hideCheck'">字典生成</div>
     <div class="content">
       <div class="item" v-for="(item, index) in d" :key="index">
-        <div class="form_item" v-if="type!='hideCheck'">
+        <!-- <div class="form_item" v-if="type!='hideCheck'">
           <el-radio
             v-if="type!='multi'"
             @change="changeCheck"
@@ -16,12 +16,13 @@
             v-model="item.checked"
             :label="item.value"
           ></el-checkbox>
-        </div>
+        </div>-->
         <div class="form_item">
           <el-input size="mini" v-model="item.label"></el-input>
         </div>
         <div class="form_item">
-          <el-input size="mini" v-model="item.value"></el-input>
+          <!-- <el-input size="mini" v-model="item.value"></el-input> -->
+          <CommonTypeInput size="mini" v-model="item.value"></CommonTypeInput>
         </div>
         <div class="form_item">
           <el-button

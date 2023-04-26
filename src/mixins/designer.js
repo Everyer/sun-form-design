@@ -1,10 +1,10 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle) {
     var that = vueInstance;
     return {
-        $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle), //http请求
+        $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
         $message: that.$message, //消息提示
         $confirm: that.$confirm,
         baseUrl: baseUrl,
@@ -131,8 +131,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         getWidget(id) {
             return this.widgetVueInstance[id];
         },
-        resetForm(id,widgetList) {
-            if(!widgetList){
+        resetForm(id, widgetList) {
+            if (!widgetList) {
                 var findWidgetListById = function (widgetList, status) {
                     for (var i = 0; i < widgetList.length; i++) {
                         var item = widgetList[i];
@@ -142,7 +142,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                         if (item.widgetList && item.widgetList.length) {
                             findWidgetListById(item.widgetList);
                         }
-    
+
                     }
                 }
                 var arr = findWidgetListById(this.widgetList);
@@ -159,9 +159,9 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                     }
                 }
             }
-            if(widgetList){
+            if (widgetList) {
                 resetForm(widgetList);
-            }else{
+            } else {
                 resetForm(arr);
             }
         },
@@ -186,7 +186,9 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                         return item;
                     }
                     if (item.type == 'datatable') {
-                        return formatTableList(item, id)
+                        if (formatTableList(item, id)) {
+                            return formatTableList(item, id)
+                        }
                     }
                     if (item.widgetList && item.widgetList.length) {
                         var form = find(item.widgetList);

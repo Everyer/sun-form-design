@@ -183,6 +183,7 @@
 </template>
 
 <script>
+import { Base64 } from "js-base64";
 import { createDesigner } from "@/mixins/designer";
 import formDesigner from "../formDesigner/index";
 export default {
@@ -383,9 +384,15 @@ export default {
           if (!apiSet.dataFormat) {
             if (res.success || res.code == "0" || res.code == 200) {
               if (res.data) {
-                this.widgetList = JSON.parse(
-                  res.data[this.apiSet.configDataKey]
-                );
+                if (this.apiSet.isBase64) {
+                  this.widgetList = JSON.parse(
+                    Base64.decode(res.data[this.apiSet.configDataKey])
+                  );
+                } else {
+                  this.widgetList = JSON.parse(
+                    res.data[this.apiSet.configDataKey]
+                  );
+                }
                 this.formName = res.data[this.apiSet.configNameKey];
                 this.menuCode = res.data[this.apiSet.configCodeKey];
               }
@@ -423,7 +430,13 @@ export default {
       };
       param[this.apiSet.configNameKey] = this.formName;
       param[this.apiSet.configCodeKey] = this.menuCode;
-      param[this.apiSet.configDataKey] = JSON.stringify(this.widgetList);
+      if (this.apiSet.isBase64) {
+        param[this.apiSet.configDataKey] = Base64.encode(
+          JSON.stringify(this.widgetList)
+        );
+      } else {
+        param[this.apiSet.configDataKey] = JSON.stringify(this.widgetList);
+      }
       param[this.apiSet.configIdKey] = this.id;
       apiSet.params.forEach(item => {
         if (item.value.includes("${") && item.value.includes("}")) {
@@ -476,8 +489,13 @@ export default {
       };
       param[this.apiSet.configNameKey] = this.formName;
       param[this.apiSet.configCodeKey] = this.menuCode;
-      param[this.apiSet.configDataKey] = JSON.stringify(this.widgetList);
-      console.log(param, "param");
+      if (this.apiSet.isBase64) {
+        param[this.apiSet.configDataKey] = Base64.encode(
+          JSON.stringify(this.widgetList)
+        );
+      } else {
+        param[this.apiSet.configDataKey] = JSON.stringify(this.widgetList);
+      }
       apiSet.params.forEach(item => {
         if (item.value.includes("${") && item.value.includes("}")) {
           var funStr = item.value.replace("${", "").replace("}", "");

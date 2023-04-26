@@ -101,6 +101,7 @@
             :widgetList="widgetList"
             :httpSuccessHandle="httpSuccessHandle"
             :httpErrorHandle="httpErrorHandle"
+            :httpBeforeSendHandle="httpBeforeSendHandle"
           ></sunForm>
         </div>
       </template>
@@ -150,6 +151,12 @@ export default {
       default: () => {
         return null;
       }
+    },
+    httpBeforeSendHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
     }
   },
   model: {
@@ -165,7 +172,8 @@ export default {
         null,
         this.baseUrl,
         this.httpSuccessHandle,
-        this.httpErrorHandle
+        this.httpErrorHandle,
+        this.httpBeforeSendHandle
       ),
       timer: null,
       showCode: false,
@@ -487,7 +495,7 @@ export default {
     bottom: border-box;
     margin-bottom: 10px;
     .lab {
-      width: 100px;
+      width: 90px;
       text-align: left;
       margin-right: 10px;
       font-size: 13px;

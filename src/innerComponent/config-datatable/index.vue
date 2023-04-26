@@ -6,6 +6,16 @@
         <el-input v-model="designer.chosenWidget.props.height" size="mini"></el-input>
       </div>
     </div>
+    <div class="item">
+      <div class="lab">操作栏宽度</div>
+      <div class="con">
+        <el-input
+          v-model="designer.chosenWidget.props.tableConfig.baseInfo.oprateWidth"
+          placeholder="不填则按默认宽度"
+          size="mini"
+        ></el-input>
+      </div>
+    </div>
     <div class="item" v-if="!designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
       <div class="lab">数据key</div>
       <div class="con">
@@ -96,7 +106,7 @@
         <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.normalTable"></el-switch>
       </div>
     </div>
-    <div class="item"  v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.treeMode">
       <div class="lab">本级树节点</div>
       <div class="con">
         <el-input

@@ -29,21 +29,28 @@
       <div class="item" v-if="hasEvent('value')&&designer.chosenWidget.type!='file'">
         <div class="lab">默认赋值</div>
         <div class="con">
-          <el-switch
+          <!-- <el-switch
             active-text="true"
             inactive-text="false"
             v-if="designer.chosenWidget.type=='switch'"
             v-model="designer.chosenWidget.props.value"
-          ></el-switch>
+          ></el-switch>-->
           <span
-            v-else-if="designer.chosenWidget.type=='datatable'||designer.chosenWidget.type=='transfer'"
+            v-if="designer.chosenWidget.type=='datatable'||designer.chosenWidget.type=='transfer'"
           >{{ designer.chosenWidget.props.value }}</span>
-          <el-input
+          <CommonTypeInput
+            v-else
+            size="mini"
+            placeholder="默认赋值"
+            v-model="designer.chosenWidget.props.value"
+          ></CommonTypeInput>
+
+          <!-- <el-input
             v-else
             v-model="designer.chosenWidget.props.value"
             size="mini"
             placeholder="默认赋值"
-          ></el-input>
+          ></el-input>-->
         </div>
       </div>
       <!-- v-if="hasEvent('isDetail')" -->
@@ -696,5 +703,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.con{
+  .el-button{
+    margin-left: 5px;
+  }
 }
 </style>

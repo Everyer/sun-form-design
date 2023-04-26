@@ -7,6 +7,7 @@
             :parent-list="designer.widgetList"
             :is="'widget-'+item.type"
             :widget="item"
+             v-if="!item.props.hide"
             :key="item.id"
             :designer="designer"
           ></component>
@@ -65,6 +66,12 @@ export default {
       default: () => {
         return null;
       }
+    },
+    httpBeforeSendHandle: {
+      type: Function,
+      default: () => {
+        return null;
+      }
     }
   },
   data() {
@@ -77,7 +84,8 @@ export default {
         this.parentApp,
         this.baseUrl,
         this.httpSuccessHandle,
-        this.httpErrorHandle
+        this.httpErrorHandle,
+        this.httpBeforeSendHandle
       )
     };
   },

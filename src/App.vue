@@ -5,6 +5,7 @@
     <formDesigner
       :httpSuccessHandle="httpSuccessHandle"
       :httpErrorHandle="httpErrorHandle"
+      :httpBeforeSendHandle="httpBeforeSendHandle"
       :headers="apiSet.headers"
       :baseUrl="apiSet.baseUrl"
     ></formDesigner>
@@ -21,22 +22,29 @@ export default {
     sunManage
   },
   methods: {
-    httpSuccessHandle(res) {
-    },
-    httpErrorHandle(res) {
+    httpSuccessHandle(res) {},
+    httpErrorHandle(res) {},
+    httpBeforeSendHandle() {
+      return {};
     }
   },
   data() {
     return {
       apiSet: {
-        httpSuccessHandle(res) {
+        httpSuccessHandle: res => {
+          if (res && res.code == "-9") {
+            this.$store.commit("logout");
+          }
         },
-        httpErrorHandle(res) {
+        httpErrorHandle: res => {},
+        httpBeforeSendHandle: () => {
+          return {};
+        },
+        isBase64: false,
+        headers: {
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjgyNTU5NTcyNzg5LCJyblN0ciI6Im5iYnRGWTQzcUxKSW5INE1RNGRHZEVIQnVoVTJUQmtXIiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCI5MTMzMDYwMjc2OTYzNjA2N0hcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjNjMmI0NGJhODRlMTQzNzhhODhkZjVlZDdiNGEwM2VkXCIsXCJjcENvZGVcIjpcIjc3Y2I5ODNhNzM3ZDQ3Y2JhMmM1MTNlM2U2MDhhZTM2XCJ9In0.IrQjuIGN4FOMg2qro57vTYcGhxH6h4YcOC3Tie-js94`
         },
         baseUrl: "/api",
-        headers: {
-          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjgxNTI3MTQ0MjUyLCJyblN0ciI6InN1TVN5WTc3QUxGclhzNGxJd09kSjNIMVVoUHNESlZXIiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6bnVsbCxcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjNjMmI0NGJhODRlMTQzNzhhODhkZjVlZDdiNGEwM2VkXCIsXCJjcENvZGVcIjpcIjc3Y2I5ODNhNzM3ZDQ3Y2JhMmM1MTNlM2U2MDhhZTM2XCJ9In0.S4HkMMgJHBytF7wweFjS8sXwZH_24t544py550C-OH0`
-        },
         configDataKey: "configContent",
         configNameKey: "remark",
         configCodeKey: "code",
@@ -79,6 +87,63 @@ export default {
         apiSetDetail: {
           method: "post",
           apiurl: "/web/webPage/getWebPageConfig",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        }
+      },
+      apiSet2: {
+        httpSuccessHandle: res => {
+          if (res && res.code == "-9") {
+            this.$store.commit("logout");
+          }
+        },
+        httpErrorHandle: res => {},
+        isBase64: true,
+        headers: {},
+        baseUrl: "",
+        configDataKey: "configcontent",
+        configNameKey: "remark",
+        configCodeKey: "code",
+        configIdKey: "id",
+        apiSetList: {
+          method: "postFormData",
+          apiurl: "/tz/GetWebListList",
+          params: [],
+          contentType: "JSON",
+          dataFormat: "return res",
+          baseInfo: {
+            rows: "data",
+            count: "total",
+            page: "page",
+            limit: "rows",
+            pageDefault: "20"
+          }
+        },
+        apiSetCreate: {
+          method: "postFormData",
+          apiurl: "/tz/AddWebListDetail",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetUpdate: {
+          method: "postFormData",
+          apiurl: "/tz/editWebListDetail",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetDelete: {
+          method: "postFormData",
+          apiurl: "/tz/DelWebListDetail",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetDetail: {
+          method: "postFormData",
+          apiurl: "/tz/GetWebListDetail",
           params: [],
           contentType: "JSON",
           dataFormat: ""

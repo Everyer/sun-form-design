@@ -491,6 +491,10 @@ export default {
             description: "普通表格添加一行默认数据",
             example: `app.getWidget({id}).addRow()`
         }, {
+            name: "app.addRowByObject",
+            description: "普通表格添加一行数据",
+            example: `app.getWidget({id}).addRowByObject()`
+        },  {
             name: "app.removeRow",
             description: "普通表格删除一行数据",
             example: `app.getWidget({id}).removeRow(rowIndex)`

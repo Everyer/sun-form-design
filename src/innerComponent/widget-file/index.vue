@@ -125,6 +125,7 @@ export default {
       }
     },
     uploadRequest(formData, fileCount) {
+      console.log(formData);
       this.designer.$http
         .postFile(this.widget.props.apiSet.apiurl, formData)
         .then(res => {

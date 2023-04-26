@@ -6,28 +6,55 @@
     :parentList="parentList"
     v-loading="loading"
   >
-    <draggable
-      :list="widget.widgetList"
-      v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
-      class="drag_wrapper sun_form_grid"
-      handle=".drag-handler"
-      :disabled="designer.formMode"
-    >
-      <div
-        class="widget_item"
-        :style="{width:4.16667*item.props.width+'%'}"
-        v-for="(item, index) in widget.widgetList"
-        :key="index"
+    <design-form-wrapper :designer="designer">
+      <draggable
+        :list="widget.widgetList"
+        v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
+        class="drag_wrapper sun_form_grid"
+        handle=".drag-handler"
+        :disabled="designer.formMode"
       >
-        <component
-          :parent-list="widget.widgetList"
-          :is="'widget-'+item.type"
-          :widget="item"
-          :key="item.id"
-          :designer="designer"
-        ></component>
-      </div>
-    </draggable>
+        <div
+          class="widget_item"
+          :style="{width:4.16667*item.props.width+'%'}"
+          v-for="(item, index) in widget.widgetList"
+          :key="index"
+        >
+          <component
+            :parent-list="widget.widgetList"
+            :is="'widget-'+item.type"
+            :widget="item"
+            :key="item.id"
+            :designer="designer"
+          ></component>
+        </div>
+      </draggable>
+    </design-form-wrapper>
+    <form-mode-wrapper :designer="designer">
+      <draggable
+        :list="widget.widgetList"
+        v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
+        class="drag_wrapper sun_form_grid"
+        handle=".drag-handler"
+        :disabled="designer.formMode"
+      >
+        <div
+          v-if="!item.props.hide"
+          class="widget_item"
+          :style="{width:4.16667*item.props.width+'%'}"
+          v-for="(item, index) in widget.widgetList"
+          :key="index"
+        >
+          <component
+            :parent-list="widget.widgetList"
+            :is="'widget-'+item.type"
+            :widget="item"
+            :key="item.id"
+            :designer="designer"
+          ></component>
+        </div>
+      </draggable>
+    </form-mode-wrapper>
     <form-mode-wrapper :designer="designer">
       <div
         class="grid_btn_wrap"
@@ -158,8 +185,6 @@ export default {
     },
     submit() {
       var result = this.getResult();
-      // console.log(result);
-      console.log(JSON.parse(JSON.stringify(result)));
       if (result === false) {
         return this.$message.warning("必填项不能为空");
       }
@@ -207,8 +232,6 @@ export default {
       this.designer.resetForm(this.widget.id, this.widget.widgetList);
     },
     isTableListFormItemRequired(tableList, tableValue) {
-      console.log(JSON.parse(JSON.stringify(tableList)));
-      console.log(JSON.parse(JSON.stringify(tableValue)));
       var validRequired = true;
 
       var find = tableList => {

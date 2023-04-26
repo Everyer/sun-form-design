@@ -22,6 +22,7 @@
               class="widget_item"
               :style="{width:4.16667*item.props.width+'%'}"
               v-for="(item, index) in widget.widgetList"
+              v-if="!item.props.hide"
               :key="index"
             >
               <component
@@ -108,6 +109,7 @@ export default {
   name: "widget-modal",
   data() {
     return {
+      defaultWidget: null,
       that: this
     };
   },
@@ -117,6 +119,7 @@ export default {
     },
     open(cb) {
       this.widget.props.show = true;
+      this.defaultWidget = this.$utils.clone(this.widget, true);
       this.$nextTick(() => {
         cb && cb();
       });
@@ -127,6 +130,7 @@ export default {
     },
     hideModel() {
       this.widget.props.show = false;
+      this.widget.widgetList = this.$utils.clone(this.defaultWidget.widgetList,true)
       this.designer.resetForm(this.widget.id);
       this.designer.eventHandle(null, "onHide", this.widget, this);
     }

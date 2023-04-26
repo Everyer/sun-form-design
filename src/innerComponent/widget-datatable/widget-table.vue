@@ -164,8 +164,9 @@
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
-            :width="baseInfo.formTableMode=='table'?(tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length+1)*90:tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length*90"
+            :width="formatOprateWidth"
           >
+            <!-- :width="(baseInfo.formTableMode=='table'&&baseInfo.normalTable)?(tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length+1)*110:tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length*110" -->
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
                 <el-button
@@ -407,6 +408,26 @@ export default {
     //   immediate: true
     // }
   },
+  computed: {
+    formatOprateWidth() {
+      if (this.baseInfo.oprateWidth) {
+        return this.baseInfo.oprateWidth;
+      }
+      if (this.baseInfo.formTableMode && this.baseInfo.normalTable) {
+        reutrn(
+          this.tableConfig.buttonList.filter(
+            e => e.props.isSide && !e.props.hide
+          ).length + 1
+        ) * 110;
+      } else {
+        return (
+          this.tableConfig.buttonList.filter(
+            e => e.props.isSide && !e.props.hide
+          ).length * 110
+        );
+      }
+    }
+  },
   methods: {
     buttonFormat(row, func, type) {
       var fun = new Function("row", func);
@@ -568,6 +589,10 @@ export default {
       this.rows.push(defaultItem);
       this.activeName = this.rows.length - 1 + "";
     },
+    addRowByObject(obj) {
+      this.rows.push(obj);
+      this.activeName = this.rows.length - 1 + "";
+    },
     removeRow(rowIndex) {
       this.rows.splice(rowIndex, 1);
     },
@@ -658,7 +683,7 @@ export default {
           trigger: "row",
           labelField: "my_check",
           highlight: true,
-          range: this.baseInfo.treeMode ? null : true
+          range: true
         };
       }
     }
@@ -680,7 +705,13 @@ export default {
       this.$set(item.props, "isDetail", !!this.widget.props.isDetail);
     });
   },
-  mounted() {}
+  mounted() {
+    window.onkeydown = e => {
+      if (e.keyCode == 13) {
+        this.refresh();
+      }
+    };
+  }
 };
 </script>
 

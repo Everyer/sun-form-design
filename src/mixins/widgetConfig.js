@@ -805,6 +805,7 @@ export default {
                     limit: "pagesize",
                     count: "totalCount",
                     pageDefault: 20,
+                    oprateWidth: null,
                     singleselect: false,
                     align: "center",
                     hasPage: true,
@@ -853,7 +854,7 @@ export default {
             width: 24,
             propsKey: "key",
             propsLabel: "label",
-            valueType:"keyArr",//keyArr,jsonArr
+            valueType: "keyArr", //keyArr,jsonArr
             apiSet: {
                 method: "get",
                 apiurl: "",
@@ -884,7 +885,7 @@ export default {
             onCreated: null,
             onMounted: null,
             onFormat: null,
-            hide:false,
+            hide: false,
         }
     },
 }

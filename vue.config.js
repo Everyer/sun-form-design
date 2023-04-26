@@ -39,6 +39,7 @@ module.exports = {
         // target: 'http://115.239.188.150:11900/',
         // target: 'http://szjg.ymjgjt.com/',
         target: 'http://114.55.252.66:7654/',
+        // target: 'http://tzjzy.jsj.zjtz.gov.cn/',
         changeOrigin: true
       }
     },

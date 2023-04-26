@@ -32,9 +32,10 @@
             :value="item.value"
           ></el-option>
         </el-select>
-        <span class="sun_form_detail_item" v-else>
-          {{designer.getDetailByList(widgetValue,widget.props.list)}}
-        </span>
+        <span
+          class="sun_form_detail_item"
+          v-else
+        >{{designer.getDetailByList(widgetValue,widget.props.list)}}</span>
       </div>
     </div>
   </container-wrapper>
@@ -141,8 +142,8 @@ export default {
       this.widgetValue = val;
     },
     "widget.props.value"(val) {
-      if(this.widget.parentType){
-        return
+      if (this.widget.parentType) {
+        return;
       }
       this.widgetValue = val;
     }
@@ -154,7 +155,7 @@ export default {
       this.widgetValue = this.widget.props.value;
     }
     this.designer.eventHandle(null, "onCreated", this.widget, this);
-    if(this.designer.formMode){
+    if (this.designer.formMode) {
       this.getDetail();
     }
   },
