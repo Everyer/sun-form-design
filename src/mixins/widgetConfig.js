@@ -577,6 +577,7 @@ export default {
             fileGetUrl: "", //文件获取地址
             accept: "", //文件后缀类型，逗号隔开
             limit: 100, //限制文件个数
+            fileSize: 10, //限制文件大小mb
             readonly: false, //是否只能查看
             multiple: true, //是否支持多个上传
             apiSet: {

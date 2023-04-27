@@ -18,6 +18,7 @@
           round
           @click="$refs.sy_file.click()"
           plain
+          v-if="!widget.props.isDetail"
         >选择文件</el-button>
         <input
           v-show="false"
@@ -34,7 +35,6 @@
           :data="dataList"
           :show-file-list="false"
           border
-          show-overflow
           show-header-overflow
           highlight-hover-row
           auto-resize
@@ -44,6 +44,33 @@
         >
           <vxe-table-column align="center" type="seq" title="序号" width="60" field="index"></vxe-table-column>
           <vxe-table-column align="center" title="文件名" :field="widget.props.fileNameField"></vxe-table-column>
+          <vxe-table-column
+            align="center"
+            width="100"
+            title="预览"
+            :field="widget.props.fileNameField"
+          >
+            <template #default="{ row }">
+              <div class="file_pic_wrap">
+                <div class="img_pic" v-if="isPic(getExtension(row[widget.props.fileNameField]))">
+                  <el-image class="img" :src="picUrl(row)" :preview-src-list="[picUrl(row)]"></el-image>
+                </div>
+                <div
+                  class="file_pic"
+                  @click="openVideo(row)"
+                  v-else-if="isVideo(getExtension(row[widget.props.fileNameField]))"
+                >
+                  <i class="el-icon-video-camera-solid"></i>
+                </div>
+
+                <div
+                  class="file_pic"
+                  @click="openFile(row)"
+                  v-else
+                >{{getExtension(row[widget.props.fileNameField])||'文件'}}</div>
+              </div>
+            </template>
+          </vxe-table-column>
           <vxe-table-column align="center" title="操作" width="210">
             <template #default="{ row ,rowIndex }">
               <div>
@@ -51,6 +78,7 @@
                   size="mini"
                   type="danger"
                   round
+                  v-if="!widget.props.isDetail"
                   plain
                   icon="el-icon-delete"
                   @click="delItem(row,rowIndex)"
@@ -67,8 +95,33 @@
             </template>
           </vxe-table-column>
         </vxe-table>
+        <div class="no_data" v-if="!dataList.length&&widget.props.isDetail">----暂无附件----</div>
       </div>
     </div>
+    <vxe-modal
+      v-model="previewVisible"
+      title="视频查看"
+      :mask-closable="false"
+      :transfer="true"
+      :height="600"
+      max-height="50vh"
+      :destroy-on-close="true"
+      :footer-hide="true"
+    >
+      <div class="preview_wrap">
+        <div class="preview_con">
+          <div class="preview_video">
+            <video
+              :src="previewUrl"
+              controls="controls"
+              autoplay="autoplay"
+              width="100%"
+              height="100%"
+            ></video>
+          </div>
+        </div>
+      </div>
+    </vxe-modal>
   </container-wrapper>
 </template>
 
@@ -104,12 +157,64 @@ export default {
   },
   name: "widget-file",
   methods: {
+    openVideo(row) {
+      this.$nextTick(() => {
+        this.previewUrl = this.picUrl(row);
+        this.previewVisible = true;
+      });
+    },
+    getExtension(str) {
+      const splitArr = str.split(".");
+      if (splitArr.length <= 1) {
+        return "";
+      }
+      return splitArr.pop();
+    },
+    isVideo(str) {
+      const videoArr = [
+        "mp4",
+        "avi",
+        "rmvb",
+        "rm",
+        "asf",
+        "divx",
+        "mpg",
+        "mpeg",
+        "mpe",
+        "wmv",
+        "mkv",
+        "vob"
+      ];
+      return videoArr.includes(str);
+    },
+    isPic(str) {
+      const picArr = ["png", "jpg", "jpeg", "gif", "bmp", "svg", "ico", "webp"];
+      return picArr.includes(str);
+    },
     changeHandle(e) {
       var el = this.$refs.sy_file;
       var files = el.files;
       this.noFresh = true;
       this.uploadCount = 0;
       this.tmpDataList = this.$utils.clone(this.dataList, true);
+      if (this.widget.props.fileSize) {
+        this.loading = true;
+        for (let i = 0; i < files.length; i++) {
+          var file = files[i];
+          console.log(
+            file.size,
+            Number(this.widget.props.fileSize) * 1024 * 1024
+          );
+          if (file.size > Number(this.widget.props.fileSize) * 1024 * 1024) {
+            this.$message.error(
+              "上传文件大小不能超过" + this.widget.props.fileSize + "MB"
+            );
+            el.value = "";
+            this.loading = false;
+            return;
+          }
+        }
+      }
       if (files.length + this.dataList.length > this.widget.props.limit) {
         this.$message.error(
           "上传文件数量不能超过" + this.widget.props.limit + "个"
@@ -135,6 +240,7 @@ export default {
               this.dataList = this.tmpDataList;
               this.$emit("change", this.dataList);
               setTimeout(() => {
+                this.$refs.sy_file.value = "";
                 this.loading = false;
               }, 500);
             }
@@ -153,6 +259,25 @@ export default {
           this.$message.error("上传失败");
           this.loading = false;
         });
+    },
+    picUrl(row) {
+      var fileGetUrl = this.widget.props.fileGetUrl;
+      var id = row[this.widget.props.fileIdField];
+      var url = fileGetUrl.replace("{id}", id);
+      url =
+        fileGetUrl.replace("{id}", id) +
+        "?" +
+        this.widget.props.fileIdField +
+        "=" +
+        id;
+
+      if (fileGetUrl == "{url}") {
+        url = row[this.widget.props.fileUrlField];
+        if (!url) {
+          url = row[this.widget.props.fileNameField];
+        }
+      }
+      return url;
     },
     openFile(row) {
       var fileGetUrl = this.widget.props.fileGetUrl;
@@ -271,6 +396,8 @@ export default {
   },
   data() {
     return {
+      previewUrl: "",
+      previewVisible: false,
       dataList: [],
       tmpDataList: [],
       that: this,
@@ -383,7 +510,48 @@ export default {
 .my_table {
   margin-top: 10px;
 }
-:deep {
+.no_data {
+  color: #999;
+}
+.file_pic_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .file_pic {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-image: url("../../assets/img/file.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    i {
+      color: #ffffff;
+      font-size: 28px;
+    }
+  }
+  .img_pic {
+    .img {
+      width: 50px;
+    }
+  }
+}
+::v-deep {
+  .el-image-viewer__close {
+    i {
+      color: #ffffff;
+    }
+  }
   .my_head {
     background: #fafafa;
   }

@@ -350,7 +350,7 @@ export default {
     padding-top: 0;
     display: flex;
     flex-direction: column;
-    z-index: 1;
+    z-index: 3;
     .tools_wrap {
       width: 100%;
       background: #ffffff;

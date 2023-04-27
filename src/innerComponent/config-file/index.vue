@@ -47,6 +47,14 @@
         <el-input v-model="designer.chosenWidget.props.fileGetUrl" size="mini" placeholder="例：/api/linyi/file/{id}"></el-input>
       </div>
     </div>
+     <div class="item">
+      <div class="lab">上传大小限制</div>
+      <div class="con">
+        <el-input type="number" v-model="designer.chosenWidget.props.fileSize" size="mini" placeholder="不填写则不限制">
+          <template slot="append">MB</template>
+        </el-input>
+      </div>
+    </div>
     <div class="item">
       <div class="lab">上传限制类型</div>
       <div class="con">
