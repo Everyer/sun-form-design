@@ -17,6 +17,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             apiSetUpdate: {
                 method: "get",
@@ -24,6 +25,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             apiSetDetail: {
                 method: "get",
@@ -31,6 +33,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             onCreated: null,
             onMounted: null,
@@ -153,6 +156,7 @@ export default {
                 dataFormat: "",
                 labelField: "",
                 valueField: "",
+                beforeSend: "",
             },
             list: [{
                     label: "选项1",
@@ -205,6 +209,7 @@ export default {
                 dataFormat: "",
                 labelField: "",
                 valueField: "",
+                beforeSend: "",
             },
             list: [{
                     label: "选项1",
@@ -255,6 +260,7 @@ export default {
                 dataFormat: "",
                 labelField: "",
                 valueField: "",
+                beforeSend: "",
             },
             list: [{
                     label: "选项1",
@@ -304,6 +310,7 @@ export default {
                 dataFormat: "",
                 labelField: "",
                 valueField: "",
+                beforeSend: "",
             },
             list: [{
                     label: "选项1",
@@ -578,6 +585,7 @@ export default {
                 params: [],
                 contentType: "FormData",
                 dataFormat: "",
+                beforeSend: "",
             },
             onCreated: null,
             onMounted: null,
@@ -632,6 +640,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             onCreated: null,
             onMounted: null,
@@ -681,6 +690,7 @@ export default {
                 params: [],
                 contentType: "FormData",
                 dataFormat: "",
+                beforeSend: "",
             },
             onCreated: null,
             onMounted: null,
@@ -796,6 +806,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             tableConfig: {
                 baseInfo: {
@@ -861,6 +872,7 @@ export default {
                 params: [],
                 contentType: "JSON",
                 dataFormat: "",
+                beforeSend: "",
             },
             list: [],
             onCreated: null,

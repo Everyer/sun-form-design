@@ -151,6 +151,19 @@ export default {
           param[item.label] = item.value;
         }
       });
+      if (apiSet.contentType == "FormData") {
+        if (method == "post" || method == "put" || method == "patch") {
+          method += "FormData";
+        }
+      }
+      if (apiSet.beforeSend) {
+        var fun = new Function("param", "self", "app", apiSet.beforeSend);
+        let paramData=this.$utils.clone(param, true)
+        var newParam = fun(paramData, this, this.designer);
+        if (newParam && typeof newParam == "object") {
+          param = newParam;
+        }
+      }
       if (!apiSet.apiurl) {
         return;
       }
@@ -204,6 +217,14 @@ export default {
       if (apiSet.contentType == "FormData") {
         if (method == "post" || method == "put" || method == "patch") {
           method += "FormData";
+        }
+      }
+      if (apiSet.beforeSend) {
+        var fun = new Function("param", "self", "app", apiSet.beforeSend);
+        let paramData = this.$utils.clone(param, true);
+        var newParam = fun(paramData, this, this.designer);
+        if (newParam && typeof newParam == "object") {
+          param = newParam;
         }
       }
       if (!apiSet.apiurl) {

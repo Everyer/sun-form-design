@@ -45,9 +45,9 @@ export default {
     return {
       timer:null,
       options: {
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true /*自动补全*/
+        // enableBasicAutocompletion: true,
+        // enableSnippets: true,
+        // enableLiveAutocompletion: true /*自动补全*/
       },
       jsData: null
     };
@@ -88,6 +88,7 @@ export default {
     },
     editorInit() {
       require("brace/mode/" + this.lang); //language
+      require("brace/snippets/javascript"); //language
       require("brace/ext/searchbox"); //language
       require("brace/ext/beautify");
       require("brace/theme/monokai");

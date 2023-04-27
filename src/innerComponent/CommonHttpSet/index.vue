@@ -14,6 +14,8 @@
       height="700px"
       :transfer="true"
       :destroy-on-close="true"
+      @show="showModal"
+      @hide="hideModal"
     >
       <template #title>
         <span>接口配置</span>
@@ -55,6 +57,25 @@
               </div>
             </div>
           </div>
+          <div class="item">
+            <div class="lab">
+              请求前格式化参数（返回出一个对象）
+              <el-switch v-model="show1" active-text="展开" inactive-text="收起"></el-switch>
+            </div>
+            <div class="con">
+              <div class="form_content" v-if="show1">
+                <div class="bar">
+                  beforeSend
+                  <span class="code">( param , self ) {</span>
+                </div>
+                <common-code-editor ref="editor" height="250px" v-model="dataObj.beforeSend"></common-code-editor>
+                <div class="bar">
+                  <span class="code">}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="item" v-if="fieldVisible">
             <div class="lab">字段配置</div>
             <div class="con">
@@ -75,9 +96,12 @@
             </div>
           </div>
           <div class="item">
-            <div class="lab">返回数据处理</div>
+            <div class="lab">
+              返回数据处理
+              <el-switch v-model="show2" active-text="展开" inactive-text="收起"></el-switch>
+            </div>
             <div class="con">
-              <div class="editor_wrap form_show_wrap">
+              <div class="editor_wrap form_show_wrap" v-if="show2">
                 <div class="form_side">
                   <el-tree
                     default-expand-all
@@ -102,7 +126,7 @@
                             @row-click="tabRowClick"
                             v-show="designer.remark[data.type]"
                             :data="formatTable(data.type,data.id)"
-                            :height="data.type=='app'||data.type=='datatable'?500:null"
+                            :height="400"
                           >
                             <el-table-column width="200" property="name" label="方法名称"></el-table-column>
                             <el-table-column width="180" property="description" label="方法描述"></el-table-column>
@@ -163,6 +187,8 @@ export default {
   data() {
     return {
       show: false,
+      show1: false,
+      show2: false,
       dataObj: {},
       defaultProps: {
         children: "widgetList",
@@ -185,6 +211,20 @@ export default {
     }
   },
   methods: {
+    showModal() {
+      if (this.dataObj.dataFormat) {
+        this.show2 = true;
+      } else {
+        this.show2 = false;
+      }
+      if (this.dataObj.beforeSend) {
+        this.show1 = true;
+      } else {
+        this.show1 = false;
+      }
+    },
+    hideModal() {
+    },
     tabRowClick(row) {
       this.$refs.editor.insertCode(row.example);
       this.showPopover = false;
@@ -211,10 +251,24 @@ export default {
 
 <style scoped lang="scss">
 .item {
-  margin: 10px 0;
+  margin: 15px 0;
   .lab {
     margin: 5px 0;
     font-weight: bold;
+    // font-style: italic;
+    font-size: 16px;
+    position: relative;
+    padding-left: 5px;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 3px;
+      background: #409eff;
+      height: 16px;
+    }
   }
 }
 .field_visible_wrap {
@@ -274,23 +328,23 @@ export default {
       }
     }
   }
-  .form_content {
-    flex: 1;
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    .bar {
-      background: rgb(47, 49, 41);
-      color: rgb(95, 196, 214);
-      font-weight: bold;
-      font-size: 16px;
-      padding: 5px 10px;
-      box-sizing: border-box;
-      flex: 0 0 30px;
-      font-style: italic;
-      .code {
-        color: rgb(213, 214, 208);
-      }
+}
+.form_content {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  .bar {
+    background: rgb(47, 49, 41);
+    color: rgb(95, 196, 214);
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    flex: 0 0 30px;
+    font-style: italic;
+    .code {
+      color: rgb(213, 214, 208);
     }
   }
 }
