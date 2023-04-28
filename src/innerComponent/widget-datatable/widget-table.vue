@@ -64,8 +64,8 @@
       <div class="table_wrap" v-show="baseInfo.formTableMode=='table'">
         <div class="query_btn_wrap" v-if="baseInfo.normalTable">
           <div class="btn_wrap">
-            <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
-            <el-button @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button v-if="!widget.props.isDetail" @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
+            <el-button v-if="!widget.props.isDetail" @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
             <el-button
               v-if="!widget.props.isDetail"
               :size="'mini'"
@@ -197,8 +197,8 @@
       <div class="tab_wrap" v-if="baseInfo.normalTable&&baseInfo.formTableMode=='tab'">
         <div class="query_btn_wrap">
           <div class="btn_wrap">
-            <el-button @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
-            <el-button @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button v-if="!widget.props.isDetail" @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
+            <el-button v-if="!widget.props.isDetail" @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
             <el-button
               v-if="!widget.props.isDetail"
               :size="'mini'"
@@ -240,7 +240,7 @@
                 :key="index"
                 :style="{width:4.16667*item.props.width+'%'}"
               >
-                <div class="column_item" v-if="item.type=='datatableitem'">
+                <div class="column_item column_tab_item" v-if="item.type=='datatableitem'">
                   <div
                     class="column_item_wrap"
                     v-if="item.props.onFormat"
@@ -248,7 +248,7 @@
                   ></div>
                   <div class="column_item_wrap" v-else>{{row[item.props.zdname]}}</div>
                 </div>
-                <div class="column_item" v-else>
+                <div class="column_item column_tab_item" v-else>
                   <widget-table
                     v-model="row[item.props.zdname]"
                     :parentData="formatParentData(row,rows,item.props.zdname)"
@@ -506,7 +506,7 @@ export default {
       }
       if (apiSet.beforeSend) {
         var fun = new Function("param", "self", "app", apiSet.beforeSend);
-        let paramData=this.$utils.clone(param, true)
+        let paramData = this.$utils.clone(param, true);
         var newParam = fun(paramData, this, this.designer);
         if (newParam && typeof newParam == "object") {
           param = newParam;
@@ -699,13 +699,26 @@ export default {
     }
   },
   created() {
+    this.rows = this.value;
     this.tableConfig = this.widget.props.tableConfig;
     this.designer.eventHandle(null, "onCreated", this.widget, this);
     this.init();
     if (this.baseInfo.normalTable) {
       var t = this.tableConfig.tableList;
+
+      var find = arr => {
+        arr.forEach(item => {
+          if(!item.props.hasOwnProperty("defaultValue")){
+            item.props.defaultValue = item.props.value;
+          }
+          if (item.type == "datatable" && item.props.tableConfig.tableList.length) {
+            find(item.props.tableConfig.tableList);
+          }
+        });
+      };
+      find(t);
       t.forEach(item => {
-        this.defaultItem[item.props.zdname] = item.props.value;
+        this.defaultItem[item.props.zdname] = item.props.defaultValue;
       });
     }
     if (this.baseInfo.initLoadData && this.baseInfo.normalTable !== true) {

@@ -14,6 +14,11 @@
             display: none;
         }
     }
+    .column_tab_item{
+        .lab {
+            display: block !important;
+        }
+    }
 
     .tox-tinymce-aux {
         z-index: 9999 !important;
