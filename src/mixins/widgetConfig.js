@@ -10,6 +10,7 @@ export default {
         props: {
             label: "",
             width: 24,
+            remark: "",
             formType: "Create", //表单类型 Create,Update,Detail
             apiSetCreate: {
                 method: "get",
@@ -50,6 +51,7 @@ export default {
         props: {
             title: "弹窗",
             show: false,
+            remark: "",
             modalWidth: "80%",
             modalHeight: "80%",
             label: "",
@@ -74,6 +76,7 @@ export default {
             label: "标签页",
             width: 24,
             type: "border-card",
+            remark: "",
             activeName: null,
             loadType: "loadOnce",
             tabs: [{
@@ -103,6 +106,7 @@ export default {
         canAddDataTableList: true,
         props: {
             size: "medium",
+            remark: "",
             required: false,
             readonly: false,
             disabled: false,
@@ -141,6 +145,7 @@ export default {
             hide: false,
             labelPosition: "left",
             placeholder: "请选择",
+            remark: "",
             value: null,
             zdname: null,
             label: "",
@@ -189,6 +194,7 @@ export default {
             size: "medium",
             required: false,
             disabled: false,
+            remark: "",
             hide: false,
             labelPosition: "left",
             placeholder: "请选择",
@@ -242,6 +248,7 @@ export default {
             required: false,
             disabled: false,
             hide: false,
+            remark: "",
             labelPosition: "left",
             isButton: false,
             isDetail: false,
@@ -292,6 +299,7 @@ export default {
             required: false,
             disabled: false,
             hide: false,
+            remark: "",
             isDetail: false,
             labelPosition: "left",
             isButton: false,
@@ -341,6 +349,7 @@ export default {
             size: "medium",
             required: false,
             disabled: false,
+            remark: "",
             hide: false,
             labelPosition: "left",
             placeholder: "请选择",
@@ -380,6 +389,7 @@ export default {
             placeholder: "请输入",
             labelPosition: "left",
             rows: 3,
+            remark: "",
             value: null,
             zdname: null,
             label: "",
@@ -408,6 +418,7 @@ export default {
             disabled: false,
             hide: false,
             labelPosition: "left",
+            remark: "",
             value: false,
             zdname: null,
             label: "",
@@ -435,6 +446,7 @@ export default {
             hide: false,
             labelPosition: "left",
             placeholder: "请选择",
+            remark: "",
             value: null,
             isDetail: false,
             type: "daterange",
@@ -466,6 +478,7 @@ export default {
             required: false,
             disabled: false,
             hide: false,
+            remark: "",
             labelPosition: "left",
             isDetail: false,
             placeholder: "请选择",
@@ -498,6 +511,7 @@ export default {
             disabled: false,
             hide: false,
             labelPosition: "left",
+            remark: "",
             placeholder: "请选择",
             value: null,
             rangeSeparator: " / ",
@@ -532,6 +546,7 @@ export default {
             labelPosition: "left",
             value: 5,
             zdname: null,
+            remark: "",
             label: "",
             labelAlign: "right",
             labelWidth: "120px",
@@ -562,6 +577,7 @@ export default {
             hide: false,
             placeholder: "请上传文件",
             labelPosition: "left",
+            remark: "",
             value: null,
             zdname: null,
             label: "",
@@ -602,6 +618,7 @@ export default {
         props: {
             size: "medium",
             required: false,
+            remark: "",
             readonly: false,
             disabled: false,
             isDetail: false,
@@ -633,6 +650,7 @@ export default {
         widgetList: [],
         props: {
             label: "",
+            remark: "",
             width: 24,
             serviceJson: ``,
             apiSet: {
@@ -658,6 +676,7 @@ export default {
         props: {
             label: "iframe",
             width: 24,
+            remark: "",
             height: '50vh',
             src: "",
             onCreated: null,
@@ -675,6 +694,7 @@ export default {
             required: false,
             readonly: false,
             isDetail: false,
+            remark: "",
             hide: false,
             labelPosition: "left",
             value: null,
@@ -709,6 +729,7 @@ export default {
             height: "200px",
             value: null,
             lang: "javascript",
+            remark: "",
             isDetail: false,
             required: false,
             readonly: false,
@@ -735,6 +756,7 @@ export default {
             type: "primary",
             size: "medium",
             icon: "",
+            remark: "",
             disabled: false,
             hide: false,
             isPlain: false,
@@ -762,6 +784,7 @@ export default {
         canAddDataTableList: false,
         props: {
             value: null,
+            remark: "",
             width: 24,
 
             onCreated: null,
@@ -777,6 +800,23 @@ export default {
         canAddDataTableList: false,
         props: {
             value: "标题",
+            remark: "",
+            width: 24,
+
+            onCreated: null,
+            onMounted: null,
+        }
+    },
+    html: {
+        isContainer: false,
+        hasLabel: false,
+        displayName: "html",
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        props: {
+            value: null,
+            remark: "",
             width: 24,
 
             onCreated: null,
@@ -798,6 +838,7 @@ export default {
             labelWidth: "120px",
             isDetail: false,
             width: 24,
+            remark: "",
             height: "80vh",
             required: false,
             value: [],
@@ -825,6 +866,7 @@ export default {
                     initLoadData: true,
                     isStripe: true,
                     normalTable: false,
+                    hideEditButton: false, //隐藏编辑按钮
                     formTableMode: "table", //table/tab,
                     treeMode: false, //是否树形表格
                     treeTransform: false, //false为树形结构,true为扁平结构
@@ -854,6 +896,7 @@ export default {
             size: "medium",
             required: false,
             readonly: false,
+            remark: "",
             disabled: false,
             isDetail: false,
             hide: false,
@@ -893,6 +936,7 @@ export default {
         props: {
             zdname: null,
             value: null,
+            remark: "",
             label: "",
             tableitemWidth: null,
             onCreated: null,

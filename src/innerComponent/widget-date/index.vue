@@ -23,6 +23,8 @@
           :placeholder="widget.props.placeholder"
           :format="widget.props.format"
           :value-format="widget.props.valueFormat"
+          :readonly="widget.props.readonly"
+          :disabled="widget.props.disabled"
         ></el-date-picker>
         <span class="sun_form_detail_item" v-else>
           {{widgetValue}}

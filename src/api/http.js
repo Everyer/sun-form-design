@@ -14,7 +14,9 @@ function httpHandle(headers = {}, baseUrl = "", httpSuccessHandle, httpErrorHand
     var api = apiHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle);
 
     function paramHandle(data) {
-        // console.log(data);
+        if(data instanceof Array){
+            return data;
+        }
         if (typeof data !== 'object') {
             
             return data

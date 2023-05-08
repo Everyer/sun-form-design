@@ -100,6 +100,12 @@
         <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.isStripe"></el-switch>
       </div>
     </div>
+    <div class="item" v-if="designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
+      <div class="lab">隐藏编辑按钮</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.hideEditButton"></el-switch>
+      </div>
+    </div>
     <div class="item">
       <div class="lab">是否从表表格</div>
       <div class="con">

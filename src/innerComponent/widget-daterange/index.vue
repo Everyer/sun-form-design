@@ -91,7 +91,7 @@ export default {
   },
   watch: {
     daterangeValue(val) {
-      if (val.length == 0) {
+      if (val===null||val.length == 0) {
         this.widget.props.value = "";
       } else {
         this.widget.props.value = val.join(this.widget.props.rangeSeparator);

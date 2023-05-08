@@ -7,6 +7,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
         $message: that.$message, //消息提示
         $confirm: that.$confirm,
+        $utils: that.$utils,
         baseUrl: baseUrl,
         widgetList: widgetList ? widgetList : [],
         formMode: !!widgetList,
@@ -120,7 +121,10 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             if (widget.props[type]) {
                 var tableObj = value
             }
-            eval(widget.props[type]);
+            var func=new Function('value','type','widget','self','app',widget.props[type]);
+            func(value,type,widget,self,app);
+            // console.log('widget.props[type]',widget.props[type]);
+            // eval(widget.props[type]);
         },
         getParam(key) {
             return this.tmpData[key];

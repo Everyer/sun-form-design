@@ -1,6 +1,6 @@
 <template>
   <container-wrapper
-    :class="'sun_form_theme_'+designer.theme"
+    :class="'grid_wrap sun_form_theme_'+designer.theme"
     :widget="widget"
     :designer="designer"
     :parentList="parentList"
@@ -123,6 +123,7 @@ export default {
           }
         };
         find(this.widget.widgetList);
+        console.log(JSON.parse(JSON.stringify(this.widget.widgetList)))
       },
       immediate: true
     }
@@ -298,10 +299,13 @@ export default {
             }
             if (item.type == "datatable") {
               var tableValue = item.props.value;
-              validRequired = this.isTableListFormItemRequired(
+              var status = this.isTableListFormItemRequired(
                 item.props.tableConfig.tableList,
                 tableValue
               );
+              if(!status){
+                validRequired = false;
+              }
             }
           }
           if (item.widgetList && item.widgetList.length > 0) {
@@ -330,6 +334,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.grid_wrap{
+  flex-wrap: wrap;
+}
 .widget_item {
   box-sizing: border-box;
   width: 100%;

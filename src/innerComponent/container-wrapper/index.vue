@@ -6,6 +6,16 @@
     @click.stop="clickWrapHandle(widget.active&&!designer.formMode&&!widget.parentType)"
   >
     <slot></slot>
+    <div class="remark">
+      <el-popover
+        v-if="widget.props.remark"
+        placement="top-start"
+        trigger="hover"
+        :content="widget.props.remark"
+      >
+        <i class="el-icon-info" slot="reference"></i>
+      </el-popover>
+    </div>
     <div class="drag-handler">
       <i class="el-icon-rank"></i>
       {{widget.displayName}}
@@ -39,7 +49,7 @@ export default {
       default: () => {
         return [];
       }
-    },
+    }
   },
   components: {},
   name: "container-wrapper",
@@ -54,7 +64,7 @@ export default {
       var index = p.findIndex(item => item.id == id);
       var id = w.type + "-" + Math.floor(new Date().getTime() % 10000000);
       w.id = id;
-      this.widget.active=false;
+      this.widget.active = false;
       w.props.id = id;
       w.props.value = null;
       w.props.zdname = null;
@@ -63,7 +73,9 @@ export default {
         for (var i = 0; i < widgetList.length; i++) {
           var item = widgetList[i];
           var itemid =
-            item.type + "-" + Math.floor(new Date().getTime() % 10000000+(i+1)*2);
+            item.type +
+            "-" +
+            Math.floor((new Date().getTime() % 10000000) + (i + 1) * 2);
           item.id = itemid;
           item.props.id = itemid;
           item.props.value = null;
@@ -73,10 +85,10 @@ export default {
           }
         }
       };
-      if(w.widgetList&&w.widgetList.length){
+      if (w.widgetList && w.widgetList.length) {
         findForm(w.widgetList);
       }
-      w.active=true
+      w.active = true;
       p.splice(index + 1, 0, w);
     },
     del() {
@@ -104,8 +116,6 @@ export default {
 <style scoped lang="scss">
 .container_wrapper {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   box-sizing: border-box;
   border: 1px dashed #e2e0e0;
@@ -113,8 +123,15 @@ export default {
   padding: 10px 10px;
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   box-sizing: border-box;
+  .remark {
+    width: 21px;
+    .el-icon-info {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
   .drag-handler {
     display: none;
     position: absolute;

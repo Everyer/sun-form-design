@@ -64,8 +64,20 @@
       <div class="table_wrap" v-show="baseInfo.formTableMode=='table'">
         <div class="query_btn_wrap" v-if="baseInfo.normalTable">
           <div class="btn_wrap">
-            <el-button v-if="!widget.props.isDetail" @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
-            <el-button v-if="!widget.props.isDetail" @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button
+              v-if="!widget.props.isDetail&&!baseInfo.hideEditButton"
+              @click="addRow"
+              icon="el-icon-plus"
+              size="mini"
+              type="primary"
+            >新增</el-button>
+            <el-button
+              v-if="!widget.props.isDetail&&!baseInfo.hideEditButton"
+              @click="clearRow"
+              icon="el-icon-delete"
+              size="mini"
+              type="primary"
+            >清空</el-button>
             <el-button
               v-if="!widget.props.isDetail"
               :size="'mini'"
@@ -160,7 +172,7 @@
             </template>
           </vxe-table-column>
           <vxe-table-column
-            v-if="tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table')"
+            v-if="tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table'&&!baseInfo.hideEditButton)"
             :title="'操作'"
             :align="'center'"
             :fixed="'right'"
@@ -170,7 +182,7 @@
             <template #default="{ row ,rowIndex,$rowIndex }">
               <div>
                 <el-button
-                  v-if="baseInfo.normalTable&&baseInfo.formTableMode=='table'"
+                  v-if="baseInfo.normalTable&&baseInfo.formTableMode=='table'&&!baseInfo.hideEditButton"
                   @click="removeRow($rowIndex)"
                   icon="el-icon-delete"
                   size="mini"
@@ -197,8 +209,20 @@
       <div class="tab_wrap" v-if="baseInfo.normalTable&&baseInfo.formTableMode=='tab'">
         <div class="query_btn_wrap">
           <div class="btn_wrap">
-            <el-button v-if="!widget.props.isDetail" @click="addRow" icon="el-icon-plus" size="mini" type="primary">新增</el-button>
-            <el-button v-if="!widget.props.isDetail" @click="clearRow" icon="el-icon-delete" size="mini" type="primary">清空</el-button>
+            <el-button
+              v-if="!widget.props.isDetail&&!baseInfo.hideEditButton"
+              @click="addRow"
+              icon="el-icon-plus"
+              size="mini"
+              type="primary"
+            >新增</el-button>
+            <el-button
+              v-if="!widget.props.isDetail&&!baseInfo.hideEditButton"
+              @click="clearRow"
+              icon="el-icon-delete"
+              size="mini"
+              type="primary"
+            >清空</el-button>
             <el-button
               v-if="!widget.props.isDetail"
               :size="'mini'"
@@ -397,6 +421,14 @@ export default {
       handler: function(val, oldVal) {
         this.$emit("input", val);
         this.$emit("changeHandle", val);
+      },
+      deep: true
+    },
+    "widget.props.isDetail": {
+      handler: function(val, oldVal) {
+        this.tableConfig.tableList.forEach(e => {
+          this.$set(e.props, "isDetail", val);
+        });
       },
       deep: true
     }
@@ -708,10 +740,13 @@ export default {
 
       var find = arr => {
         arr.forEach(item => {
-          if(!item.props.hasOwnProperty("defaultValue")){
+          if (!item.props.hasOwnProperty("defaultValue")) {
             item.props.defaultValue = item.props.value;
           }
-          if (item.type == "datatable" && item.props.tableConfig.tableList.length) {
+          if (
+            item.type == "datatable" &&
+            item.props.tableConfig.tableList.length
+          ) {
             find(item.props.tableConfig.tableList);
           }
         });

@@ -188,7 +188,7 @@ export default {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
-    },  {
+    }, {
         name: "app.confirm",
         description: "点击弹窗确定按钮",
         example: `app.getWidget({id}).confirm()`
@@ -221,6 +221,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     switch: [{
         name: "app.getWidget",
@@ -238,6 +242,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     codeEditor: [{
         name: "app.getWidget",
@@ -255,6 +263,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     textarea: [{
         name: "app.getWidget",
@@ -272,6 +284,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     radio: [{
         name: "app.getWidget",
@@ -289,6 +305,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }, {
         name: "app.setList",
         description: "设置选项列表",
@@ -311,6 +331,10 @@ export default {
         description: "设置值",
         example: `app.setValue({id}, value)`,
     }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
+    }, {
         name: "app.setList",
         description: "设置选项列表",
         example: `app.getWidget({id}).setList([])`
@@ -331,6 +355,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }, {
         name: "app.setList",
         description: "设置选项列表",
@@ -353,6 +381,10 @@ export default {
         description: "设置值",
         example: `app.setValue({id}, value)`,
     }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
+    }, {
         name: "app.setList",
         description: "设置选项列表",
         example: `app.getWidget({id}).setList([])`
@@ -373,6 +405,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     daterange: [{
         name: "app.getWidget",
@@ -390,6 +426,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     time: [{
         name: "app.getWidget",
@@ -407,6 +447,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     timerange: [{
         name: "app.getWidget",
@@ -424,6 +468,10 @@ export default {
         name: "app.setValue",
         description: "设置值",
         example: `app.setValue({id}, value)`,
+    }, {
+        name: "app.getValue",
+        description: "设置值",
+        example: `app.getValue({id})`,
     }],
     button: [{
         name: "app.getWidget",
@@ -494,7 +542,7 @@ export default {
             name: "app.addRowByObject",
             description: "普通表格添加一行数据",
             example: `app.getWidget({id}).addRowByObject()`
-        },  {
+        }, {
             name: "app.removeRow",
             description: "普通表格删除一行数据",
             example: `app.getWidget({id}).removeRow(rowIndex)`

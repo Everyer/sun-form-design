@@ -53,6 +53,12 @@
           ></el-input>-->
         </div>
       </div>
+      <div class="item" v-if="hasEvent('label')">
+        <div class="lab">备注内容</div>
+        <div class="con">
+          <el-input v-model="designer.chosenWidget.props.remark" size="mini" placeholder="填写会有备注内容"></el-input>
+        </div>
+      </div>
       <!-- v-if="hasEvent('isDetail')" -->
       <div class="item">
         <div class="lab">详情模式</div>
@@ -704,8 +710,8 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
-.con{
-  .el-button{
+.con {
+  .el-button {
     margin-left: 5px;
   }
 }
