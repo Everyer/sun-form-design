@@ -95,62 +95,13 @@
               </div>
             </div>
           </div>
-          <div class="item">
+          <div class="item" v-if="show">
             <div class="lab">
               返回数据处理
               <el-switch v-model="show2" active-text="展开" inactive-text="收起"></el-switch>
             </div>
             <div class="con">
-              <div class="editor_wrap form_show_wrap" v-if="show2">
-                <div class="form_side">
-                  <el-tree
-                    default-expand-all
-                    :data="designer.formatTreeList()"
-                    :props="defaultProps"
-                  >
-                    <span class="custom-tree-node" slot-scope="{ node, data }">
-                      <span class="tree_title">
-                        {{data.props.label}}
-                        <span
-                          class="tree_id"
-                        >__{{data.displayName}}__{{data.id}}</span>
-                      </span>
-                      <span>
-                        <el-popover
-                          v-show="designer.remark[data.type]"
-                          placement="right"
-                          width="800"
-                          trigger="hover"
-                        >
-                          <el-table
-                            @row-click="tabRowClick"
-                            v-show="designer.remark[data.type]"
-                            :data="formatTable(data.type,data.id)"
-                            :height="400"
-                          >
-                            <el-table-column width="200" property="name" label="方法名称"></el-table-column>
-                            <el-table-column width="180" property="description" label="方法描述"></el-table-column>
-                            <el-table-column property="example" label="方法示例"></el-table-column>
-                          </el-table>
-                          <el-button slot="reference" type="text">
-                            <i class="el-icon-edit">选择</i>
-                          </el-button>
-                        </el-popover>
-                      </span>
-                    </span>
-                  </el-tree>
-                </div>
-                <div class="form_content">
-                  <div class="bar">
-                    success
-                    <span class="code">( res , self ) {</span>
-                  </div>
-                  <common-code-editor ref="editor" height="400px" v-model="dataObj.dataFormat"></common-code-editor>
-                  <div class="bar">
-                    <span class="code">}</span>
-                  </div>
-                </div>
-              </div>
+              <CommonTreeCodeEditor v-model="dataObj.dataFormat" v-if="show2" :designer="designer"></CommonTreeCodeEditor>
             </div>
           </div>
         </div>
@@ -190,6 +141,7 @@ export default {
       show1: false,
       show2: false,
       dataObj: {},
+      treeData: [],
       defaultProps: {
         children: "widgetList",
         label: "displayName"
@@ -223,8 +175,7 @@ export default {
         this.show1 = false;
       }
     },
-    hideModal() {
-    },
+    hideModal() {},
     tabRowClick(row) {
       this.$refs.editor.insertCode(row.example);
       this.showPopover = false;
@@ -243,6 +194,7 @@ export default {
     }
   },
   created() {
+    this.treeData = this.designer.formatTreeList();
     this.dataObj = this.value;
   },
   mounted() {}

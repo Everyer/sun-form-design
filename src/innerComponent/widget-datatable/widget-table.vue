@@ -464,8 +464,8 @@ export default {
   },
   methods: {
     buttonFormat(row, func, type) {
-      var fun = new Function("row", func);
-      var res = fun(row);
+      var fun = new Function("row","app", func);
+      var res = fun(row,this.designer);
       if (res && res.hasOwnProperty(type)) {
         if (type == "type") {
           return res[type] || "primary";
@@ -521,7 +521,11 @@ export default {
       });
       this.pageSize = Number(baseInfo.pageDefault);
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);
@@ -617,6 +621,15 @@ export default {
     setAllCheckboxRow(checked) {
       this.$refs["my_table"].setAllCheckboxRow(checked);
     },
+    setRowsCheckedByIndex(arr,checked){
+      var chosenRowsArr=[]
+      this.rows.forEach((item,index)=>{
+        if(arr.includes(index)){
+          chosenRowsArr.push(item)
+        }
+      })
+      this.$refs["my_table"].setCheckboxRow(chosenRowsArr,checked);
+    },
     getRows() {
       return this.rows;
     },
@@ -674,8 +687,8 @@ export default {
     },
     formatCell(row, zdname, eventStr) {
       if (eventStr) {
-        let fun = new Function("row", "zdname", eventStr);
-        return fun(row, zdname);
+        let fun = new Function("app", "row", "zdname", eventStr);
+        return fun(this.designer, row, zdname);
       } else {
         return row[zdname];
       }

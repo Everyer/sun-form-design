@@ -31,9 +31,10 @@
             :label="item.value"
           >{{item.label}}</el-checkbox-button>
         </el-checkbox-group>
-        <span class="sun_form_detail_item" v-else>
-          {{designer.getDetailByList(checkboxValue,widget.props.list)}}
-        </span>
+        <span
+          class="sun_form_detail_item"
+          v-else
+        >{{designer.getDetailByList(checkboxValue,widget.props.list)}}</span>
       </div>
     </div>
   </container-wrapper>
@@ -100,7 +101,11 @@ export default {
       var method = apiSet.method;
       var param = {};
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);
@@ -115,7 +120,7 @@ export default {
       }
       if (apiSet.beforeSend) {
         var fun = new Function("param", "self", "app", apiSet.beforeSend);
-        let paramData=this.$utils.clone(param, true)
+        let paramData = this.$utils.clone(param, true);
         var newParam = fun(paramData, this, this.designer);
         if (newParam && typeof newParam == "object") {
           param = newParam;
@@ -133,7 +138,7 @@ export default {
                   res.data.map(item => {
                     return {
                       label: item[apiSet.labelField],
-                      value: item[apiSet.valueField] 
+                      value: item[apiSet.valueField]
                     };
                   })
                 );

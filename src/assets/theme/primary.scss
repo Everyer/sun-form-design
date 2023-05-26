@@ -1,5 +1,6 @@
 .form_mode.sun_form_theme_primary {
     flex-wrap: wrap;
+
     .el-button--primary.is-disabled {
         color: #FFF !important;
         background-color: #a0cfff !important;
@@ -15,7 +16,8 @@
             display: none;
         }
     }
-    .column_tab_item{
+
+    .column_tab_item {
         .lab {
             display: block !important;
         }
@@ -144,4 +146,10 @@
 
     .sun_form_upload {}
 
+}
+
+.vxe-modal--footer {
+    // border: 1px solid red;
+    box-shadow: 0px -1px 3px 0px #f0f0f0;
+    padding-bottom: 0.4em !important;
 }

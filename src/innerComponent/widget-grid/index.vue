@@ -35,6 +35,7 @@
         :list="widget.widgetList"
         v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
         class="drag_wrapper sun_form_grid"
+        :style="widget.props.hideButton?'border-bottom:1px solid #f0f0f0 !important':''"
         handle=".drag-handler"
         :disabled="designer.formMode"
       >
@@ -55,7 +56,7 @@
         </div>
       </draggable>
     </form-mode-wrapper>
-    <form-mode-wrapper :designer="designer">
+    <form-mode-wrapper :designer="designer" v-if="!widget.props.hideButton">
       <div
         class="grid_btn_wrap"
         :style="widget.props.formType=='Detail'?`padding:0`:`padding:10px`"
@@ -123,7 +124,6 @@ export default {
           }
         };
         find(this.widget.widgetList);
-        console.log(JSON.parse(JSON.stringify(this.widget.widgetList)))
       },
       immediate: true
     }
@@ -144,7 +144,11 @@ export default {
       var method = apiSet.method;
       var param = {};
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);
@@ -159,7 +163,7 @@ export default {
       }
       if (apiSet.beforeSend) {
         var fun = new Function("param", "self", "app", apiSet.beforeSend);
-        let paramData=this.$utils.clone(param, true)
+        let paramData = this.$utils.clone(param, true);
         var newParam = fun(paramData, this, this.designer);
         if (newParam && typeof newParam == "object") {
           param = newParam;
@@ -207,7 +211,11 @@ export default {
       var method = apiSet.method;
       var param = result;
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);
@@ -303,7 +311,7 @@ export default {
                 item.props.tableConfig.tableList,
                 tableValue
               );
-              if(!status){
+              if (!status) {
                 validRequired = false;
               }
             }
@@ -334,7 +342,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.grid_wrap{
+.grid_wrap {
   flex-wrap: wrap;
 }
 .widget_item {

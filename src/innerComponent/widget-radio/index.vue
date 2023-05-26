@@ -31,9 +31,10 @@
             :label="item.value"
           >{{item.label}}</el-radio-button>
         </el-radio-group>
-        <span class="sun_form_detail_item" v-else>
-          {{designer.getDetailByList(widgetValue,widget.props.list)}}
-        </span>
+        <span
+          class="sun_form_detail_item"
+          v-else
+        >{{designer.getDetailByList(widgetValue,widget.props.list)}}</span>
       </div>
     </div>
   </container-wrapper>
@@ -91,8 +92,8 @@ export default {
       this.widgetValue = val;
     },
     "widget.props.value"(val) {
-      if(this.widget.parentType){
-        return
+      if (this.widget.parentType) {
+        return;
       }
       this.widgetValue = val;
     }
@@ -110,7 +111,11 @@ export default {
       var method = apiSet.method;
       var param = {};
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);
@@ -125,7 +130,7 @@ export default {
       }
       if (apiSet.beforeSend) {
         var fun = new Function("param", "self", "app", apiSet.beforeSend);
-        let paramData=this.$utils.clone(param, true)
+        let paramData = this.$utils.clone(param, true);
         var newParam = fun(paramData, this, this.designer);
         if (newParam && typeof newParam == "object") {
           param = newParam;
@@ -166,7 +171,7 @@ export default {
       this.widgetValue = this.widget.props.value;
     }
     this.designer.eventHandle(null, "onCreated", this.widget, this);
-    if(this.designer.formMode){
+    if (this.designer.formMode) {
       this.getDetail();
     }
   },

@@ -43,10 +43,20 @@
           header-row-class-name="my_head"
         >
           <vxe-table-column align="center" type="seq" title="序号" width="60" field="index"></vxe-table-column>
-          <vxe-table-column align="center" title="文件名" :field="widget.props.fileNameField"></vxe-table-column>
           <vxe-table-column
+            v-if="!widget.props.hideFileName"
             align="center"
-            width="100"
+            title="文件名"
+            :field="widget.props.fileNameField"
+          >
+            <template
+              #default="{ row }"
+            >{{widget.props.onNameFormat?formatFileName(row):row[widget.props.fileNameField]}}</template>
+          </vxe-table-column>
+          <vxe-table-column
+            v-if="!widget.props.hidePreview"
+            align="center"
+            :width="widget.props.hideFileName?null:100"
             title="预览"
             :field="widget.props.fileNameField"
           >
@@ -90,6 +100,7 @@
                   type="primary"
                   icon="el-icon-download"
                   @click="openFile(row)"
+                  :loading="loadingDownload"
                 >下载</el-button>
               </div>
             </template>
@@ -157,6 +168,16 @@ export default {
   },
   name: "widget-file",
   methods: {
+    formatFileName(row) {
+      var fun = new Function(
+        "file",
+        "self",
+        "app",
+        this.widget.props.onNameFormat
+      );
+      var result = fun(row, this, this.designer);
+      return result;
+    },
     openVideo(row) {
       this.$nextTick(() => {
         this.previewUrl = this.picUrl(row);
@@ -201,10 +222,6 @@ export default {
         this.loading = true;
         for (let i = 0; i < files.length; i++) {
           var file = files[i];
-          console.log(
-            file.size,
-            Number(this.widget.props.fileSize) * 1024 * 1024
-          );
           if (file.size > Number(this.widget.props.fileSize) * 1024 * 1024) {
             this.$message.error(
               "上传文件大小不能超过" + this.widget.props.fileSize + "MB"
@@ -264,12 +281,7 @@ export default {
       var fileGetUrl = this.widget.props.fileGetUrl;
       var id = row[this.widget.props.fileIdField];
       var url = fileGetUrl.replace("{id}", id);
-      url =
-        fileGetUrl.replace("{id}", id) +
-        "?" +
-        this.widget.props.fileIdField +
-        "=" +
-        id;
+      url = this.designer.baseUrl + fileGetUrl.replace("{id}", id);
 
       if (fileGetUrl == "{url}") {
         url = row[this.widget.props.fileUrlField];
@@ -280,7 +292,49 @@ export default {
       return url;
     },
     openFile(row) {
-      var fileGetUrl = this.widget.props.fileGetUrl;
+      let fileGetUrl = this.widget.props.fileDownUrl;
+      if (!fileGetUrl) {
+        this.$message.error("请配置下载地址");
+        return;
+      }
+
+      if (fileGetUrl == "{url}") {
+        window.open(row[this.widget.props.fileNameField]);
+      } else {
+        var id = row[this.widget.props.fileIdField];
+        var url = fileGetUrl.replace("{id}", id);
+        var urlObj = this.$utils.parseUrl(url);
+        var obj = urlObj.searchQuery;
+        if (this.widget.props.fileDownType == "blob") {
+          this.loadingDownload = true;
+          this.designer.$http.getBlob(urlObj.pathname, obj).then(res => {
+            var blob = new Blob([res], { type: "application/octet-stream" });
+            var fileName = row[this.widget.props.fileNameField];
+            if ("download" in document.createElement("a")) {
+              // 非IE下载
+              var elink = document.createElement("a");
+              elink.download = fileName;
+              elink.style.display = "none";
+              elink.href = URL.createObjectURL(blob);
+              document.body.appendChild(elink);
+              elink.click();
+              URL.revokeObjectURL(elink.href); // 释放URL 对象
+              document.body.removeChild(elink);
+            } else {
+              // IE10+下载
+              navigator.msSaveBlob(blob, fileName);
+            }
+            this.loadingDownload = false;
+          }).catch(err => {
+            this.loadingDownload = false;
+          });
+        } else {
+          window.open(this.designer.baseUrl + url);
+        }
+      }
+
+      /* var fileGetUrl = this.widget.props.fileGetUrl;
+      return
       if (fileGetUrl) {
         if (fileGetUrl.includes("{id}") || fileGetUrl == "{url}") {
           var id = row[this.widget.props.fileIdField];
@@ -307,13 +361,7 @@ export default {
               }
             });
           } else {
-            url =
-              fileGetUrl.replace("{id}", id) +
-              "?" +
-              this.widget.props.fileIdField +
-              "=" +
-              id;
-
+            url = fileGetUrl.replace("{id}", id);
             if (fileGetUrl == "{url}") {
               url = row[this.widget.props.fileUrlField];
               if (!url) {
@@ -323,7 +371,7 @@ export default {
             window.open(url);
           }
         }
-      }
+      } */
     },
     delItem(row, rowIndex) {
       this.dataList.splice(rowIndex, 1);
@@ -403,6 +451,7 @@ export default {
       that: this,
       widgetValue: null,
       loading: false,
+      loadingDownload: false,
       noRefresh: false,
       uploadCount: 0
     };

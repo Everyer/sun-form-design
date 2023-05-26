@@ -24,6 +24,19 @@
         <el-switch v-model="designer.chosenWidget.props.hasFooter"></el-switch>
       </div>
     </div>
+    <div class="item">
+      <div class="lab">是否隐藏确定</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hideConfirm"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否隐藏取消</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hideCancel"></el-switch>
+      </div>
+    </div>
+    <CommonJsonListEdit title="按钮生成（按钮名字/按钮key）" v-model="designer.chosenWidget.props.list"></CommonJsonListEdit>
   </div>
 </template>
 

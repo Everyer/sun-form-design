@@ -157,6 +157,10 @@ export default {
       default: () => {
         return null;
       }
+    },
+    isManageComponent:{
+      type:Boolean,
+      default:false
     }
   },
   model: {
@@ -291,6 +295,9 @@ export default {
       handler(val) {
         this.$emit("changeHandle", this.$utils.clone(val, true));
         this.designer.returnChosen();
+        if(this.isManageComponent){
+          return
+        }
         clearInterval(this.timer);
         this.timer = setTimeout(() => {
           localStorage.setItem("widgetList", JSON.stringify(val));

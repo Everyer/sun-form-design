@@ -1,6 +1,6 @@
 <template>
   <div class="json_wrap">
-    <div class="title" v-if="type!='hideCheck'">字典生成</div>
+    <div class="title" v-if="type!='hideCheck'">{{title}}</div>
     <div class="content">
       <div class="item" v-for="(item, index) in d" :key="index">
         <!-- <div class="form_item" v-if="type!='hideCheck'">
@@ -46,6 +46,10 @@
 export default {
   components: {},
   props: {
+    title: {
+      type: String,
+      default: "字典生成"
+    },
     value: {
       type: Array,
       default: () => {

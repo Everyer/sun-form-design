@@ -11,6 +11,7 @@ export default {
             label: "",
             width: 24,
             remark: "",
+            hideButton:false,
             formType: "Create", //表单类型 Create,Update,Detail
             apiSetCreate: {
                 method: "get",
@@ -54,14 +55,19 @@ export default {
             remark: "",
             modalWidth: "80%",
             modalHeight: "80%",
+            hideConfirm: false,
+            hideCancel: false,
+
             label: "",
             hasFooter: true,
+            list:[],
 
             onCreated: null,
             onMounted: null,
             onHide: null,
             onShow: null,
             onConfirm: null,
+            onButtonClick: null,
         }
     },
     tabs: {
@@ -574,6 +580,8 @@ export default {
             required: false,
             disabled: false,
             isDetail: false,
+            hideFileName:false,
+            hidePreview:false,
             hide: false,
             placeholder: "请上传文件",
             labelPosition: "left",
@@ -591,6 +599,7 @@ export default {
             fileSaveType: 'name,id',
             fileDownType: 'blob', //文件下载方式
             fileGetUrl: "", //文件获取地址
+            fileDownUrl:"",//文件下载地址
             accept: "", //文件后缀类型，逗号隔开
             limit: 100, //限制文件个数
             fileSize: 10, //限制文件大小mb
@@ -606,6 +615,7 @@ export default {
             },
             onCreated: null,
             onMounted: null,
+            onNameFormat: null,
         }
     },
     location: {

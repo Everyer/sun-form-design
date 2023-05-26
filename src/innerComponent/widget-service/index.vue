@@ -67,7 +67,11 @@ export default {
       var method = apiSet.method;
       var param = {};
       apiSet.params.forEach(item => {
-        if (item.value.includes("${") && item.value.includes("}")) {
+        if (
+          typeof item.value == "string" &&
+          item.value.includes("${") &&
+          item.value.includes("}")
+        ) {
           var funStr = item.value.replace("${", "").replace("}", "");
           var fun = new Function("self", "app", "return " + funStr);
           param[item.label] = fun(this, this.designer);

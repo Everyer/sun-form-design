@@ -1,7 +1,7 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle,params) {
     var that = vueInstance;
     return {
         $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
@@ -13,7 +13,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         formMode: !!widgetList,
         chosenWidget: null,
         widgetVueInstance: {},
-        tmpData: {},
+        tmpData: params ? params : {},
         headers: headers,
         theme: theme,
         remark: remark,
@@ -53,7 +53,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         formatTreeList() {
             var list = that.$utils.clone(this.widgetList, true)
             var formatTableList = function (item) {
-                item.widgetList = item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
+                item.widgetList =item.props.tableConfig.buttonList.concat(item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList))
 
                 item.widgetList.forEach(item2 => {
                     if (item2.type == 'datatable') {
@@ -123,8 +123,6 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             }
             var func=new Function('value','type','widget','self','app',widget.props[type]);
             func(value,type,widget,self,app);
-            // console.log('widget.props[type]',widget.props[type]);
-            // eval(widget.props[type]);
         },
         getParam(key) {
             return this.tmpData[key];
@@ -171,7 +169,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         },
         getProps(id) {
             var formatTableList = function (item, id) {
-                var widgetList = item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList)
+                var widgetList = item.props.tableConfig.buttonList.concat(item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList))
                 var result = null
                 widgetList.forEach(item2 => {
                     if (item2.id === id) {
@@ -224,6 +222,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         },
         setValue(id, value) {
             var props = this.getProps(id).props;
+            console.log(JSON.parse(JSON.stringify(props)))
             if (props) {
                 that.$set(props, 'value', value)
             }
@@ -241,6 +240,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             var w = widgetConfig[data.type];
             w.props.id = data.id;
             w.props.label = data.displayName;
+            w.props.roleData = "";
             data.props = {
                 ...w.props
             }

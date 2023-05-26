@@ -158,6 +158,7 @@
             :baseUrl="apiSet.baseUrl"
             :headers="apiSet.headers"
             v-model="widgetList"
+            :isManageComponent="true"
             ref="form_design"
           ></formDesigner>
         </div>

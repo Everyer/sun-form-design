@@ -7,7 +7,7 @@
             :parent-list="designer.widgetList"
             :is="'widget-'+item.type"
             :widget="item"
-             v-if="!item.props.hide"
+            v-if="!item.props.hide"
             :key="item.id"
             :designer="designer"
           ></component>
@@ -55,6 +55,12 @@ export default {
         return "primary";
       }
     },
+    params: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     httpSuccessHandle: {
       type: Function,
       default: () => {
@@ -85,7 +91,8 @@ export default {
         this.baseUrl,
         this.httpSuccessHandle,
         this.httpErrorHandle,
-        this.httpBeforeSendHandle
+        this.httpBeforeSendHandle,
+        this.params
       )
     };
   },

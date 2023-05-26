@@ -47,6 +47,12 @@
         <el-input v-model="designer.chosenWidget.props.fileGetUrl" size="mini" placeholder="例：/api/linyi/file/{id}"></el-input>
       </div>
     </div>
+    <div class="item">
+      <div class="lab">文件下载地址</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.fileDownUrl" size="mini" placeholder="例：/api/linyi/file/{id}"></el-input>
+      </div>
+    </div>
      <div class="item">
       <div class="lab">上传大小限制</div>
       <div class="con">
@@ -121,6 +127,18 @@
       <div class="lab">是否禁用</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.disabled"></el-switch>
+      </div>
+    </div>
+     <div class="item">
+      <div class="lab">隐藏文件名</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hideFileName"></el-switch>
+      </div>
+    </div>
+     <div class="item">
+      <div class="lab">隐藏预览</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hidePreview"></el-switch>
       </div>
     </div>
   </div>

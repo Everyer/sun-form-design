@@ -99,6 +99,7 @@
           ></el-input>
         </div>
       </div>
+
       <div class="item" v-if="hasEvent('labelPosition')">
         <div class="lab">标签位置</div>
         <div class="con">
@@ -125,6 +126,12 @@
       :key="designer.chosenWidget.id"
       :designer="designer"
     ></component>
+    <div class="item">
+      <div class="lab">权限数据</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.roleData" placeholder="权限数据" size="mini"></el-input>
+      </div>
+    </div>
     <div class="sy_wrap" v-if="hasEvent('apiSet')">
       <div class="title">接口配置</div>
       <div class="item">
@@ -335,6 +342,32 @@
           >编写代码</el-button>
         </div>
       </div>
+      <div class="item" v-if="hasEvent('onNameFormat')">
+        <div class="lab">onNameFormat</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onNameFormat?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onNameFormat')"
+          >编写代码</el-button>
+        </div>
+      </div>
+      <div class="item" v-if="designer.chosenWidget.type=='modal'">
+        <div class="lab">onButtonClick</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onButtonClick?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onButtonClick')"
+          >编写代码</el-button>
+        </div>
+      </div>
     </div>
     <vxe-modal
       v-model="showEditor"
@@ -349,64 +382,13 @@
         <span>{{tmpEventName}} 函数</span>
       </template>
       <template #default>
-        <!-- <div class="tree_title_func">
-          <el-popover placement="right" width="800" trigger="hover" v-model="showPopover">
-            <el-table
-              @row-click="tabRowClick"
-              v-if="designer.remark['app']"
-              :data="formatTable('app')"
-            >
-              <el-table-column width="150" property="name" label="方法名称"></el-table-column>
-              <el-table-column width="200" property="description" label="方法描述"></el-table-column>
-              <el-table-column property="example" label="方法示例"></el-table-column>
-            </el-table>
-            <i slot="reference" class="el-icon-edit">全局函数</i>
-          </el-popover>
-        </div>-->
-        <div class="editor_wrap sy_form_show_wrap">
-          <div class="form_side">
-            <el-tree default-expand-all :data="designer.formatTreeList()" :props="defaultProps">
-              <span class="custom-tree-node" slot-scope="{ node, data }">
-                <span class="tree_title">
-                  {{data.props.label}}
-                  <span class="tree_id">__{{data.displayName}}__{{data.id}}</span>
-                </span>
-                <span>
-                  <el-popover
-                    v-show="designer.remark[data.type]"
-                    placement="right"
-                    width="800"
-                    trigger="hover"
-                  >
-                    <el-table
-                      @row-click="tabRowClick"
-                      v-if="designer.remark[data.type]"
-                      :data="formatTable(data.type,data.id)"
-                      :height="data.type=='app'||data.type=='datatable'?500:null"
-                    >
-                      <el-table-column width="200" property="name" label="方法名称"></el-table-column>
-                      <el-table-column width="180" property="description" label="方法描述"></el-table-column>
-                      <el-table-column property="example" label="方法示例"></el-table-column>
-                    </el-table>
-                    <el-button slot="reference" type="text">
-                      <i class="el-icon-edit">选择</i>
-                    </el-button>
-                  </el-popover>
-                </span>
-              </span>
-            </el-tree>
-          </div>
-          <div class="form_content">
-            <div class="bar">
-              {{tmpEventName}}
-              <span class="code">( {{formatEventProps()}} ) {</span>
-            </div>
-            <common-code-editor ref="editor" v-model="jsData"></common-code-editor>
-            <div class="bar">
-              <span class="code">}</span>
-            </div>
-          </div>
-        </div>
+        <CommonTreeCodeEditor
+          :functionName="tmpEventName"
+          :funcProps="formatEventProps()"
+          v-model="jsData"
+          v-if="showEditor"
+          :designer="designer"
+        ></CommonTreeCodeEditor>
       </template>
       <template #footer>
         <el-button size="mini" icon="el-icon-close" @click="showEditor=false">取消</el-button>
@@ -597,6 +579,12 @@ export default {
           break;
         case "onButtonFormat":
           return "row";
+          break;
+        case "onNameFormat":
+          return "file , self";
+          break;
+        case "onButtonClick":
+          return "key , self";
           break;
         default:
           return "";

@@ -138,6 +138,10 @@ export default {
         description: "重置表单数据",
         example: `app.getWidget({id}).reset()`
     }, {
+        name: "app.submit",
+        description: "提交表单数据",
+        example: `app.getWidget({id}).submit()`
+    }, {
         name: "app.setFormType",
         description: "设置表单类型Create/Update/Detail",
         example: `app.setFormType({id}, type)`
@@ -562,7 +566,11 @@ export default {
             name: "app.setRowsCheckedByIds",
             description: "树形表格根据id设置选中",
             example: `app.getWidget({id}).setRowsCheckedByIds([])`
-        }
+        },{
+            name: "app.setRowsCheckedByIndex",
+            description: "表格根据index的数组设置选中",
+            example: `app.getWidget({id}).setRowsCheckedByIndex([])`
+        },
     ],
     datatableitem: [{
         name: "app.getWidget",

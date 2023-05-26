@@ -11,6 +11,12 @@
       </div>
     </div>
     <div class="item">
+      <div class="lab">是否隐藏按钮</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hideButton"></el-switch>
+      </div>
+    </div>
+    <div class="item">
       <div class="lab">新增接口配置</div>
       <div class="con">
         <common-http-set :designer="designer" v-model="designer.chosenWidget.props.apiSetCreate"></common-http-set>

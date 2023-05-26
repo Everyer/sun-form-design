@@ -35,6 +35,17 @@
             </div>
           </draggable>
         </div>
+        <div class="modal_footer" v-if="widget.props.hasFooter">
+          <div class="modal_footer_btn">
+            <el-button
+              size="mini"
+              v-for="(item, index) in widget.props.list"
+              :key="index"
+            >{{item.label}}</el-button>
+            <el-button size="mini" v-if="!widget.props.hideCancel">取消</el-button>
+            <el-button size="mini" v-if="!widget.props.hideConfirm" type="primary">确定</el-button>
+          </div>
+        </div>
       </div>
     </design-form-wrapper>
 
@@ -74,8 +85,14 @@
           </div>
         </template>
         <template #footer>
-          <el-button size="mini" @click="widget.props.show=false">取消</el-button>
-          <el-button size="mini" @click="confirm" type="primary">确定</el-button>
+          <el-button
+            size="mini"
+            v-for="(item, index) in widget.props.list"
+            @click="btnClick(item)"
+            :key="index"
+          >{{item.label}}</el-button>
+          <el-button size="mini" v-if="!widget.props.hideCancel" @click="widget.props.show=false">取消</el-button>
+          <el-button size="mini" v-if="!widget.props.hideConfirm" @click="confirm" type="primary">确定</el-button>
         </template>
       </vxe-modal>
     </form-mode-wrapper>
@@ -114,6 +131,16 @@ export default {
     };
   },
   methods: {
+    btnClick(item) {
+      var key = item.value;
+      var func = new Function(
+        "key",
+        "self",
+        "app",
+        this.widget.props.onButtonClick
+      );
+      func(key, this, this.designer);
+    },
     confirm() {
       this.designer.eventHandle(null, "onConfirm", this.widget, this);
     },
@@ -130,8 +157,11 @@ export default {
     },
     hideModel() {
       this.widget.props.show = false;
-      this.widget.widgetList = this.$utils.clone(this.defaultWidget.widgetList,true)
-      this.designer.resetForm(this.widget.id);
+      this.widget.widgetList = this.$utils.clone(
+        this.defaultWidget.widgetList,
+        true
+      );
+      // this.designer.resetForm(this.widget.id);
       this.designer.eventHandle(null, "onHide", this.widget, this);
     }
   },
@@ -192,6 +222,16 @@ export default {
       padding: 10px;
       box-sizing: border-box;
     }
+  }
+  .modal_footer {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    flex-shrink: 0;
+    text-align: right;
+    padding: 0.4em 1em 0.8em 1em;
+    box-sizing: border-box;
+    box-shadow: 0px -1px 3px 0px #f0f0f0;
   }
 }
 .form_widget_item {

@@ -1,7 +1,7 @@
 
 <template>
   <div id="app">
-    <!-- <sunManage :apiSet="apiSet" /> -->
+    <!-- <sunManage :apiSet="apiSet3" /> -->
     <formDesigner
       :httpSuccessHandle="httpSuccessHandle"
       :httpErrorHandle="httpErrorHandle"
@@ -42,7 +42,7 @@ export default {
         },
         isBase64: false,
         headers: {
-          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjgzNDI1NTI1NzA3LCJyblN0ciI6InJ2RmJ4cWdpWmdveHpVOFFSajdHZjhmdGRxSmhhbk9LIiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCI5MTMzMDYwMjc2OTYzNjA2N0hcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjNjMmI0NGJhODRlMTQzNzhhODhkZjVlZDdiNGEwM2VkXCIsXCJjcENvZGVcIjpcIjc3Y2I5ODNhNzM3ZDQ3Y2JhMmM1MTNlM2U2MDhhZTM2XCIsXCJwcmpOdW1cIjpudWxsfSJ9.7p7s9JugEq-aIBwEFd5BfBh0csvQztduCfepFkdE6Q0`
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjg1MTU0Mjg3NjAzLCJyblN0ciI6IjNlNGlxcHVFVk01TjZYT01UWXFINGo4dXF4Y3hJVW96IiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCI5MTMzMDYwMjc2OTYzNjA2N0hcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjA2ZTMwNmVhYzU3YTQ2ZmU4NDgyODgzODI5MmNkNGVjXCIsXCJjcENvZGVcIjpcIjY1MDhlYjQ1NTBhZjRlZGU4OTc0YTA4ZDA0OTZkOTRkXCIsXCJwcmpOdW1cIjpudWxsfSJ9.gZ2CnbmkP6HfyDiKjMM4Gl3JN-e2t2dlyV02YXV0Zm0`
         },
         baseUrl: "/api",
         configDataKey: "configContent",
@@ -144,6 +144,64 @@ export default {
         apiSetDetail: {
           method: "postFormData",
           apiurl: "/tz/GetWebListDetail",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        }
+      },
+      apiSet3: {
+        httpSuccessHandle: res => {
+          if (res && res.code == "-9") {
+            this.$store.commit("logout");
+          }
+        },
+        httpErrorHandle: res => {},
+        headers: {
+          Authorization: "Bearer Bearer eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjZjMTA3OTc4LTlhNDctNDVkMC04ZTE3LTNhZjg3OTJmNDQ3MiJ9.I-iiTehfGQ8B0SYNNcUF9GEV503dQe9HZUk7fUvnc_efivQL_gDmgoebIBMTKru5gJIACjE1zRX4cWb9_A17IQ"
+        },
+        baseUrl: "http://localhost:9999",
+        configDataKey: "configContent",
+        configNameKey: "remark",
+        configCodeKey: "code",
+        configIdKey: "id",
+        apiSetList: {
+          dataFormat: "return res",
+          method: "get",
+          apiurl: "/system/configForm/list",
+          params: [],
+          contentType: "JSON",
+          baseInfo: {
+            rows: "rows",
+            count: "total",
+            page: "pageindex",
+            limit: "pagesize",
+            pageDefault: "10"
+          }
+        },
+        apiSetCreate: {
+          method: "post",
+          apiurl: "/system/configForm",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetUpdate: {
+          method: "put",
+          apiurl: "/system/configForm",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetDelete: {
+          method: "delete",
+          apiurl: "/system/configForm/{id}",
+          params: [],
+          contentType: "JSON",
+          dataFormat: ""
+        },
+        apiSetDetail: {
+          method: "get",
+          apiurl: "/system/configForm/{id}",
           params: [],
           contentType: "JSON",
           dataFormat: ""
