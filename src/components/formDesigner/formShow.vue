@@ -82,6 +82,7 @@ export default {
   },
   data() {
     return {
+      count: 0,
       designer: createDesigner(
         this,
         this.widgetList,
@@ -96,11 +97,34 @@ export default {
       )
     };
   },
-  methods: {},
+  methods: {
+    init() {
+      var findForm = widgetList => {
+        for (var i = 0; i < widgetList.length; i++) {
+          var item = widgetList[i];
+          if (item.isForm) {
+            this.$set(item.props, "defaultValue", item.props.value);
+          }
+          if (item.type == "datatable") {
+            var q = item.props.tableConfig.queryList;
+            for (var j = 0; j < q.length; j++) {
+              var item2 = q[j];
+              this.$set(item2.props, "defaultValue", item2.props.value);
+            }
+          }
+          if (item.widgetList && item.widgetList.length) {
+            findForm(item.widgetList);
+          }
+        }
+      };
+      findForm(this.widgetList);
+    }
+  },
   watch: {
     widgetList: {
       handler(val) {
         this.designer.widgetList = val;
+        this.init();
       },
       deep: true
     },
@@ -118,25 +142,6 @@ export default {
   },
   created() {
     this.$emit("postApp", this.designer);
-    var findForm = widgetList => {
-      for (var i = 0; i < widgetList.length; i++) {
-        var item = widgetList[i];
-        if (item.isForm) {
-          this.$set(item.props, "defaultValue", item.props.value);
-        }
-        if (item.type == "datatable") {
-          var q = item.props.tableConfig.queryList;
-          for (var j = 0; j < q.length; j++) {
-            var item2 = q[j];
-            this.$set(item2.props, "defaultValue", item2.props.value);
-          }
-        }
-        if (item.widgetList && item.widgetList.length) {
-          findForm(item.widgetList);
-        }
-      }
-    };
-    findForm(this.widgetList);
   },
   mounted() {}
 };

@@ -464,8 +464,8 @@ export default {
   },
   methods: {
     buttonFormat(row, func, type) {
-      var fun = new Function("row","app", func);
-      var res = fun(row,this.designer);
+      var fun = new Function("row", "app", func);
+      var res = fun(row, this.designer);
       if (res && res.hasOwnProperty(type)) {
         if (type == "type") {
           return res[type] || "primary";
@@ -500,6 +500,7 @@ export default {
       q.forEach(item => {
         item.props.value = item.props.defaultValue;
       });
+
       this.refresh();
     },
     refresh() {
@@ -548,6 +549,8 @@ export default {
           param = newParam;
         }
       }
+      console.log("getData", JSON.parse(JSON.stringify(param)));
+
       if (!apiSet.apiurl) {
         return;
       }
@@ -621,14 +624,14 @@ export default {
     setAllCheckboxRow(checked) {
       this.$refs["my_table"].setAllCheckboxRow(checked);
     },
-    setRowsCheckedByIndex(arr,checked){
-      var chosenRowsArr=[]
-      this.rows.forEach((item,index)=>{
-        if(arr.includes(index)){
-          chosenRowsArr.push(item)
+    setRowsCheckedByIndex(arr, checked) {
+      var chosenRowsArr = [];
+      this.rows.forEach((item, index) => {
+        if (arr.includes(index)) {
+          chosenRowsArr.push(item);
         }
-      })
-      this.$refs["my_table"].setCheckboxRow(chosenRowsArr,checked);
+      });
+      this.$refs["my_table"].setCheckboxRow(chosenRowsArr, checked);
     },
     getRows() {
       return this.rows;
