@@ -41,6 +41,24 @@ export default {
             onMounted: null,
         }
     },
+    div: {
+        isContainer: true,
+        displayName: "普通容器",
+        hasLabel: false,
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        widgetList: [],
+        props: {
+            label: "",
+            remark: "",
+            divWidth: "100%",
+            divHeight: "200px",
+            style: "",
+            onCreated: null,
+            onMounted: null,
+        }
+    },
     modal: {
         isContainer: true,
         displayName: "弹窗",
