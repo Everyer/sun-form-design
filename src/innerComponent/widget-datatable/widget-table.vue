@@ -463,6 +463,17 @@ export default {
     }
   },
   methods: {
+    getSearchParams() {
+      var q = this.tableConfig.queryList;
+      var baseInfo = this.baseInfo;
+      var param = {};
+      q.forEach(item => {
+        param[item.props.zdname] = item.props.value;
+      });
+      param[baseInfo.page] = this.pageIndex;
+      param[baseInfo.limit] = this.pageSize;
+      return param;
+    },
     buttonFormat(row, func, type) {
       var fun = new Function("row", "app", func);
       var res = fun(row, this.designer);
@@ -549,7 +560,6 @@ export default {
           param = newParam;
         }
       }
-      console.log("getData", JSON.parse(JSON.stringify(param)));
 
       if (!apiSet.apiurl) {
         return;
@@ -780,6 +790,9 @@ export default {
     });
   },
   mounted() {
+    this.$nextTick(() => {
+      this.$refs.my_table.recalculate();
+    });
     window.onkeydown = e => {
       if (e.keyCode == 13) {
         this.refresh();

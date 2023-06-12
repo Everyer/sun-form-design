@@ -566,10 +566,14 @@ export default {
             name: "app.setRowsCheckedByIds",
             description: "树形表格根据id设置选中",
             example: `app.getWidget({id}).setRowsCheckedByIds([])`
-        },{
+        }, {
             name: "app.setRowsCheckedByIndex",
             description: "表格根据index的数组设置选中",
             example: `app.getWidget({id}).setRowsCheckedByIndex([])`
+        }, {
+            name: "app.getSearchParams",
+            description: "获取搜索参数",
+            example: `app.getWidget({id}).getSearchParams()`
         },
     ],
     datatableitem: [{
@@ -580,5 +584,18 @@ export default {
         name: "app.setHide",
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
+    }],
+    transfer: [{
+        name: "app.getWidget",
+        description: "获取组件Vue实例",
+        example: `app.getWidget({id})`
+    }, {
+        name: "app.setHide",
+        description: "设置隐藏",
+        example: `app.setHide({id}, type)`
+    }, {
+        name: "app.setList",
+        description: "设置选项数据",
+        example: `app.getWidget({id}).setList([])`
     }]
 }

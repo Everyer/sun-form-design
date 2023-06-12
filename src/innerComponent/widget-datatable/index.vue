@@ -20,12 +20,12 @@
               :data="widget.props.tableConfig.buttonList"
               show-header-overflow
               highlight-hover-row
-              auto-resize
               border
               stripe
               round
               empty-text="暂无数据"
               resizable
+              sync-resize
               header-row-class-name="my_head"
             >
               <vxe-table-column width="55" align="center">
@@ -359,8 +359,8 @@ export default {
   },
   watch: {
     "widget.props.value"(val) {
-      if (val&&this.$refs.my_datatable) {
-        this.$refs.my_datatable.setRows(val);
+      if (val && this.$refs.my_datatable) {
+        // this.$refs.my_datatable.setRows(val);
       }
     }
   },
@@ -495,6 +495,7 @@ export default {
     }
   },
   created() {
+    this.widget.props=this.$utils.clone(this.widget.props,true);
     for (var i in widgetConfig) {
       widgetConfig[i].type = i;
       if (widgetConfig[i].canAddDataTableQuery) {
@@ -524,6 +525,7 @@ export default {
   width: 100%;
   height: 100%;
   .con {
+    width: 100%;
     .table_item_title {
       color: #409eff;
       font-size: 17px;
@@ -546,6 +548,7 @@ export default {
     .table_item_list {
       min-height: 100px;
       // border: 1px dashed #cccccc;
+      width: 100%;
       .drag_wrapper {
         min-height: 100px;
         padding: 5px;
@@ -558,8 +561,8 @@ export default {
   }
 }
 ::v-deep {
-  .vxe-cell{
-    .lab{
+  .vxe-cell {
+    .lab {
       display: none !important;
     }
   }

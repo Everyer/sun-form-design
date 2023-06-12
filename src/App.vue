@@ -35,6 +35,7 @@ export default {
           if (res && res.code == "-9") {
             this.$store.commit("logout");
           }
+          
         },
         httpErrorHandle: res => {},
         httpBeforeSendHandle: () => {
@@ -42,7 +43,7 @@ export default {
         },
         isBase64: false,
         headers: {
-          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjg1NDA3NDQ0NTA2LCJyblN0ciI6IlJZZ21TelFIM2tPQWo5c2J3dDN1NVQwalZzd0FMZW5zIiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCI5MTMzMDYwMjc2OTYzNjA2N0hcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjA2ZTMwNmVhYzU3YTQ2ZmU4NDgyODgzODI5MmNkNGVjXCIsXCJjcENvZGVcIjpcIjY1MDhlYjQ1NTBhZjRlZGU4OTc0YTA4ZDA0OTZkOTRkXCIsXCJwcmpOdW1cIjpudWxsfSJ9.tSG7ztCITe6gkKvxDfb4trCGJD7q1VpI6OfzSn4ncP0`
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJmZWM3NGQ0NGUwNmI0ZGEwYTIyMmI4NGQzNDJhNzZlYyIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjg2NjM0NjU3Nzg0LCJyblN0ciI6Ijk3UEduVENwT2puMDdEeWpYTFl6MkczVUFVTHh2VXU5IiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiZmVjNzRkNDRlMDZiNGRhMGEyMjJiODRkMzQyYTc2ZWNcIixcInVzZXJOYW1lXCI6XCJ0ZXN0cXlcIixcInJlYWxOYW1lXCI6XCLmtYvor5XkvIHkuJpcIixcImNvcnBUeXBlc1wiOm51bGwsXCJsb2dpblR5cGVcIjpcIldlYlwiLFwiYWNjb3VudFR5cGVcIjpcIlFcIixcIm91dFRpbWVcIjowLFwiY29ycE51bVwiOlwiOTEzNzEzMDBNQTNNSFROTjlCXCIsXCJjb3JwTmFtZVwiOm51bGwsXCJwZXJzb25OdW1cIjpudWxsLFwicGVyc29uTmFtZVwiOm51bGwsXCJzdXBTdGFDb2RlXCI6bnVsbCxcInVwU3RhdGlvbkNvZGVzXCI6bnVsbCxcImRvd25TdGF0aW9uQ29kZXNcIjpudWxsLFwiZGVwQ29kZVwiOlwiMzUyOWFjMTU4ODk0NDRlMjg1NGQ0ZjA0OTM0YTg0MzBcIixcImNwQ29kZVwiOlwiZDcyZDM4ZWFjNzczNDUyNTgyOTA0NDM0YjNiZGJiNzRcIixcInByak51bVwiOm51bGx9In0.2v7ILUvNVTw9FYYg65XbftMjamEDYqXVeYFBTTnWjE4`
         },
         baseUrl: "/api",
         configDataKey: "configContent",

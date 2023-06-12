@@ -1,7 +1,7 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle, params) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle,params) {
     var that = vueInstance;
     return {
         $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
@@ -53,7 +53,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         formatTreeList() {
             var list = that.$utils.clone(this.widgetList, true)
             var formatTableList = function (item) {
-                item.widgetList = item.props.tableConfig.buttonList.concat(item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList))
+                item.widgetList =item.props.tableConfig.buttonList.concat(item.props.tableConfig.queryList.concat(item.props.tableConfig.tableList))
 
                 item.widgetList.forEach(item2 => {
                     if (item2.type == 'datatable') {
@@ -121,8 +121,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             if (widget.props[type]) {
                 var tableObj = value
             }
-            var func = new Function('value', 'type', 'widget', 'self', 'app', widget.props[type]);
-            func(value, type, widget, self, app);
+            var func=new Function('value','type','widget','self','app',widget.props[type]);
+            func(value,type,widget,self,app);
         },
         getParam(key) {
             return this.tmpData[key];
@@ -234,7 +234,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             }
         },
         formatWidget(data) {
-
+            console.log(data);
             var data = that.$utils.clone(data, true);
             data.id = data.type + "-" + Math.floor(new Date().getTime() % 10000000);
             var w = widgetConfig[data.type];
