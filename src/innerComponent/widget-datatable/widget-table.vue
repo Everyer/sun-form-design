@@ -12,7 +12,7 @@
           <div class="query_wrap" v-if="tableConfig.queryList.length&&!baseInfo.normalTable">
             <div
               class="query_item"
-              :style="{width:4.16667*item.props.width+'%'}"
+              :style="designer.formatStyle(item)"
               v-if="!item.props.hide"
               v-for="(item, index) in tableConfig.queryList"
               :key="index"
@@ -262,7 +262,7 @@
                 class="sun_form_tab_item"
                 v-for="(item, index) in tableConfig.tableList"
                 :key="index"
-                :style="{width:4.16667*item.props.width+'%'}"
+                :style="designer.formatStyle(item)"
               >
                 <div class="column_item column_tab_item" v-if="item.type=='datatableitem'">
                   <div

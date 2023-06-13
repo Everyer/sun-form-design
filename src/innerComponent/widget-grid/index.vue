@@ -16,7 +16,7 @@
       >
         <div
           class="widget_item"
-          :style="{width:4.16667*item.props.width+'%'}"
+          :style="designer.formatStyle(item)"
           v-for="(item, index) in widget.widgetList"
           :key="index"
         >
@@ -42,7 +42,7 @@
         <div
           v-if="!item.props.hide"
           class="widget_item"
-          :style="{width:4.16667*item.props.width+'%'}"
+          :style="designer.formatStyle(item)"
           v-for="(item, index) in widget.widgetList"
           :key="index"
         >

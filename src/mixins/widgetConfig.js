@@ -54,7 +54,7 @@ export default {
             remark: "",
             divWidth: "100%",
             divHeight: "200px",
-            style: "",
+            style: [],
             onCreated: null,
             onMounted: null,
         }

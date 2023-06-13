@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13271315",
+      "name": "容器",
+      "font_class": "div",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
       "icon_id": "400830",
       "name": "html5",
       "font_class": "html",

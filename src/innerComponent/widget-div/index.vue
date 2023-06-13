@@ -1,6 +1,6 @@
 <template>
   <container-wrapper
-    :class="'div_wrap sun_form_theme_'+designer.theme"
+    :class="'sun_div_wrap sun_form_theme_'+designer.theme"
     :widget="widget"
     :designer="designer"
     :parentList="parentList"
@@ -9,13 +9,13 @@
       :list="widget.widgetList"
       v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
       class="drag_wrapper"
-      :style="{width:widget.props.divWidth,height:widget.props.divHeight}"
       handle=".drag-handler"
       :disabled="designer.formMode"
     >
       <div
         class="widget_item"
-        :style="{width:4.16667*item.props.width+'%'}"
+        :class="{'widget_item_div':widget.props.type=='div'}"
+        :style="designer.formatStyle(item)"
         v-for="(item, index) in widget.widgetList"
         :key="index"
       >
@@ -92,4 +92,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.sun_div_wrap {
+  width: 100%;
+  height: 100%;
+  .drag_wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+  .widget_item {
+  }
+}
+::v-deep {
+  .sun_div_wrap {
+  }
+}
 </style>

@@ -12,6 +12,7 @@
         <el-input v-model="designer.chosenWidget.props.divHeight" size="mini"></el-input>
       </div>
     </div>
+    <CommonJsonListEdit title="样式设置（例：fontWeight/bold）" v-model="designer.chosenWidget.props.style"></CommonJsonListEdit>
   </div>
 </template>
 

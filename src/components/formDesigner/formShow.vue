@@ -2,7 +2,7 @@
   <div class="form_widget_container form_mode" :class="'sun_form_theme_'+designer.theme">
     <div class="drag_wrapper">
       <template v-for="(item, index) in designer.widgetList">
-        <div class="form_widget_item" :style="{width:4.16667*item.props.width+'%'}">
+        <div class="form_widget_item" :style="formatStyle(item)">
           <component
             :parent-list="designer.widgetList"
             :is="'widget-'+item.type"
@@ -98,6 +98,28 @@ export default {
     };
   },
   methods: {
+    formatStyle(item){
+      if(item.type!=='div'){
+        return {
+          width:4.16667*item.props.width+'%'
+        };
+      }else{
+        var style = {};
+        var arr=item.props.style;
+        if(item.props.divWidth){
+          style.width=item.props.divWidth;
+        }
+        if(item.props.divHeight){
+          style.height=item.props.divHeight;
+        }
+        if(arr&&arr.length>0){
+          arr.forEach(item=>{
+            style[item.label]=item.value;
+          })
+        }
+        return style;
+      }
+    },
     init() {
       var findForm = widgetList => {
         for (var i = 0; i < widgetList.length; i++) {

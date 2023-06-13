@@ -11,7 +11,10 @@
       class="drag_wrapper"
     >
       <template v-for="(item, index) in designer.widgetList">
-        <div class="form_widget_item" :style="{width:4.16667*item.props.width+'%'}">
+        <div
+          class="form_widget_item"
+          :style="designer.formatStyle(item)"
+        >
           <component
             :parent-list="designer.widgetList"
             :ref="item.id"

@@ -30,7 +30,7 @@
             <div
               class="widget_item"
               v-for="(item2, index2) in item.widgetList"
-              :style="{width:4.16667*item2.props.width+'%'}"
+              :style="designer.formatStyle(item)"
               :key="index2"
               v-if="widget.props.loadType=='loadAll'?true: item.value === widget.props.activeName"
             >
