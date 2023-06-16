@@ -24,7 +24,7 @@
           :is="'widget-'+item.type"
           :widget="item"
           :key="item.id"
-          :designer="designer"
+          :designer="designer" 
         ></component>
       </div>
     </draggable>
@@ -62,24 +62,6 @@ export default {
     };
   },
   watch: {
-    "widget.props.formType": {
-      handler(val) {
-        var isDetail = val == "Detail";
-        var find = widgetList => {
-          for (var i = 0; i < widgetList.length; i++) {
-            var item = widgetList[i];
-            if (item.props.hasOwnProperty("isDetail")) {
-              this.$set(item.props, "isDetail", isDetail);
-            }
-            if (item && item.widgetList && item.widgetList.length > 0) {
-              find(item.widgetList);
-            }
-          }
-        };
-        find(this.widget.widgetList);
-      },
-      immediate: true
-    }
   },
   methods: {},
   created() {

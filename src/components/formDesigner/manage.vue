@@ -247,7 +247,7 @@ export default {
         null,
         "",
         this.apiSet.httpSuccessHandle,
-        this.apiSet.httpErrorHandle
+        this.apiSet.httpErrorHandle,
       ),
       baseInfo: {},
       sortConfig: {},

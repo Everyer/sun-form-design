@@ -1,7 +1,7 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle, params) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle, params,parentVueInstance) {
     var that = vueInstance;
     return {
         $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
@@ -23,6 +23,9 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         },
         getQueryString() {
             return that.$route.query;
+        },
+        getParentVueInstance() {
+            return parentVueInstance;
         },
         getParentApp() {
             return this.parentApp;
@@ -244,7 +247,6 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         },
         setValue(id, value) {
             var props = this.getProps(id).props;
-            console.log(JSON.parse(JSON.stringify(props)))
             if (props) {
                 that.$set(props, 'value', value)
             }
@@ -256,7 +258,6 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             }
         },
         formatWidget(data) {
-            console.log(data);
             var data = that.$utils.clone(data, true);
             data.id = data.type + "-" + Math.floor(new Date().getTime() % 10000000);
             var w = widgetConfig[data.type];

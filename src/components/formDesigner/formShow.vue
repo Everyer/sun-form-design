@@ -78,7 +78,13 @@ export default {
       default: () => {
         return null;
       }
-    }
+    },
+    parentVueInstance: {
+      type: Object,
+      default: () => {
+        return null;
+      }
+    },
   },
   data() {
     return {
@@ -93,7 +99,8 @@ export default {
         this.httpSuccessHandle,
         this.httpErrorHandle,
         this.httpBeforeSendHandle,
-        this.params
+        this.params,
+        this.parentVueInstance
       )
     };
   },

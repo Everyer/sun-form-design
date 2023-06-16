@@ -17,6 +17,7 @@
         <el-select size="mini" v-model="designer.chosenWidget.props.type" placeholder="请选择">
           <el-option label="文字" value="text"></el-option>
           <el-option label="数字" value="number"></el-option>
+          <el-option label="密码" value="password"></el-option>
         </el-select>
       </div>
     </div>

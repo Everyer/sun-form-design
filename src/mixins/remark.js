@@ -4,6 +4,10 @@ export default {
         description: "打印日志",
         example: `console.log(message)`,
     }, {
+        name: "app.getParentVueInstance",
+        description: "获取业务框架内Vue实例",
+        example: `app.getParentVueInstance()`,
+    },{
         name: "app.$http.get",
         description: "get请求",
         example: `app.$http.get(url, data)
@@ -597,5 +601,14 @@ export default {
         name: "app.setList",
         description: "设置选项数据",
         example: `app.getWidget({id}).setList([])`
-    }]
+    }],
+    div: [{
+        name: "app.getWidget",
+        description: "获取组件Vue实例",
+        example: `app.getWidget({id})`
+    }, {
+        name: "app.setHide",
+        description: "设置隐藏",
+        example: `app.setHide({id}, type)`
+    }],
 }

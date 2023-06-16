@@ -102,6 +102,7 @@
             :httpSuccessHandle="httpSuccessHandle"
             :httpErrorHandle="httpErrorHandle"
             :httpBeforeSendHandle="httpBeforeSendHandle"
+            :parentVueInstance="parentVueInstance"
           ></sunForm>
         </div>
       </template>
@@ -158,10 +159,16 @@ export default {
         return null;
       }
     },
-    isManageComponent:{
-      type:Boolean,
-      default:false
-    }
+    isManageComponent: {
+      type: Boolean,
+      default: false
+    },
+    parentVueInstance: {
+      type: Object,
+      default: () => {
+        return null;
+      }
+    },
   },
   model: {
     event: "changeHandle"
@@ -177,7 +184,9 @@ export default {
         this.baseUrl,
         this.httpSuccessHandle,
         this.httpErrorHandle,
-        this.httpBeforeSendHandle
+        this.httpBeforeSendHandle,
+        {},
+        this.parentVueInstance
       ),
       timer: null,
       showCode: false,
@@ -295,8 +304,8 @@ export default {
       handler(val) {
         this.$emit("changeHandle", this.$utils.clone(val, true));
         this.designer.returnChosen();
-        if(this.isManageComponent){
-          return
+        if (this.isManageComponent) {
+          return;
         }
         clearInterval(this.timer);
         this.timer = setTimeout(() => {
