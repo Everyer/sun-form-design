@@ -93,7 +93,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             return list;
         },
         formatStyle(item) {
-            if (item.type !== 'div') {
+            if (!item.type||item.type !== 'div') {
                 return {
                     width: 4.16667 * item.props.width + '%'
                 };

@@ -30,7 +30,7 @@
             <div
               class="widget_item"
               v-for="(item2, index2) in item.widgetList"
-              :style="designer.formatStyle(item)"
+              :style="designer.formatStyle(item2)"
               :key="index2"
               v-if="widget.props.loadType=='loadAll'?true: item.value === widget.props.activeName"
             >
