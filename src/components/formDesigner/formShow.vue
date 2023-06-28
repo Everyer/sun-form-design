@@ -89,6 +89,7 @@ export default {
   data() {
     return {
       count: 0,
+      hasInit: false,
       designer: createDesigner(
         this,
         this.widgetList,
@@ -153,7 +154,10 @@ export default {
     widgetList: {
       handler(val) {
         this.designer.widgetList = val;
-        this.init();
+        if(!this.hasInit){
+          this.init();
+          this.hasInit=true;
+        }
       },
       deep: true
     },
@@ -171,6 +175,7 @@ export default {
   },
   created() {
     this.$emit("postApp", this.designer);
+    // this.init();
   },
   mounted() {}
 };
