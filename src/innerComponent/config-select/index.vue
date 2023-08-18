@@ -29,6 +29,12 @@
         <el-switch v-model="designer.chosenWidget.props.disabled"></el-switch>
       </div>
     </div>
+    <div class="item">
+      <div class="lab">是否可清除</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.clearable"></el-switch>
+      </div>
+    </div>
     <CommonJsonListEdit @changeValue="changeValue" v-model="designer.chosenWidget.props.list"></CommonJsonListEdit>
   </div>
 </template>

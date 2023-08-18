@@ -136,7 +136,7 @@
                 }
             }
         }
-        
+
     }
 
     .sun_form_tabs {
@@ -148,13 +148,49 @@
     .sun_form_upload {}
 
 }
+@media screen and (max-width: 768px) {
+    .sun_form_datatable{
+        .query_item{
+            width: 100% !important;
+            .widget_item_wrap{
+                .lab{
+                    flex:0 0 100px !important;
+                }
+            }
+        }
+        .vxe-pager{
+            height: auto;
+            padding-top: 10px;
+        }
+        .query_btn_wrap{
+            display: block !important; 
+        }
+        .top_wrap{
+            overflow: inherit !important;
+        }
+        .footer_wrap{
+            .vxe-pager--wrapper{
+            }
+        }
+    }
+    .widget_item{
+        width: 100% !important;
+        .lab{
+            flex:0 0 100px !important;
+        }
+    }
+    .vxe-modal--content{
+        padding: .1em !important;
+    }
+}
 
 .vxe-modal--footer {
     // border: 1px solid red;
     box-shadow: 0px -1px 3px 0px #f0f0f0;
     padding-bottom: 0.4em !important;
 }
-.vxe-table--header{
+
+.vxe-table--header {
     // width: 100% !important;
     // border:1px solid red
 }

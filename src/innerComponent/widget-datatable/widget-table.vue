@@ -103,7 +103,7 @@
           ref="my_table"
           :key="tableKey"
           :data="rows"
-          :height="widget.props.height?'auto':null"
+          :height="widget.props.height&&!designer.smallScreen?'auto':null"
           border
           show-header-overflow
           :show-overflow="baseInfo.showOverFlow"
@@ -139,7 +139,9 @@
             align="center"
           ></vxe-table-column>
           <!-- <vxe-column field="name" title="app.body.label.name" tree-node></vxe-column> -->
-          <vxe-table-column align="center" type="seq" title="序号" width="60" field="index"></vxe-table-column>
+          <vxe-table-column align="center" type="seq" title="序号" width="60" field="index">
+            <template #default="{ row ,rowIndex }">{{rowIndex+(pageIndex-1)*pageSize+1}}</template>
+          </vxe-table-column>
 
           <vxe-table-column
             v-for="(item, index) in tableConfig.tableList"
@@ -149,7 +151,7 @@
             v-if="!item.props.hide"
             :align="baseInfo.align"
             :tree-node="index===0"
-            :width="item.props.tableitemWidth"
+            :width="designer.smallScreen?(item.props.tableitemWidth||180):item.props.tableitemWidth"
           >
             <template #default="{ row ,rowIndex }">
               <div class="column_item" v-if="item.type=='datatableitem'">
@@ -175,7 +177,7 @@
             v-if="tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length||(baseInfo.normalTable&&baseInfo.formTableMode=='table'&&!baseInfo.hideEditButton)"
             :title="'操作'"
             :align="'center'"
-            :fixed="'right'"
+            :fixed="designer.smallScreen?null:'right'"
             :width="formatOprateWidth"
           >
             <!-- :width="(baseInfo.formTableMode=='table'&&baseInfo.normalTable)?(tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length+1)*110:tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length*110" -->
@@ -518,7 +520,8 @@ export default {
       this.pageIndex = 1;
       this.getData();
     },
-    pageChange() {
+    pageChange({ pageSize }) {
+      this.pageSize = pageSize;
       this.getData();
     },
     getData() {
@@ -531,7 +534,6 @@ export default {
       q.forEach(item => {
         param[item.props.zdname] = item.props.value;
       });
-      this.pageSize = Number(baseInfo.pageDefault);
       apiSet.params.forEach(item => {
         if (
           typeof item.value == "string" &&
@@ -761,6 +763,8 @@ export default {
     this.tableConfig = this.widget.props.tableConfig;
     this.designer.eventHandle(null, "onCreated", this.widget, this);
     this.init();
+    this.pageSize = Number(this.baseInfo.pageDefault);
+
     if (this.baseInfo.normalTable) {
       var t = this.tableConfig.tableList;
 
@@ -798,6 +802,9 @@ export default {
         this.refresh();
       }
     };
+  },
+  beforeDestroy() {
+    window.onkeydown = null;
   }
 };
 </script>

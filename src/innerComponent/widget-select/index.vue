@@ -20,8 +20,8 @@
           :size="widget.props.size"
           :disabled="widget.props.disabled"
           :placeholder="widget.props.placeholder"
+          :clearable="widget.props.clearable"
           v-model="widgetValue"
-          clearable
           filterable
           placeholder="请选择"
         >

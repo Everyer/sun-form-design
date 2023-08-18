@@ -8,8 +8,11 @@
         <div class="logo"></div>
         <div class="tools_item_wrap">
           <div class="tools_item">
-            <el-button type="primary" size="mini" round icon="el-icon-view" @click="showForm">预览</el-button>
+            <el-button type="primary" size="mini" round icon="el-icon-view" @click="showForm(1)">网页预览</el-button>
           </div>
+          <!-- <div class="tools_item">
+            <el-button type="primary" size="mini" round icon="el-icon-view" @click="showForm(2)">手机预览</el-button>
+          </div> -->
           <div class="tools_item">
             <el-button
               type="primary"
@@ -80,11 +83,13 @@
         <el-button size="mini" icon="el-icon-check" type="primary" @click="confirmJson">确定</el-button>
       </template>
     </vxe-modal>
+    <!-- width="95%"
+    height="95%"-->
     <vxe-modal
       v-model="show"
       :fullscreen="false"
-      width="95%"
-      height="95%"
+      :width="width"
+      :height="height"
       :transfer="true"
       :destroy-on-close="true"
       @hide="hideModal"
@@ -168,13 +173,15 @@ export default {
       default: () => {
         return null;
       }
-    },
+    }
   },
   model: {
     event: "changeHandle"
   },
   data() {
     return {
+      width:"95%",
+      height:"95%",
       designer: createDesigner(
         this,
         null,
@@ -253,12 +260,21 @@ export default {
     hideModal() {
       this.widgetList = this.originWidgetList;
     },
-    showForm() {
+    showForm(type) {
       var w = this.$utils.clone(this.designer.widgetList, true);
       var w2 = this.$utils.clone(this.designer.widgetList, true);
       this.originWidgetList = w2;
       this.widgetList = w;
-      this.show = true;
+      if(type==1){
+        this.width="95%";
+        this.height="95%";
+      }else{
+        this.width="375px";
+        this.height="667px";
+      }
+      this.$nextTick(() => {
+        this.show = true;
+      });
     },
     clear() {
       this.$confirm("确定清空吗?", "提示", {

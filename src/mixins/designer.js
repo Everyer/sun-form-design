@@ -18,6 +18,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
         theme: theme,
         remark: remark,
         parentApp: parentApp,
+        smallScreen: window.innerWidth < 768,
         eventToParent(val) {
             that.$emit('eventToParent', val);
         },

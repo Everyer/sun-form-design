@@ -21,8 +21,8 @@
           :multiple-limit="widget.props.multipleLimit"
           :placeholder="widget.props.placeholder"
           :collapse-tags="widget.props.collapseTags"
+          :clearable="widget.props.clearable"
           v-model="checkboxValue"
-          clearable
           multiple
           filterable
           placeholder="请选择"

@@ -176,6 +176,7 @@ export default {
             isDetail: false,
             labelAlign: "right",
             labelWidth: "120px",
+            clearable:true,
             width: 24,
             apiSet: {
                 method: "get",
@@ -229,6 +230,7 @@ export default {
             zdname: null,
             label: "",
             labelAlign: "right",
+            clearable:true,
             labelWidth: "120px",
             width: 24,
             apiSet: {

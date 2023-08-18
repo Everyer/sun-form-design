@@ -53,8 +53,8 @@
       <vxe-modal
         v-model="widget.props.show"
         :fullscreen="false"
-        :width="widget.props.modalWidth"
-        :height="widget.props.modalHeight"
+        :width="designer.smallScreen?'99%':widget.props.modalWidth"
+        :height="designer.smallScreen?'99%':widget.props.modalHeight"
         :show-footer="widget.props.hasFooter"
         :transfer="true"
         :destroy-on-close="true"

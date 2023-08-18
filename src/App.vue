@@ -35,7 +35,6 @@ export default {
           if (res && res.code == "-9") {
             this.$store.commit("logout");
           }
-          
         },
         httpErrorHandle: res => {},
         httpBeforeSendHandle: () => {
@@ -43,7 +42,7 @@ export default {
         },
         isBase64: false,
         headers: {
-          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjg3OTIzMDk5MTMxLCJyblN0ciI6Ijg4ZzVYV0ZrYWpEcTFwVWVlbFVOalc4V3lnbWw4UzZ4IiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCJcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjA2ZTMwNmVhYzU3YTQ2ZmU4NDgyODgzODI5MmNkNGVjXCIsXCJjcENvZGVcIjpcIjY1MDhlYjQ1NTBhZjRlZGU4OTc0YTA4ZDA0OTZkOTRkXCIsXCJwcmpOdW1cIjpudWxsfSJ9.-v5fJ_Og48eFYwLz6Un7xOjsKETAuyCG2NhpIVqgoBM`
+          "bg-token": `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhZG1pbiIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNjkxOTk4MDcxNjEzLCJyblN0ciI6IlVSdURabkdOV014OWFiUHM0aVB6ZEIyMm9vRzlvYWRXIiwidXNlckluZm8iOiJ7XCJ1c2VyQ29kZVwiOlwiYWRtaW5cIixcInVzZXJOYW1lXCI6XCJhZG1pblwiLFwicmVhbE5hbWVcIjpcIueuoeeQhuWRmFwiLFwiY29ycFR5cGVzXCI6bnVsbCxcImxvZ2luVHlwZVwiOlwiV2ViXCIsXCJhY2NvdW50VHlwZVwiOlwiU1wiLFwib3V0VGltZVwiOjAsXCJjb3JwTnVtXCI6XCJcIixcImNvcnBOYW1lXCI6bnVsbCxcInBlcnNvbk51bVwiOm51bGwsXCJwZXJzb25OYW1lXCI6bnVsbCxcInN1cFN0YUNvZGVcIjpcIjAwMVwiLFwidXBTdGF0aW9uQ29kZXNcIjpbXCIwMDFcIl0sXCJkb3duU3RhdGlvbkNvZGVzXCI6W1wiMDAxXCIsXCIwMDNcIixcIjAwMlwiXSxcImRlcENvZGVcIjpcIjA2ZTMwNmVhYzU3YTQ2ZmU4NDgyODgzODI5MmNkNGVjXCIsXCJjcENvZGVcIjpcIjY1MDhlYjQ1NTBhZjRlZGU4OTc0YTA4ZDA0OTZkOTRkXCIsXCJwcmpOdW1cIjpudWxsfSJ9.6dDpDw7RkHIuFgnClsmjn7qoS87buMxkW2wi-lIcguc`
         },
         baseUrl: "/api",
         configDataKey: "configContent",
