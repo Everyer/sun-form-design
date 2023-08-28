@@ -17,6 +17,7 @@
           :titles="titles"
           v-model="widgetValue"
           :data="widget.props.list"
+          @mouseover.native="addHover"
         ></el-transfer>
         <!-- <span class="sun_form_detail_item" v-else>{{widgetValue}}</span> -->
         <!-- <el-input
@@ -92,6 +93,12 @@ export default {
     };
   },
   methods: {
+    addHover(e) {
+      const target = e.target;
+      if (target.title) return;
+      target.title = target.innerText;
+    },
+
     changeValue(val) {
       if (this.widget.props.valueType == "keyArr") {
         this.$emit("change", val);
