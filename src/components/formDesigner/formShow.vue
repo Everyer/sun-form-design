@@ -53,6 +53,7 @@ export default {
       type: String,
       default: () => {
         return "primary";
+        // return "bigscreen";
       }
     },
     params: {
@@ -84,7 +85,7 @@ export default {
       default: () => {
         return null;
       }
-    },
+    }
   },
   data() {
     return {
@@ -106,24 +107,24 @@ export default {
     };
   },
   methods: {
-    formatStyle(item){
-      if(item.type!=='div'){
+    formatStyle(item) {
+      if (item.type !== "div") {
         return {
-          width:4.16667*item.props.width+'%'
+          width: 4.16667 * item.props.width + "%"
         };
-      }else{
+      } else {
         var style = {};
-        var arr=item.props.style;
-        if(item.props.divWidth){
-          style.width=item.props.divWidth;
+        var arr = item.props.style;
+        if (item.props.divWidth) {
+          style.width = item.props.divWidth;
         }
-        if(item.props.divHeight){
-          style.height=item.props.divHeight;
+        if (item.props.divHeight) {
+          style.height = item.props.divHeight;
         }
-        if(arr&&arr.length>0){
-          arr.forEach(item=>{
-            style[item.label]=item.value;
-          })
+        if (arr && arr.length > 0) {
+          arr.forEach(item => {
+            style[item.label] = item.value;
+          });
         }
         return style;
       }
@@ -154,9 +155,9 @@ export default {
     widgetList: {
       handler(val) {
         this.designer.widgetList = val;
-        if(!this.hasInit){
+        if (!this.hasInit) {
           this.init();
-          this.hasInit=true;
+          this.hasInit = true;
         }
       },
       deep: true
@@ -168,14 +169,24 @@ export default {
       deep: true
     },
     theme: {
+
       handler(val) {
         this.designer.theme = val;
-      }
+        if(val == "bigscreen") {
+          document.body.classList.add("bigscreen_theme");
+        } else {
+          document.body.classList.remove("bigscreen_theme");
+        }
+      },
+      immediate: true
     }
   },
   created() {
     this.$emit("postApp", this.designer);
     // this.init();
+  },
+  beforeDestroy() {
+    document.body.classList.remove("bigscreen_theme");
   },
   mounted() {}
 };
@@ -208,4 +219,5 @@ export default {
 </style>
 <style lang="scss">
 @import "../../assets/theme/primary.scss";
+@import "../../assets/theme/bigscreen.scss";
 </style>

@@ -218,6 +218,10 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                             return formatTableList(item, id)
                         }
                     }
+                    if(item.type=='tabs'){
+                        console.log(item);
+                        item.widgetList=item.props.tabs
+                    }
                     if (item.widgetList && item.widgetList.length) {
                         var form = find(item.widgetList);
                         if (form) {
