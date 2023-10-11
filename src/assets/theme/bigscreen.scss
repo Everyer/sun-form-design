@@ -33,46 +33,55 @@
         background-color: rgba($color: #000000, $alpha: .2);
     }
 
-    
-    .el-range-editor{
-        .el-range-input{
+
+    .el-range-editor {
+        .el-range-input {
             background-color: transparent !important;
             color: rgba(255, 255, 255, 0.7) !important;
         }
-        .el-range-separator{
+
+        .el-range-separator {
             color: #ffffff;
         }
-        
+
     }
+
     .el-popper {
         background-color: rgba(18, 148, 255, 0.1) !important;
         border: 1px solid rgba(48, 206, 255, 0.5) !important;
         backdrop-filter: blur(20px);
-        .el-picker-panel__icon-btn{
+
+        .el-picker-panel__icon-btn {
             color: #ffffff;
         }
-        .el-date-table{
-            th{
+
+        .el-date-table {
+            th {
                 color: #ffffff;
             }
         }
-        .el-date-range-picker__header{
-            div{
+
+        .el-date-range-picker__header {
+            div {
                 color: #ffffff;
             }
         }
+
         .available.in-range {
             div {
-              background-color: #0671cf !important;
-              color: #ffffff;
+                background-color: #0671cf !important;
+                color: #ffffff;
             }
-          }
-        .available{
+        }
+
+        .available {
             color: #ffffff;
         }
-        .el-date-picker__header-label{
+
+        .el-date-picker__header-label {
             color: #ffffff;
         }
+
         .el-select-dropdown__item {
             color: #ffffff;
         }
@@ -110,6 +119,27 @@
         }
     }
 
+    .vxe-modal--footer {
+        box-shadow: 0px -1px 3px 0px rgba(10, 54, 108, 1);
+
+        .el-button {
+            background-color: rgba(255, 141, 26, 0.5) !important;
+            border: 1px solid rgba(255, 141, 26, 1) !important;
+            color: #fff !important;
+
+            span {
+                font-family: YouSheBiaoTiHei !important;
+                // font-size: 13px;
+            }
+
+            &:focus,
+            &:hover {
+                background: rgba(255, 141, 26, 0.8);
+                border-color: rgba(255, 141, 26, 0.9);
+            }
+        }
+    }
+
     .el-message-box__wrapper {
         .el-message-box {
             background-color: rgba(10, 54, 108, 1) !important;
@@ -129,34 +159,63 @@
     }
 
     .form_mode.sun_form_theme_bigscreen {
-        .form_widget_item{
+        .el-tabs__header {
+            // background-color: #F5F7FA;
+            background: linear-gradient(270deg, rgba(3, 86, 189, 0) 0%, rgba(11, 79, 214, 0) 0%, rgb(5, 38, 92) 0%, rgb(15, 81, 186) 100%);
+            border-bottom: 1px solid rgba(10, 54, 108, 1);
+            .el-tabs__item{
+                color: #ffffff;
+            }
+            .el-tabs__item.is-active{
+                color: #ffffff;
+                background-color: rgba(10, 54, 108, 1);
+                border-color: transparent;
+            }
+        }
+
+        .drag_wrapper.sun_form_grid {
+            border-bottom-color: transparent !important;
+        }
+
+        .el-tabs--border-card {
+            background-color: transparent !important;
+            border-color: rgba(10, 54, 108, 1) !important;
+        }
+
+        .form_widget_item {
             padding: 0;
         }
-        .el-button,.is-plain,.is-round{
+
+        .el-button,
+        .is-plain,
+        .is-round {
             background-color: rgba(255, 141, 26, 0.5) !important;
             border: 1px solid rgba(255, 141, 26, 1) !important;
             color: #fff !important;
-    
+
             span {
                 font-family: YouSheBiaoTiHei !important;
                 // font-size: 13px;
             }
-    
+
             &:focus,
             &:hover {
                 background: rgba(255, 141, 26, 0.8);
                 border-color: rgba(255, 141, 26, 0.9);
             }
         }
-        .sun_form_title{
-            .w_title_wrap{
+
+        .sun_form_title {
+            .w_title_wrap {
                 color: #fff;
                 font-family: YouSheBiaoTiHei;
             }
         }
-        .sun_form_detail_item{
+
+        .sun_form_detail_item {
             color: #fff;
         }
+
         .grid_wrap {
             .widget_item {
                 .lab {
@@ -173,7 +232,8 @@
         .el-input-group__append {
             background-color: rgba(10, 54, 108, 0.5) !important;
             border-color: transparent;
-            .el-button{
+
+            .el-button {
                 background-color: rgba(10, 54, 108, 0.5) !important;
                 border-color: transparent !important;
                 color: #fff;

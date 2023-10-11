@@ -35,7 +35,7 @@
         :list="widget.widgetList"
         v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
         class="drag_wrapper sun_form_grid"
-        :style="widget.props.hideButton?'border-bottom:1px solid #f0f0f0 !important':''"
+        :style="widget.props.hideButton?'border-bottom:1px solid #f0f0f0':''"
         handle=".drag-handler"
         :disabled="designer.formMode"
       >

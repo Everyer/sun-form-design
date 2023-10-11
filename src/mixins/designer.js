@@ -1,7 +1,7 @@
 import widgetConfig from "./widgetConfig";
 import httpHandle from '../api/http'
 import remark from './remark'
-export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle, params,parentVueInstance) {
+export function createDesigner(vueInstance, widgetList, headers = {}, theme, parentApp, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle, params, parentVueInstance) {
     var that = vueInstance;
     return {
         $http: httpHandle(headers, baseUrl, httpSuccessHandle, httpErrorHandle, httpBeforeSendHandle), //http请求
@@ -68,11 +68,11 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             var format = function (widgetList) {
                 widgetList.forEach(item => {
                     if (item.type == 'tabs') {
-                        item.props.tabs.forEach(tab => {
-                            tab.widgetList.forEach(item2 => {
-                                item.widgetList.push(item2);
-                            })
-                        })
+                        // item.props.tabs.forEach(tab => {
+                        //     tab.widgetList.forEach(item2 => {
+                        //         item.widgetList.push(item2);
+                        //     })
+                        // })
                     } else if (item.type == 'datatable') {
                         formatTableList(item)
                     } else {
@@ -94,7 +94,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             return list;
         },
         formatStyle(item) {
-            if (!item.type||item.type !== 'div') {
+            if (!item.type || item.type !== 'div') {
                 return {
                     width: 4.16667 * item.props.width + '%'
                 };
@@ -122,14 +122,17 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             widgetList.forEach(item => {
                 that.$set(item, "active", false);
                 if (item.type == 'tabs') {
+                    var tmpTabArr = []
                     item.props.tabs.forEach(tab => {
                         tab.widgetList.forEach(item2 => {
-                            that.$set(item2, "active", false);
-                            if (item2.widgetList && item2.widgetList.length) {
-                                this.clearAllActive(item2.widgetList);
-                            }
+                            tmpTabArr.push(item2)
+                            // that.$set(item2, "active", false);
+                            // if (item2.widgetList && item2.widgetList.length) {
+                            //     this.clearAllActive(item2.widgetList);
+                            // }
                         })
                     })
+                    this.clearAllActive(tmpTabArr)
                 }
                 if (item.widgetList && item.widgetList.length) {
                     this.clearAllActive(item.widgetList);
@@ -218,9 +221,23 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                             return formatTableList(item, id)
                         }
                     }
-                    if(item.type=='tabs'){
-                        console.log(item);
-                        item.widgetList=item.props.tabs
+                    if (item.type == 'tabs') {
+                        var tmpTabArr = []
+                        var result=null;
+                        item.props.tabs.forEach(tab => {
+                            tab.widgetList.forEach(item2 => {
+                                tmpTabArr.push(item2)
+                                if (item2.id === id) {
+                                    result = item2
+                                }
+                            })
+                        })
+                        if (result) {
+                            return result
+                        }else{
+                            return find(tmpTabArr)
+                        }
+                        // find(tmpTabArr)
                     }
                     if (item.widgetList && item.widgetList.length) {
                         var form = find(item.widgetList);
@@ -317,19 +334,22 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                         return data[i];
                     } else if (data[i].type == 'tabs') {
                         var obj = null;
+                        var tmpTabArr = []
                         data[i].props.tabs.forEach(tab => {
                             tab.widgetList.forEach(item => {
-                                if (item.active) {
-                                    obj = item
-                                }
-                                if (item.widgetList && item.widgetList.length) {
-                                    var r = find(item.widgetList);
-                                    if (r) {
-                                        obj = r;
-                                    }
-                                }
+                                tmpTabArr.push(item)
+                                // if (item.active) {
+                                //     obj = item
+                                // }
+                                // if (item.widgetList && item.widgetList.length) {
+                                //     var r = find(item.widgetList);
+                                //     if (r) {
+                                //         obj = r;
+                                //     }
+                                // }
                             })
                         })
+                        obj = find(tmpTabArr)
                         if (obj) {
                             return obj
                         }

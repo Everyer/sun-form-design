@@ -571,13 +571,18 @@ export default {
         if (!apiSet.dataFormat) {
           if (res.success || res.code == "0" || res.code == 200) {
             var d = res.data || res.datas;
+            this.rows = d[baseInfo.rows];
+            this.total = d[baseInfo.count];
           }
         } else {
-          var fun = new Function("res", "self", apiSet.dataFormat);
-          var d = fun(res, this);
+          var fun = new Function("res", "self", "app", apiSet.dataFormat);
+          var d = fun(res, this, this.designer);
+          if(d){
+            this.rows = d[baseInfo.rows];
+            this.total = d[baseInfo.count];
+          }
         }
-        this.rows = d[baseInfo.rows];
-        this.total = d[baseInfo.count];
+
         if (this.widget.props.onDataLoad) {
           this.onDataLoadStatus = true;
           var fun = new Function("self", "app", this.widget.props.onDataLoad);
