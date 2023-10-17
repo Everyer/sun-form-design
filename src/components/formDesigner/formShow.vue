@@ -52,8 +52,8 @@ export default {
     theme: {
       type: String,
       default: () => {
-        return "primary";
-        // return "bigscreen";
+        // return "primary";
+        return "bigscreen";
       }
     },
     params: {

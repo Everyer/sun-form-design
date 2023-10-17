@@ -128,7 +128,8 @@
             color: #fff !important;
 
             span {
-                font-family: YouSheBiaoTiHei !important;
+                // font-family: YouSheBiaoTiHei !important;
+                font-weight: normal !important;
                 // font-size: 13px;
             }
 
@@ -148,7 +149,7 @@
             .el-message-box__header {
                 span {
                     color: #ffffff;
-                    font-family: YouSheBiaoTiHei;
+                    // font-family: YouSheBiaoTiHei;
                 }
             }
 
@@ -194,7 +195,7 @@
             color: #fff !important;
 
             span {
-                font-family: YouSheBiaoTiHei !important;
+                // font-family: YouSheBiaoTiHei !important;
                 // font-size: 13px;
             }
 
@@ -208,7 +209,7 @@
         .sun_form_title {
             .w_title_wrap {
                 color: #fff;
-                font-family: YouSheBiaoTiHei;
+                // font-family: YouSheBiaoTiHei;
             }
         }
 
@@ -283,7 +284,7 @@
 
             th {
                 .vxe-cell--title {
-                    font-family: YouSheBiaoTiHei;
+                    // font-family: YouSheBiaoTiHei;
                 }
             }
 
@@ -383,6 +384,7 @@
 
             .vxe-select-option--wrapper {
                 background-color: transparent !important;
+                background-color: #0B1D3A !important;
                 color: #ffffff;
 
                 .is--hover {
@@ -412,7 +414,7 @@
                     .lab {
                         color: #fff !important;
                         font-weight: bold;
-                        font-family: YouSheBiaoTiHei;
+                        // font-family: YouSheBiaoTiHei;
                         font-weight: 20px;
                     }
 

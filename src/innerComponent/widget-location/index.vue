@@ -156,6 +156,7 @@ export default {
       } else {
         this.mapCenter.lng = 121.4423799927053;
         this.mapCenter.lat = 28.62668923584285;
+      
         this.mapZoom = 10;
       }
       map.disableDoubleClickZoom();

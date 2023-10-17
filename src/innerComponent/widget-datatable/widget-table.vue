@@ -62,7 +62,10 @@
       </div>
 
       <div class="table_wrap" v-show="baseInfo.formTableMode=='table'">
-        <div class="query_btn_wrap" v-if="baseInfo.normalTable">
+        <div
+          class="query_btn_wrap"
+          v-if="baseInfo.normalTable&&(tableConfig.buttonList.filter(e=>!e.props.isSide).length||!baseInfo.hideEditButton)"
+        >
           <div class="btn_wrap">
             <el-button
               v-if="!widget.props.isDetail&&!baseInfo.hideEditButton"
@@ -326,7 +329,7 @@
 <script>
 export default {
   model: {
-    prop: "value",
+    // prop: "value",
     event: "changeHandle"
   },
   props: {
@@ -433,14 +436,17 @@ export default {
         });
       },
       deep: true
+    },
+    "widget.props.value"(val) {
+      this.rows = val;
+    },
+    value: {
+      handler: function(val, oldVal) {
+        this.rows = val;
+      },
+      deep: true,
+      immediate: true
     }
-    // value: {
-    //   handler: function(val, oldVal) {
-    //     this.rows = val;
-    //   },
-    //   deep: true,
-    //   immediate: true
-    // }
   },
   computed: {
     formatOprateWidth() {
@@ -577,7 +583,7 @@ export default {
         } else {
           var fun = new Function("res", "self", "app", apiSet.dataFormat);
           var d = fun(res, this, this.designer);
-          if(d){
+          if (d) {
             this.rows = d[baseInfo.rows];
             this.total = d[baseInfo.count];
           }
