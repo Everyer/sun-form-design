@@ -539,6 +539,15 @@ export default {
             example: `app.getWidget({id}).setRows([])`
         },
         {
+            name: "app.setTotal",
+            description: "设置表格数据总数量",
+            example: `app.getWidget({id}).setTotal()`
+        },{
+            name: "app.setAllTableData",
+            description: "设置表格全部数据",
+            example: `app.getWidget({id}).setAllTableData()`
+        },
+        {
             name: "app.clearRow",
             description: "普通表格清空表格数据",
             example: `app.getWidget({id}).clearRow()`

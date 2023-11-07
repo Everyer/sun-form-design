@@ -171,6 +171,7 @@
                   :widget="item"
                   v-model="row[item.props.zdname]"
                   :key="item.id"
+                  :tableItemData="row"
                   :designer="designer"
                 ></component>
               </div>
@@ -583,6 +584,7 @@ export default {
         } else {
           var fun = new Function("res", "self", "app", apiSet.dataFormat);
           var d = fun(res, this, this.designer);
+          console.log(res);
           if (d) {
             this.rows = d[baseInfo.rows];
             this.total = d[baseInfo.count];
@@ -661,6 +663,14 @@ export default {
     },
     setRows(rows) {
       this.rows = rows;
+    },
+    setTotal(total) {
+      this.total = total;
+    },
+    setAllTableData(d) {
+      var baseInfo = this.baseInfo;
+      this.rows = d[baseInfo.rows];
+      this.total = d[baseInfo.count];
     },
     clearRow() {
       this.$set(this, "rows", []);

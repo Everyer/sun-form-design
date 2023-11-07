@@ -54,6 +54,7 @@ export default {
             remark: "",
             divWidth: "100%",
             divHeight: "200px",
+            hide:false,
             style: [],
             onCreated: null,
             onMounted: null,
@@ -625,6 +626,7 @@ export default {
             fileSize: 10, //限制文件大小mb
             readonly: false, //是否只能查看
             multiple: true, //是否支持多个上传
+            hideTable: false, //是否隐藏表格
             apiSet: {
                 method: "post",
                 apiurl: "",

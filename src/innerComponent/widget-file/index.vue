@@ -29,7 +29,7 @@
           ref="sy_file"
         />
         <vxe-table
-          v-if="dataList.length"
+          v-if="dataList.length&&!widget.props.hideTable"
           class="my_table"
           ref="my_table"
           :data="dataList"
@@ -237,10 +237,37 @@ export default {
           "上传文件数量不能超过" + this.widget.props.limit + "个"
         );
       } else {
+        var apiSet = this.widget.props.apiSet;
+        var param = {};
+        apiSet.params.forEach(item => {
+          if (
+            typeof item.value == "string" &&
+            item.value.includes("${") &&
+            item.value.includes("}")
+          ) {
+            var funStr = item.value.replace("${", "").replace("}", "");
+            var fun = new Function("self", "app", "return " + funStr);
+            param[item.label] = fun(this, this.designer);
+          } else {
+            param[item.label] = item.value;
+          }
+        });
+        if (apiSet.beforeSend) {
+          var fun = new Function("param", "self", "app", apiSet.beforeSend);
+          let paramData = this.$utils.clone(param, true);
+          var newParam = fun(paramData, this, this.designer);
+          if (newParam && typeof newParam == "object") {
+            param = newParam;
+          }
+        }
         for (let i = 0; i < files.length; i++) {
           var file = files[i];
           var formData = new FormData();
           formData.append(this.widget.props.fileField, file);
+          for (const key in param) {
+            const element = param[key];
+            formData.append(key, element);
+          }
           this.loading = true;
           this.uploadRequest(formData, files.length);
         }
@@ -261,6 +288,10 @@ export default {
                 this.loading = false;
               }, 500);
             }
+            if (this.widget.props.apiSet.dataFormat) {
+              var fun = new Function("res", "self", "app", this.widget.props.apiSet.dataFormat);
+              var d = fun(res, this, this.designer);
+            }
             // this.$message.success(
             //   res.data[this.widget.props.fileNameField] + "上传成功"
             // );
@@ -273,6 +304,7 @@ export default {
           }
         })
         .catch(err => {
+          console.log(err);
           this.$message.error("上传失败");
           this.loading = false;
         });
@@ -307,27 +339,30 @@ export default {
         var obj = urlObj.searchQuery;
         if (this.widget.props.fileDownType == "blob") {
           this.loadingDownload = true;
-          this.designer.$http.getBlob(urlObj.pathname, obj).then(res => {
-            var blob = new Blob([res], { type: "application/octet-stream" });
-            var fileName = row[this.widget.props.fileNameField];
-            if ("download" in document.createElement("a")) {
-              // 非IE下载
-              var elink = document.createElement("a");
-              elink.download = fileName;
-              elink.style.display = "none";
-              elink.href = URL.createObjectURL(blob);
-              document.body.appendChild(elink);
-              elink.click();
-              URL.revokeObjectURL(elink.href); // 释放URL 对象
-              document.body.removeChild(elink);
-            } else {
-              // IE10+下载
-              navigator.msSaveBlob(blob, fileName);
-            }
-            this.loadingDownload = false;
-          }).catch(err => {
-            this.loadingDownload = false;
-          });
+          this.designer.$http
+            .getBlob(urlObj.pathname, obj)
+            .then(res => {
+              var blob = new Blob([res], { type: "application/octet-stream" });
+              var fileName = row[this.widget.props.fileNameField];
+              if ("download" in document.createElement("a")) {
+                // 非IE下载
+                var elink = document.createElement("a");
+                elink.download = fileName;
+                elink.style.display = "none";
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                URL.revokeObjectURL(elink.href); // 释放URL 对象
+                document.body.removeChild(elink);
+              } else {
+                // IE10+下载
+                navigator.msSaveBlob(blob, fileName);
+              }
+              this.loadingDownload = false;
+            })
+            .catch(err => {
+              this.loadingDownload = false;
+            });
         } else {
           window.open(this.designer.baseUrl + url);
         }

@@ -52,7 +52,7 @@ export default {
     theme: {
       type: String,
       default: () => {
-        // return "primary";
+        return "primary";
         return "bigscreen";
       }
     },

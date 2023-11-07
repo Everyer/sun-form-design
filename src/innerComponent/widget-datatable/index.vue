@@ -419,6 +419,12 @@ export default {
         obj.props.tableConfig.baseInfo.normalTable = true;
         obj.props.tableConfig.baseInfo.formTableMode = "tab";
       }
+      if(obj.type=="button"){
+        obj.props.onTableBtnClick = null;
+        obj.props.onFormatName = null;
+
+        this.deleteObjItem(obj.props, "onClick");
+      }
       this.widget.props.tableConfig.tableList.push(obj);
     },
     handleCommand(command) {

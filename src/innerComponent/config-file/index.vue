@@ -38,25 +38,42 @@
     <div class="item">
       <div class="lab">文件URL字段</div>
       <div class="con">
-        <el-input v-model="designer.chosenWidget.props.fileUrlField" placeholder="请填写返回文件地址字段" size="mini"></el-input>
+        <el-input
+          v-model="designer.chosenWidget.props.fileUrlField"
+          placeholder="请填写返回文件地址字段"
+          size="mini"
+        ></el-input>
       </div>
     </div>
     <div class="item">
       <div class="lab">文件获取地址</div>
       <div class="con">
-        <el-input v-model="designer.chosenWidget.props.fileGetUrl" size="mini" placeholder="例：/api/linyi/file/{id}"></el-input>
+        <el-input
+          v-model="designer.chosenWidget.props.fileGetUrl"
+          size="mini"
+          placeholder="例：/api/linyi/file/{id}"
+        ></el-input>
       </div>
     </div>
     <div class="item">
       <div class="lab">文件下载地址</div>
       <div class="con">
-        <el-input v-model="designer.chosenWidget.props.fileDownUrl" size="mini" placeholder="例：/api/linyi/file/{id}"></el-input>
+        <el-input
+          v-model="designer.chosenWidget.props.fileDownUrl"
+          size="mini"
+          placeholder="例：/api/linyi/file/{id}"
+        ></el-input>
       </div>
     </div>
-     <div class="item">
+    <div class="item">
       <div class="lab">上传大小限制</div>
       <div class="con">
-        <el-input type="number" v-model="designer.chosenWidget.props.fileSize" size="mini" placeholder="不填写则不限制">
+        <el-input
+          type="number"
+          v-model="designer.chosenWidget.props.fileSize"
+          size="mini"
+          placeholder="不填写则不限制"
+        >
           <template slot="append">MB</template>
         </el-input>
       </div>
@@ -129,16 +146,22 @@
         <el-switch v-model="designer.chosenWidget.props.disabled"></el-switch>
       </div>
     </div>
-     <div class="item">
+    <div class="item">
       <div class="lab">隐藏文件名</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.hideFileName"></el-switch>
       </div>
     </div>
-     <div class="item">
+    <div class="item">
       <div class="lab">隐藏预览</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.hidePreview"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">隐藏表格</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hideTable"></el-switch>
       </div>
     </div>
   </div>

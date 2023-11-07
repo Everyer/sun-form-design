@@ -139,7 +139,7 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                 }
             });
         },
-        eventHandle(value, type, widget, self) {
+        eventHandle(value, type, widget, self,tableItemData) {
             if (!this.formMode) {
                 return
             }
@@ -150,8 +150,8 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
             if (widget.props[type]) {
                 var tableObj = value
             }
-            var func = new Function('value', 'type', 'widget', 'self', 'app', widget.props[type]);
-            func(value, type, widget, self, app);
+            var func = new Function('value', 'type', 'widget', 'self', 'app','tableItemData', widget.props[type]);
+            return func(value, type, widget, self, app,tableItemData);
         },
         getParam(key) {
             return this.tmpData[key];

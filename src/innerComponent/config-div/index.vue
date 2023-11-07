@@ -12,6 +12,12 @@
         <el-input v-model="designer.chosenWidget.props.divHeight" size="mini"></el-input>
       </div>
     </div>
+    <div class="item">
+      <div class="lab">是否隐藏</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hide"></el-switch>
+      </div>
+    </div>
     <CommonJsonListEdit title="样式设置（例：fontWeight/bold）" v-model="designer.chosenWidget.props.style"></CommonJsonListEdit>
   </div>
 </template>

@@ -368,6 +368,32 @@
           >编写代码</el-button>
         </div>
       </div>
+      <div class="item" v-if="designer.chosenWidget.type=='button'&&hasEvent('onFormatName')">
+        <div class="lab">onFormatName</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onFormatName?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onFormatName')"
+          >编写代码</el-button>
+        </div>
+      </div>
+      <div class="item" v-if="designer.chosenWidget.type=='button'&&hasEvent('onTableBtnClick')">
+        <div class="lab">onTableBtnClick</div>
+        <div class="con">
+          <el-button
+            icon="el-icon-edit"
+            :type="designer.chosenWidget.props.onTableBtnClick?'primary':'info'"
+            plain
+            size="mini"
+            round
+            @click="showEditorHandle('onTableBtnClick')"
+          >编写代码</el-button>
+        </div>
+      </div>
     </div>
     <vxe-modal
       v-model="showEditor"
@@ -585,6 +611,12 @@ export default {
           break;
         case "onButtonClick":
           return "key , self";
+          break;
+        case "onFormatName":
+          return "value, type, widget , self, app , tableItemData ";
+          break;
+        case "onTableBtnClick":
+          return "value, type, widget , self, app , tableItemData ";
           break;
         default:
           return "";
