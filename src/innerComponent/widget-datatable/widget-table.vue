@@ -584,7 +584,6 @@ export default {
         } else {
           var fun = new Function("res", "self", "app", apiSet.dataFormat);
           var d = fun(res, this, this.designer);
-          console.log(res);
           if (d) {
             this.rows = d[baseInfo.rows];
             this.total = d[baseInfo.count];
@@ -780,6 +779,7 @@ export default {
     }
   },
   created() {
+    
     this.rows = this.value;
     this.tableConfig = this.widget.props.tableConfig;
     this.designer.eventHandle(null, "onCreated", this.widget, this);

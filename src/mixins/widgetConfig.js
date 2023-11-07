@@ -11,7 +11,7 @@ export default {
             label: "",
             width: 24,
             remark: "",
-            hideButton:false,
+            hideButton: false,
             formType: "Create", //表单类型 Create,Update,Detail
             apiSetCreate: {
                 method: "get",
@@ -54,7 +54,7 @@ export default {
             remark: "",
             divWidth: "100%",
             divHeight: "200px",
-            hide:false,
+            hide: false,
             style: [],
             onCreated: null,
             onMounted: null,
@@ -79,7 +79,7 @@ export default {
 
             label: "",
             hasFooter: true,
-            list:[],
+            list: [],
 
             onCreated: null,
             onMounted: null,
@@ -177,7 +177,7 @@ export default {
             isDetail: false,
             labelAlign: "right",
             labelWidth: "120px",
-            clearable:true,
+            clearable: true,
             width: 24,
             apiSet: {
                 method: "get",
@@ -231,7 +231,7 @@ export default {
             zdname: null,
             label: "",
             labelAlign: "right",
-            clearable:true,
+            clearable: true,
             labelWidth: "120px",
             width: 24,
             apiSet: {
@@ -601,8 +601,8 @@ export default {
             required: false,
             disabled: false,
             isDetail: false,
-            hideFileName:false,
-            hidePreview:false,
+            hideFileName: false,
+            hidePreview: false,
             hide: false,
             placeholder: "请上传文件",
             labelPosition: "left",
@@ -620,7 +620,7 @@ export default {
             fileSaveType: 'name,id',
             fileDownType: 'blob', //文件下载方式
             fileGetUrl: "", //文件获取地址
-            fileDownUrl:"",//文件下载地址
+            fileDownUrl: "", //文件下载地址
             accept: "", //文件后缀类型，逗号隔开
             limit: 100, //限制文件个数
             fileSize: 10, //限制文件大小mb
@@ -873,6 +873,7 @@ export default {
             remark: "",
             height: "80vh",
             required: false,
+            hide: false,
             value: [],
             apiSet: {
                 method: "get",

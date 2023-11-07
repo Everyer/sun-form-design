@@ -18,7 +18,6 @@
           class="widget_item"
           :class="{'widget_item_div':widget.props.type=='div'}"
           :style="designer.formatStyle(item)"
-          v-show="!item.props.hide"
           v-for="(item, index) in widget.widgetList"
           :key="index"
         >

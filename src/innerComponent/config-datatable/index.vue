@@ -165,6 +165,12 @@
         <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.treeAccordion"></el-switch>
       </div>
     </div>
+     <div class="item" >
+      <div class="lab">是否隐藏</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hide"></el-switch>
+      </div>
+    </div>
     <div class="item" v-show="designer.chosenWidget.props.tableConfig.baseInfo.normalTable">
       <div class="lab">从表显示模式</div>
       <div class="con">
