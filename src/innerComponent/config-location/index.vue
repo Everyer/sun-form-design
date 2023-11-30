@@ -12,6 +12,12 @@
       </div>
     </div>
     <div class="item">
+      <div class="lab">中心城市</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.city" size="mini"></el-input>
+      </div>
+    </div>
+    <div class="item">
       <div class="lab">是否必填</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.required"></el-switch>

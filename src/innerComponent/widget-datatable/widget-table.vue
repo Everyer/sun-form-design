@@ -200,10 +200,10 @@
                   :key="index"
                   :plain="item.props.isPlain"
                   :round="item.props.isRound"
-                  :type="item.props.onButtonFormat?buttonFormat(row,item.props.onButtonFormat,'type'): item.props.type"
+                  :type="item.props.onButtonFormat?buttonFormat(row,item.props.onButtonFormat,'type',item.props): item.props.type"
                   size="mini"
                   :icon="item.props.icon"
-                  :disabled="buttonFormat(row,item.props.onButtonFormat,'disabled')"
+                  :disabled="buttonFormat(row,item.props.onButtonFormat,'disabled',item.props)"
                   v-show="(!item.props.hide&&buttonFormat(row,item.props.onButtonFormat,'show'))&&!widget.props.isDetail"
                   @click.stop="buttonClick(item,row,$rowIndex)"
                 >{{item.props.buttonText}}</el-button>
@@ -483,24 +483,24 @@ export default {
       param[baseInfo.limit] = this.pageSize;
       return param;
     },
-    buttonFormat(row, func, type) {
+    buttonFormat(row, func, type,btnProps) {
       var fun = new Function("row", "app", func);
       var res = fun(row, this.designer);
       if (res && res.hasOwnProperty(type)) {
         if (type == "type") {
-          return res[type] || "primary";
+          return res[type] || btnProps.type;
         } else if (type == "show") {
           return res[type] === false ? false : true;
         } else if (type == "disabled") {
-          return res[type] === true ? true : false;
+          return res[type] === true ? true : btnProps.disabled;
         }
       } else {
         if (type == "type") {
-          return "primary";
+          return btnProps.type;
         } else if (type == "show") {
           return true;
         } else if (type == "disabled") {
-          return false;
+          return btnProps.disabled;
         }
       }
     },

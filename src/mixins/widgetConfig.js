@@ -146,6 +146,8 @@ export default {
             labelWidth: "120px",
             width: 24,
             type: "text",
+            maxlength:null,
+            minlength:null,
 
             onCreated: null,
             onMounted: null,
@@ -423,6 +425,8 @@ export default {
             labelAlign: "right",
             labelWidth: "120px",
             width: 24,
+            maxlength:null,
+            minlength:null,
 
             onCreated: null,
             onMounted: null,
@@ -662,6 +666,7 @@ export default {
             labelAlign: "right",
             labelWidth: "120px",
             width: 24,
+            city: "北京市",
 
             onCreated: null,
             onMounted: null,
@@ -850,6 +855,30 @@ export default {
             value: null,
             remark: "",
             width: 24,
+
+            onCreated: null,
+            onMounted: null,
+        }
+    },
+    alert: {
+        isContainer: false,
+        hasLabel: false,
+        displayName: "警告",
+        isForm: false,
+        canAddDataTableQuery: false,
+        canAddDataTableList: false,
+        props: {
+            value: "提示",
+            remark: "",
+            type: "info",//success/warning/info/error
+            description:"",
+            closable:false,
+            center:false,
+            closeText:"",
+            showIcon:true,
+            width: 24,
+            hide: false,
+            effect: "light",//dark/light
 
             onCreated: null,
             onMounted: null,

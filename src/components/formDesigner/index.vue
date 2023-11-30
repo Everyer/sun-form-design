@@ -8,11 +8,17 @@
         <div class="logo"></div>
         <div class="tools_item_wrap">
           <div class="tools_item">
-            <el-button type="primary" size="mini" round icon="el-icon-view" @click="showForm(1)">网页预览</el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              round
+              icon="el-icon-view"
+              @click="showForm(1)"
+            >网页预览</el-button>
           </div>
           <!-- <div class="tools_item">
             <el-button type="primary" size="mini" round icon="el-icon-view" @click="showForm(2)">手机预览</el-button>
-          </div> -->
+          </div>-->
           <div class="tools_item">
             <el-button
               type="primary"
@@ -180,8 +186,8 @@ export default {
   },
   data() {
     return {
-      width:"95%",
-      height:"95%",
+      width: "95%",
+      height: "95%",
       designer: createDesigner(
         this,
         null,
@@ -265,12 +271,12 @@ export default {
       var w2 = this.$utils.clone(this.designer.widgetList, true);
       this.originWidgetList = w2;
       this.widgetList = w;
-      if(type==1){
-        this.width="95%";
-        this.height="95%";
-      }else{
-        this.width="375px";
-        this.height="667px";
+      if (type == 1) {
+        this.width = "95%";
+        this.height = "95%";
+      } else {
+        this.width = "375px";
+        this.height = "667px";
       }
       this.$nextTick(() => {
         this.show = true;
@@ -444,6 +450,11 @@ export default {
 .vxe-modal--wrapper.is--visible.is--mask:before {
   backdrop-filter: blur(3px) !important;
 }
+.widget_item_wrap {
+  .lab {
+    word-break: break-all !important;
+  }
+}
 * {
   ::-webkit-scrollbar {
     width: 13px;
@@ -593,5 +604,6 @@ export default {
   font-size: 14px;
   color: #666666;
   display: inline-block;
+  word-break: break-all;
 }
 </style>

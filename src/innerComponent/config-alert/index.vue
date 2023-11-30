@@ -1,6 +1,63 @@
 <template>
   <div class="sy_wrap">
     <div class="item">
+      <div class="lab">警告类型</div>
+      <div class="con">
+        <el-select size="mini" v-model="designer.chosenWidget.props.type" placeholder="请选择">
+          <el-option label="成功按钮" value="success"></el-option>
+          <el-option label="信息按钮" value="info"></el-option>
+          <el-option label="警告按钮" value="warning"></el-option>
+          <el-option label="危险按钮" value="error"></el-option>
+        </el-select>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">主题类型</div>
+      <div class="con">
+        <el-select size="mini" v-model="designer.chosenWidget.props.effect" placeholder="请选择">
+          <el-option label="light" value="light"></el-option>
+          <el-option label="dark" value="dark"></el-option>
+        </el-select>
+      </div>
+    </div>
+    
+    <div class="item">
+      <div class="lab">描述文字</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.description" size="mini"></el-input>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否隐藏</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.hide"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否有图标</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.showIcon"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否居中</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.center"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">是否可关闭</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.closable"></el-switch>
+      </div>
+    </div>
+    <div class="item">
+      <div class="lab">关闭文字</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.closeText" size="mini"></el-input>
+      </div>
+    </div>
+    <!-- <div class="item">
       <div class="lab">组件尺寸</div>
       <div class="con">
         <el-select size="mini" v-model="designer.chosenWidget.props.size" placeholder="请选择">
@@ -20,7 +77,6 @@
           <el-option label="信息按钮" value="info"></el-option>
           <el-option label="警告按钮" value="warning"></el-option>
           <el-option label="危险按钮" value="danger"></el-option>
-          <el-option label="文字按钮" value="text"></el-option>
         </el-select>
       </div>
     </div>
@@ -59,13 +115,7 @@
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.disabled"></el-switch>
       </div>
-    </div>
-    <div class="item" v-if="hasEvent('isSide')" >
-      <div class="lab">是否侧边</div>
-      <div class="con">
-        <el-switch v-model="designer.chosenWidget.props.isSide"></el-switch>
-      </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -80,15 +130,11 @@ export default {
     }
   },
   components: {},
-  name: "config-button",
+  name: "config-alert",
   data() {
     return {};
   },
-  methods: {
-    hasEvent(type) {
-      return this.designer.chosenWidget.props.hasOwnProperty(type);
-    },
-  },
+  methods: {},
   created() {},
   mounted() {}
 };

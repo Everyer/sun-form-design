@@ -22,11 +22,23 @@
       </div>
     </div>
     <div class="item">
-        <div class="lab">占位文字</div>
-        <div class="con">
-          <el-input v-model="designer.chosenWidget.props.placeholder" size="mini"></el-input>
-        </div>
+      <div class="lab">占位文字</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.placeholder" type="number" size="mini"></el-input>
       </div>
+    </div>
+    <div class="item">
+      <div class="lab">最大输入长度</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.maxlength" type="number" size="mini"></el-input>
+      </div>
+    </div>
+    <!-- <div class="item">
+      <div class="lab">最小输入长度</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.minlength" size="mini"></el-input>
+      </div>
+    </div> -->
     <div class="item">
       <div class="lab">是否必填</div>
       <div class="con">

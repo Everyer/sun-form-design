@@ -169,10 +169,9 @@ export default {
       deep: true
     },
     theme: {
-
       handler(val) {
         this.designer.theme = val;
-        if(val == "bigscreen") {
+        if (val == "bigscreen") {
           document.body.classList.add("bigscreen_theme");
         } else {
           document.body.classList.remove("bigscreen_theme");
@@ -214,6 +213,11 @@ export default {
   }
   .widget_item {
     margin: 3px;
+  }
+  .widget_item_wrap {
+    .lab {
+      word-break: break-all !important;
+    }
   }
 }
 </style>

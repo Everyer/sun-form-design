@@ -267,6 +267,12 @@ export function createDesigner(vueInstance, widgetList, headers = {}, theme, par
                 that.$set(props, 'required', type)
             }
         },
+        setList(id, value) {
+            var props = this.getProps(id).props;
+            if (props) {
+                that.$set(props, 'list', value)
+            }
+        },
         setValue(id, value) {
             var props = this.getProps(id).props;
             if (props) {

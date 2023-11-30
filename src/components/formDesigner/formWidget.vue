@@ -11,10 +11,7 @@
       class="drag_wrapper"
     >
       <template v-for="(item, index) in designer.widgetList">
-        <div
-          class="form_widget_item"
-          :style="designer.formatStyle(item)"
-        >
+        <div class="form_widget_item" :style="designer.formatStyle(item)">
           <component
             :parent-list="designer.widgetList"
             :ref="item.id"
@@ -73,4 +70,5 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
 }
+
 </style>

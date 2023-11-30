@@ -7,7 +7,7 @@ export default {
         name: "app.getParentVueInstance",
         description: "获取业务框架内Vue实例",
         example: `app.getParentVueInstance()`,
-    },{
+    }, {
         name: "app.$http.get",
         description: "get请求",
         example: `app.$http.get(url, data)
@@ -320,7 +320,7 @@ export default {
     }, {
         name: "app.setList",
         description: "设置选项列表",
-        example: `app.getWidget({id}).setList([])`
+        example: `app.setList({id}, value)`
     }],
     checkbox: [{
         name: "app.getWidget",
@@ -345,7 +345,7 @@ export default {
     }, {
         name: "app.setList",
         description: "设置选项列表",
-        example: `app.getWidget({id}).setList([])`
+        example: `app.setList({id}, value)`
     }],
     select: [{
         name: "app.getWidget",
@@ -370,7 +370,7 @@ export default {
     }, {
         name: "app.setList",
         description: "设置选项列表",
-        example: `app.getWidget({id}).setList([])`
+        example: `app.setList({id}, value)`
     }],
     selects: [{
         name: "app.getWidget",
@@ -395,7 +395,7 @@ export default {
     }, {
         name: "app.setList",
         description: "设置选项列表",
-        example: `app.getWidget({id}).setList([])`
+        example: `app.setList({id}, value)`
     }],
     date: [{
         name: "app.getWidget",
@@ -542,7 +542,7 @@ export default {
             name: "app.setTotal",
             description: "设置表格数据总数量",
             example: `app.getWidget({id}).setTotal()`
-        },{
+        }, {
             name: "app.setAllTableData",
             description: "设置表格全部数据",
             example: `app.getWidget({id}).setAllTableData()`
@@ -609,7 +609,7 @@ export default {
     }, {
         name: "app.setList",
         description: "设置选项数据",
-        example: `app.getWidget({id}).setList([])`
+        example: `app.setList({id}, value)`
     }],
     div: [{
         name: "app.getWidget",
@@ -620,4 +620,47 @@ export default {
         description: "设置隐藏",
         example: `app.setHide({id}, type)`
     }],
+    alert: [{
+            name: "app.getWidget",
+            description: "获取组件Vue实例",
+            example: `app.getWidget({id})`
+        }, {
+            name: "app.setValue",
+            description: "设置值",
+            example: `app.setValue({id}, value)`,
+        }, {
+            name: "app.setHide",
+            description: "设置隐藏",
+            example: `app.setHide({id}, type)`
+        }, {
+            name: "app.setType",
+            description: "设置类型",
+            example: `app.getWidget({id}).setType(val)`
+        },
+        {
+            name: "app.setEffect",
+            description: "设置动画",
+            example: `app.getWidget({id}).setEffect(val)`
+        },
+        {
+            name: "app.setCloseText",
+            description: "设置关闭按钮文本",
+            example: `app.getWidget({id}).setCloseText(val)`
+        },
+        {
+            name: "app.setCenter",
+            description: "设置是否居中",
+            example: `app.getWidget({id}).setCenter(val)`
+        },
+        {
+            name: "app.setClosable",
+            description: "设置是否可关闭",
+            example: `app.getWidget({id}).setClosable(val)`
+        },
+        {
+            name: "app.setDescription",
+            description: "设置描述",
+            example: `app.getWidget({id}).setDescription(val)`
+        },
+    ],
 }

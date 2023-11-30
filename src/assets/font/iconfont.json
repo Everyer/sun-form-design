@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5982568",
+      "name": "告警实心",
+      "font_class": "alert",
+      "unicode": "ec72",
+      "unicode_decimal": 60530
+    },
+    {
       "icon_id": "13271315",
       "name": "容器",
       "font_class": "div",

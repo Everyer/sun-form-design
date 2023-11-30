@@ -18,9 +18,15 @@
       </div>
     </div>
     <div class="item">
+      <div class="lab">最大输入长度</div>
+      <div class="con">
+        <el-input v-model="designer.chosenWidget.props.maxlength" type="number" size="mini"></el-input>
+      </div>
+    </div>
+    <div class="item">
       <div class="lab">行数</div>
       <div class="con">
-        <el-input-number size="mini" v-model="designer.chosenWidget.props.rows"  :min="3" ></el-input-number>
+        <el-input-number size="mini" v-model="designer.chosenWidget.props.rows" :min="3"></el-input-number>
       </div>
     </div>
     <div class="item">

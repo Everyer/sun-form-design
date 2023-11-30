@@ -25,6 +25,8 @@
           :size="widget.props.size"
           :style="{width:widget.props.width}"
           :placeholder="widget.props.placeholder"
+          :maxlength="widget.props.maxlength"
+          :show-word-limit="!!widget.props.maxlength"
         ></el-input>
         <span class="sun_form_detail_item" v-else v-html="formatDetailText">
         </span>

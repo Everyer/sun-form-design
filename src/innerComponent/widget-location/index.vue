@@ -154,10 +154,15 @@ export default {
         this.mapZoom = 15;
         map.addOverlay(new this.BMap.Marker(this.mapCenter));
       } else {
-        this.mapCenter.lng = 121.4423799927053;
-        this.mapCenter.lat = 28.62668923584285;
+        // this.mapCenter.lng = 121.4423799927053;
+        // this.mapCenter.lat = 28.62668923584285;
       
-        this.mapZoom = 10;
+        // this.mapZoom = 10;
+        if(this.widget.props.city){
+          map.centerAndZoom(this.widget.props.city, 10);
+        }else{
+          map.centerAndZoom("北京市", 10); 
+        }
       }
       map.disableDoubleClickZoom();
       map.addEventListener("dblclick", e => {

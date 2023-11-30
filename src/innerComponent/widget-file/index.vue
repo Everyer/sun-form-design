@@ -236,6 +236,7 @@ export default {
         this.$message.error(
           "上传文件数量不能超过" + this.widget.props.limit + "个"
         );
+        this.loading = false;
       } else {
         var apiSet = this.widget.props.apiSet;
         var param = {};
@@ -289,7 +290,12 @@ export default {
               }, 500);
             }
             if (this.widget.props.apiSet.dataFormat) {
-              var fun = new Function("res", "self", "app", this.widget.props.apiSet.dataFormat);
+              var fun = new Function(
+                "res",
+                "self",
+                "app",
+                this.widget.props.apiSet.dataFormat
+              );
               var d = fun(res, this, this.designer);
             }
             // this.$message.success(
@@ -304,8 +310,8 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("上传失败");
+          this.$refs.sy_file.value = "";
           this.loading = false;
         });
     },

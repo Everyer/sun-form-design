@@ -23,7 +23,10 @@
           :size="widget.props.size"
           :style="{width:widget.props.width}"
           :placeholder="widget.props.placeholder"
+          :maxlength="widget.props.maxlength"
+          :minlength="widget.props.minlength"
           :type="widget.props.type||'text'"
+          :show-word-limit="widget.props.maxlength"
         >
           <el-button
             @click="designer.eventHandle(table||widgetValue,'onHandle',widget, that)"
