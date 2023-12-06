@@ -926,6 +926,7 @@ export default {
                     hasPage: true,
                     showOverFlow: true,
                     initLoadData: true,
+                    hideHandleBtn:false,
                     isStripe: true,
                     normalTable: false,
                     hideEditButton: false, //隐藏编辑按钮

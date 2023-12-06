@@ -7,7 +7,7 @@
       @click="clickHandle(item)"
     >
       <i :class="item"></i>
-      <div class="icon_item_name">{{item}}</div>
+      <div class="icon_item_name">{{item||'不选择图标'}}</div>
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       iconList: [
+        null,
         "el-icon-platform-eleme",
         "el-icon-eleme",
         "el-icon-delete-solid",

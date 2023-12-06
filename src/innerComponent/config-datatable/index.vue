@@ -166,6 +166,12 @@
       </div>
     </div>
     <div class="item">
+      <div class="lab">收缩操作栏</div>
+      <div class="con">
+        <el-switch v-model="designer.chosenWidget.props.tableConfig.baseInfo.hideHandleBtn"></el-switch>
+      </div>
+    </div>
+    <div class="item">
       <div class="lab">是否隐藏</div>
       <div class="con">
         <el-switch v-model="designer.chosenWidget.props.hide"></el-switch>

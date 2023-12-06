@@ -17,7 +17,6 @@
           :titles="titles"
           v-model="widgetValue"
           :data="widget.props.list"
-          @mouseover.native="addHover"
         ></el-transfer>
         <!-- <span class="sun_form_detail_item" v-else>{{widgetValue}}</span> -->
         <!-- <el-input
@@ -234,4 +233,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::v-deep{
+  .el-checkbox__label{
+    overflow: auto !important;
+    text-overflow: inherit !important;
+    white-space:  wrap !important;
+  }
+  .el-transfer-panel__item{
+    height:auto !important;
+  }
+  .el-checkbox{
+    margin-right: 4px !important;
+  }
+}
 </style>

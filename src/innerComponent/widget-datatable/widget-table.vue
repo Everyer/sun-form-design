@@ -186,7 +186,39 @@
           >
             <!-- :width="(baseInfo.formTableMode=='table'&&baseInfo.normalTable)?(tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length+1)*110:tableConfig.buttonList.filter(e=>e.props.isSide&&!e.props.hide).length*110" -->
             <template #default="{ row ,rowIndex,$rowIndex }">
-              <div>
+              <el-popover
+                placement="bottom"
+                effect="light"
+                trigger="hover"
+                v-if="baseInfo.hideHandleBtn"
+              >
+                <div class="tooltip_content">
+                  <el-button
+                    v-if="baseInfo.normalTable&&baseInfo.formTableMode=='table'&&!baseInfo.hideEditButton"
+                    @click="removeRow($rowIndex)"
+                    icon="el-icon-delete"
+                    size="mini"
+                    type="primary"
+                  >删除</el-button>
+                  <el-button
+                    class="my_btn"
+                    v-for="(item, index) in tableConfig.buttonList.filter(e=>e.props.isSide)"
+                    :key="index"
+                    :plain="item.props.isPlain"
+                    :round="item.props.isRound"
+                    :type="item.props.onButtonFormat?buttonFormat(row,item.props.onButtonFormat,'type',item.props): item.props.type"
+                    size="mini"
+                    :icon="item.props.icon"
+                    :disabled="buttonFormat(row,item.props.onButtonFormat,'disabled',item.props)"
+                    v-show="(!item.props.hide&&buttonFormat(row,item.props.onButtonFormat,'show'))&&!widget.props.isDetail"
+                    @click.stop="buttonClick(item,row,$rowIndex)"
+                  >{{item.props.buttonText}}</el-button>
+                </div>
+                <el-link :underline="false"  slot="reference">
+                  <i class="el-icon-more tooltip_content_icon"></i>
+                </el-link>
+              </el-popover>
+              <div v-else>
                 <el-button
                   v-if="baseInfo.normalTable&&baseInfo.formTableMode=='table'&&!baseInfo.hideEditButton"
                   @click="removeRow($rowIndex)"
@@ -451,6 +483,9 @@ export default {
   },
   computed: {
     formatOprateWidth() {
+      if (this.baseInfo.hideHandleBtn) {
+        return 60;
+      }
       if (this.baseInfo.oprateWidth) {
         return this.baseInfo.oprateWidth;
       }
@@ -483,7 +518,7 @@ export default {
       param[baseInfo.limit] = this.pageSize;
       return param;
     },
-    buttonFormat(row, func, type,btnProps) {
+    buttonFormat(row, func, type, btnProps) {
       var fun = new Function("row", "app", func);
       var res = fun(row, this.designer);
       if (res && res.hasOwnProperty(type)) {
@@ -779,7 +814,6 @@ export default {
     }
   },
   created() {
-    
     this.rows = this.value;
     this.tableConfig = this.widget.props.tableConfig;
     this.designer.eventHandle(null, "onCreated", this.widget, this);
@@ -1106,5 +1140,16 @@ export default {
   content: "*";
   display: inline-block;
   margin-right: 4px;
+}
+.tooltip_content_icon {
+  cursor: pointer;
+}
+.tooltip_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > * {
+    margin:3px 0;
+  }
 }
 </style>
